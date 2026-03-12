@@ -1354,7 +1354,21 @@ function collectParams() {
   return out;
 }
 function applyParams(params) {
+  // Non ricaricare se siamo già in un reload post-parametri
+  if (localStorage.getItem('ppro_params_reloaded') === '1') {
+    localStorage.removeItem('ppro_params_reloaded');
+    Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
+    return;
+  }
+  const before = JSON.stringify(collectParams());
   Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
+  const after = JSON.stringify(collectParams());
+  // Se i parametri dal server differiscono da quelli locali, ricarica la pagina
+  // così tutte le variabili in memoria si reinizializzano coi valori aggiornati
+  if (before !== after) {
+    localStorage.setItem('ppro_params_reloaded', '1');
+    location.reload();
+  }
 }
 
 async function gsCall(body) {
