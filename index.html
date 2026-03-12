@@ -177,7 +177,9 @@ textarea { resize: vertical; min-height: 72px; }
 .tr-tot { font-size: 13px; font-weight: 700; color: var(--accent); text-align: right; white-space: nowrap; padding: 5px 8px; }
 
 /* SUMMARY */
-.sum-panel { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 22px; position: sticky; top: 16px; }
+.sum-panel { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 22px; position: sticky; top: 72px; max-height: calc(100vh - 100px); overflow-y: auto; display: flex; flex-direction: column; }
+.sum-panel-rows { flex: 1; overflow-y: auto; }
+.sum-panel-actions { flex-shrink: 0; padding-top: 14px; display: flex; gap: 8px; }
 .sum-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 800; margin-bottom: 18px; letter-spacing: -0.3px; }
 .sum-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
 .sum-row:last-child { border-bottom: none; }
@@ -233,10 +235,24 @@ textarea { resize: vertical; min-height: 72px; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
 @media print {
-  #page-home,#page-saved,.app-header,.editor-toolbar,.sum-panel { display: none !important; }
+  #page-home,#page-saved,.app-header,.editor-toolbar { display: none !important; }
   .editor-body { padding: 0; overflow: visible; height: auto; }
   #page-editor { height: auto; }
-  .editor-grid { grid-template-columns: 1fr; }
+  .editor-grid { display: block !important; }
+  .sum-panel {
+    position: static !important;
+    margin-top: 0;
+    break-before: page;
+    page-break-before: always;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border: 1.5px solid #ccc !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .btn, button { display: none !important; }
+  .card { break-inside: avoid; }
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -1102,6 +1118,7 @@ textarea { resize: vertical; min-height: 72px; }
       <div style="position:sticky;top:72px;z-index:100;">
         <div class="sum-panel">
           <div class="sum-title">Riepilogo Costi</div>
+          <div class="sum-panel-rows">
           <div class="sum-row"><span class="sum-lbl">Materiale</span><span class="sum-val" id="sum_materials">€ 0,00</span></div>
           <div class="sum-row"><span class="sum-lbl">Piazzamento</span><span class="sum-val" id="sum_piazzamento">€ 0,00</span></div>
           <div class="sum-row"><span class="sum-lbl">Taglio lamiera</span><span class="sum-val" id="sum_laser">€ 0,00</span></div>
@@ -1128,9 +1145,6 @@ textarea { resize: vertical; min-height: 72px; }
             <span class="sum-unit-lbl">Prezzo unitario (1 pz)</span>
             <span class="sum-unit-val" id="sum_unit">€ 0,00</span>
           </div>
-          <div style="margin-top:14px;display:flex;gap:8px;">
-            <button class="btn btn-secondary btn-sm" style="flex:1;justify-content:center" onclick="duplicateQuote()">⎘ Duplica</button>
-            <button class="btn btn-secondary btn-sm" style="flex:1;justify-content:center" onclick="exportPDF()">⬇ PDF</button>
           </div>
         </div>
       </div>
@@ -1247,7 +1261,7 @@ function renderGrid(filter) {
     return;
   }
   grid.innerHTML = list.slice().reverse().map(q => {
-    const t=calcTotal(q);
+    const t = q._savedTotal !== undefined ? q._savedTotal : calcTotal(q);
     const bc={draft:'b-draft',sent:'b-sent',accepted:'b-accepted'}[q.status];
     const bl={draft:'Bozza',sent:'Inviato',accepted:'Accettato'}[q.status];
     const dc={draft:'d-draft',sent:'d-sent',accepted:'d-accepted'}[q.status];
@@ -1437,6 +1451,8 @@ setFolderStatus(GS_URL ? 'Google Sheets collegato' : '', !!GS_URL);
 function saveQuote() {
   if (!currentId||!draft) return;
   draft.name = document.getElementById('f_code').value || draft.code || 'Senza nome';
+  // Salva il totale calcolato nel preventivo per mostrarlo correttamente nella lista
+  draft._savedTotal = calcTotal(draft);
   delete draft._new;
   const idx=quotes.findIndex(x=>x.id===currentId);
   if (idx>=0) { quotes[idx]=JSON.parse(JSON.stringify(draft)); }
