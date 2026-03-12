@@ -1473,8 +1473,19 @@ setFolderStatus(GS_URL ? 'Google Sheets collegato' : '', !!GS_URL);
 function saveQuote() {
   if (!currentId||!draft) return;
   draft.name = document.getElementById('f_code').value || draft.code || 'Senza nome';
-  // Salva il totale calcolato nel preventivo per mostrarlo correttamente nella lista
-  draft._savedTotal = calcTotal(draft);
+  // Legge il totale esatto dal pannello riepilogo (stesso valore visibile all'utente)
+  const sumTotalEl = document.getElementById('sum_total');
+  const sumUnitEl = document.getElementById('sum_unit');
+  if (sumTotalEl) {
+    const raw = sumTotalEl.textContent.replace(/[€\s.]/g,'').replace(',','.');
+    const parsed = parseFloat(raw);
+    if (!isNaN(parsed)) draft._savedTotal = parsed;
+  }
+  if (sumUnitEl) {
+    const raw = sumUnitEl.textContent.replace(/[€\s.]/g,'').replace(',','.');
+    const parsed = parseFloat(raw);
+    if (!isNaN(parsed)) draft._savedUnit = parsed;
+  }
   delete draft._new;
   const idx=quotes.findIndex(x=>x.id===currentId);
   if (idx>=0) { quotes[idx]=JSON.parse(JSON.stringify(draft)); }
