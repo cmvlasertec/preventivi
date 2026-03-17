@@ -1371,16 +1371,36 @@ function applyParams(params) {
   }
 }
 
+// Callback globale fisso per gsCall — sopravvive ai redirect di Google Apps Script
+window._gsCallQueue = [];
+window._gsCallCb = function(data) {
+  const resolve = window._gsCallQueue.shift();
+  if (resolve) resolve(data);
+};
+
 async function gsCall(body) {
   if (!GS_URL) return null;
   return new Promise((resolve) => {
-    const cbName = 'gsCallCb_' + Date.now();
+    let done = false;
+    const wrappedResolve = (data) => {
+      if (done) return;
+      done = true;
+      resolve(data);
+    };
+    window._gsCallQueue.push(wrappedResolve);
+    // Timeout 15 secondi
+    setTimeout(() => {
+      if (done) return;
+      done = true;
+      const idx = window._gsCallQueue.indexOf(wrappedResolve);
+      if (idx > -1) window._gsCallQueue.splice(idx, 1);
+      console.warn('gsCall timeout');
+      resolve(null);
+    }, 15000);
     const script = document.createElement('script');
     const payload = encodeURIComponent(JSON.stringify(body));
-    window[cbName] = (data) => { delete window[cbName]; document.body.removeChild(script); resolve(data); };
-    script.onerror = () => { delete window[cbName]; document.body.removeChild(script); resolve(null); };
-    script.src = GS_URL + '?callback=' + cbName + '&payload=' + payload;
-    document.body.appendChild(script);
+    script.src = GS_URL + '?callback=_gsCallCb&payload=' + payload;
+    document.head.appendChild(script);
   });
 }
 async function gsGet(action) {
