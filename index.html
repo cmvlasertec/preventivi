@@ -913,8 +913,12 @@ textarea { resize: vertical; min-height: 72px; }
             <div class="chi" style="background:#f0fdf4;">📐</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Piazzamento</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openPiazzamentoTable()">↗ Parametri</button>
             <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_piazzamento_unit">€ 0,00</span>
+              </div>
               <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
-                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">Totale</span>
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
                 <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_piazzamento_header">€ 0,00</span>
               </div>
             </div>
@@ -945,7 +949,16 @@ textarea { resize: vertical; min-height: 72px; }
           <div class="card-head" style="cursor:default;">
             <div class="chi" style="background:#fef3c7;">🔧</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Taglio tubo</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('laser_tubo')">↗ Parametri</button>
-            <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;"><span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">TOTALE</span><span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_tubo">€ 0,00</span></div></div>
+            <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_tubo_unit">€ 0,00</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
+                <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_tubo">€ 0,00</span>
+              </div>
+            </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
@@ -960,15 +973,19 @@ textarea { resize: vertical; min-height: 72px; }
             <div class="chi" style="background:#ede9fe;">📏</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Piegatore</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('piega')">↗ Parametri</button>
             <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_piega_unit">€ 0,00</span>
+              </div>
               <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
-                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">Totale</span>
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
                 <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_piega">€ 0,00</span>
               </div>
             </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
-            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup id="piegaCols"><col style="width:auto"><col style="width:80px"><col style="width:36px"></colgroup><thead id="piegaHead"><tr><th style="text-align:center">Piega</th><th></th></tr></thead><tbody id="piegaBody"></tbody></table>
+            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup id="piegaCols"><col style="width:auto"><col style="width:80px"><col style="width:80px"><col style="width:36px"></colgroup><thead id="piegaHead"><tr><th style="text-align:center">Piega</th><th style="text-align:center">Qtà per</th><th></th></tr></thead><tbody id="piegaBody"></tbody></table>
             <button class="btn btn-add" style="margin-top:8px;" onclick="addPiega()">＋ Aggiungi piega</button>
           </div>
         </div>
@@ -979,15 +996,19 @@ textarea { resize: vertical; min-height: 72px; }
             <div class="chi" style="background:#fff7ed;">🔥</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Saldatore</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('saldatura')">↗ Parametri</button>
             <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_saldatura_unit">€ 0,00</span>
+              </div>
               <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
-                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">Totale</span>
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
                 <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_saldatura">€ 0,00</span>
               </div>
             </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
-            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup id="saldaturaCols"><col style="width:auto"><col style="width:80px"><col style="width:36px"></colgroup><thead id="saldaturaHead"><tr><th style="text-align:center">Tipo saldatura</th><th></th></tr></thead><tbody id="saldaturaBody"></tbody></table>
+            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup id="saldaturaCols"><col style="width:auto"><col style="width:80px"><col style="width:80px"><col style="width:36px"></colgroup><thead id="saldaturaHead"><tr><th style="text-align:center">Tipo saldatura</th><th style="text-align:center">Qtà per</th><th></th></tr></thead><tbody id="saldaturaBody"></tbody></table>
             <button class="btn btn-add" style="margin-top:8px;" onclick="addSaldatura()">＋ Aggiungi saldatura</button>
           </div>
         </div>
@@ -997,15 +1018,19 @@ textarea { resize: vertical; min-height: 72px; }
             <div class="chi ci-lab">👷</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Manodopera</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('labor')">↗ Parametri</button>
             <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_labor_unit">€ 0,00</span>
+              </div>
               <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
-                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">Totale</span>
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
                 <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_labor">€ 0,00</span>
               </div>
             </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
-            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup id="laborCols"><col style="width:auto"><col style="width:auto"><col style="width:90px"><col style="width:90px"><col style="width:90px"><col style="width:80px"><col style="width:36px"></colgroup><thead id="laborHead"><tr><th style="text-align:center">Operazione</th><th style="text-align:center">Figura</th><th style="text-align:center">Minuti</th><th style="text-align:center">€/ora</th><th style="text-align:center">Addetti</th><th style="text-align:right">Tot.</th><th></th></tr></thead><tbody id="laborBody"></tbody></table>
+            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup id="laborCols"><col style="width:auto"><col style="width:auto"><col style="width:80px"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px"></colgroup><thead id="laborHead"><tr><th style="text-align:center">Operazione</th><th style="text-align:center">Figura</th><th style="text-align:center">Qtà per</th><th style="text-align:center">Minuti</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr></thead><tbody id="laborBody"></tbody></table>
             <button class="btn btn-add" onclick="addLabor()">＋ Aggiungi operazione</button>
           </div>
         </div>
@@ -1016,15 +1041,19 @@ textarea { resize: vertical; min-height: 72px; }
             <div class="chi ci-mac">⚙️</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Macchinari e Attrezzatura</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('machines')">↗ Parametri</button>
             <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_machines_unit">€ 0,00</span>
+              </div>
               <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
-                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">Totale</span>
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
                 <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_machines">€ 0,00</span>
               </div>
             </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
-            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup><col style="width:auto"><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px"></colgroup><thead><tr><th>Macchinario</th><th>Descrizione</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr></thead><tbody id="machinesBody"></tbody></table>
+            <table class="tbl" style="table-layout:fixed;width:100%;"><colgroup><col style="width:auto"><col style="width:auto"><col style="width:80px"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px"></colgroup><thead><tr><th>Macchinario</th><th>Descrizione</th><th style="text-align:center">Qtà per</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr></thead><tbody id="machinesBody"></tbody></table>
             <button class="btn btn-add" style="margin-top:8px;border-color:#bfdbfe;color:var(--accent);" onclick="addMachine()">＋ Aggiungi macchinario</button>
           </div>
         </div>
@@ -1035,15 +1064,19 @@ textarea { resize: vertical; min-height: 72px; }
             <div class="chi ci-treat">🧪</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Trattamenti</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('treatments')">↗ Parametri</button>
             <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_treat_unit">€ 0,00</span>
+              </div>
               <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
-                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">Totale</span>
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
                 <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_treat">€ 0,00</span>
               </div>
             </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
-            <table class="tbl"><colgroup><col style="width:200px"><col style="width:auto"><col style="width:75px"><col style="width:80px"><col style="width:80px"><col style="width:36px"></colgroup><thead><tr><th style="text-align:center">Tipo trattamento</th><th style="text-align:center">Descrizione</th><th style="text-align:center">kg</th><th style="text-align:center">€/kg</th><th style="text-align:right">Tot.</th><th></th></tr></thead><tbody id="treatBody"></tbody></table>
+            <table class="tbl"><colgroup><col style="width:200px"><col style="width:auto"><col style="width:80px"><col style="width:75px"><col style="width:80px"><col style="width:80px"><col style="width:36px"></colgroup><thead><tr><th style="text-align:center">Tipo trattamento</th><th style="text-align:center">Descrizione</th><th style="text-align:center">Qtà per</th><th style="text-align:center">kg</th><th style="text-align:center">€/kg</th><th style="text-align:right">Tot.</th><th></th></tr></thead><tbody id="treatBody"></tbody></table>
             <button class="btn btn-add" onclick="addTreat()">＋ Aggiungi trattamento</button>
           </div>
         </div>
@@ -1550,7 +1583,7 @@ function resetCosts() {
 
 function ensureRows(q) {
   if (!q.materials||!q.materials.length) { q.materials=[{id:uid(),desc:'',mat:'',qty:0,um:'kg',qtyMode:'unitario',price:0,scrap:0}]; }
-  if (!q.piazzamento||!q.piazzamento.length) { q.piazzamento=[{id:uid(),operator:'',minutes:0,rate:0}]; }
+  if (!q.piazzamento||!q.piazzamento.length) { q.piazzamento=[{id:uid(),operator:'',minutes:0,rate:0,qtyMode:'unitario'}]; }
   if (!q.tubo||!q.tubo.length) { q.tubo=[{id:uid(),tipo:'',um:'kg',qty:0,priceExt:0}]; }
   if (!q.piega||!q.piega.length) { q.piega=[{id:uid(),tipo:'',minutes:0,rate:0}]; }
   if (!q.saldatura||!q.saldatura.length) { q.saldatura=[{id:uid(),tipo:'',minutes:0,rate:0,priceExt:0}]; }
@@ -1868,30 +1901,44 @@ function updPiazzamento(id,f,v){
 function renderPiazzamento(q){
   const rows = q.piazzamento||[];
   const qty = Math.max(1, +(document.getElementById('f_qty')||{value:'1'}).value || q.qty || 1);
-  const totLotto = rows.reduce((s,r)=>s+((r.minutes||0)*(r.rate||0)),0);
+  // Calcola il costo per 1 pz tenendo conto del toggle di ogni riga
+  const totUnit = rows.reduce((s,r)=>{ 
+    const isLotto=(r.qtyMode||'lotto')==='lotto'; 
+    return s+(r.minutes||0)*(r.rate||0)*(isLotto?1/qty:1); 
+  },0);
+  const totLotto = totUnit * qty;
   const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_piazzamento_unit', fmt(totUnit));
   ss2('tot_piazzamento_header', fmt(totLotto));
 
   const head = document.getElementById('piazzamentoHead');
   const cols = document.getElementById('piazzamentoCols');
   const hasAny = rows.some(r=>r.operator);
   if (cols) cols.innerHTML = hasAny
-    ? '<col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:90px"><col style="width:36px">'
+    ? '<col style="width:auto"><col style="width:80px"><col style="width:110px"><col style="width:100px"><col style="width:90px"><col style="width:36px">'
     : '<col style="width:auto"><col style="width:36px">';
   if (head) head.innerHTML = hasAny
-    ? '<tr><th>Operatore</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>'
+    ? '<tr><th>Operatore</th><th style="text-align:center">Qtà per</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>'
     : '<tr><th>Operatore</th><th></th></tr>';
 
   document.getElementById('piazzamentoBody').innerHTML = rows.length === 0
-    ? '<tr><td colspan="5" style="text-align:center;color:var(--muted);font-size:13px;padding:12px;">Nessuna voce</td></tr>'
+    ? '<tr><td colspan="6" style="text-align:center;color:var(--muted);font-size:13px;padding:12px;">Nessuna voce</td></tr>'
     : rows.map(r => {
       const opSel = OPS.map(o=>`<option ${o===(r.operator||'')?'selected':''}>${o}</option>`).join('');
-      const tot = (r.minutes||0)*(r.rate||0);
+      const isLotto = (r.qtyMode||'lotto') === 'lotto';
+      const rawTot = (r.minutes||0)*(r.rate||0);
+      const tot = isLotto ? rawTot/qty : rawTot;
       if (!r.operator) {
-        return `<tr><td colspan="5"><select style="width:100%" onchange="updPiazzamento('${r.id}','operator',this.value)"><option value=''>— seleziona —</option>${opSel}</select></td></tr>`;
+        return `<tr><td colspan="6"><select style="width:100%" onchange="updPiazzamento('${r.id}','operator',this.value)"><option value=''>— seleziona —</option>${opSel}</select></td></tr>`;
       }
       return `<tr>
         <td><select style="width:100%" onchange="updPiazzamento('${r.id}','operator',this.value)"><option value=''>— seleziona —</option>${opSel}</select></td>
+        <td>
+          <div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;">
+            <span onclick="updPiazzamento('${r.id}','qtyMode','unitario');renderPiazzamento(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span>
+            <span onclick="updPiazzamento('${r.id}','qtyMode','lotto');renderPiazzamento(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span>
+          </div>
+        </td>
         <td><input type="number" value="${r.minutes||0}" min="0" step="1" style="width:100%" onfocus="this.select()" onchange="updPiazzamento('${r.id}','minutes',+this.value)"></td>
         <td><input type="number" value="${(r.rate||0)*60}" min="0" step="0.5" style="width:100%" onfocus="this.select()" onchange="updPiazzamento('${r.id}','rate',+this.value/60)"></td>
         <td class="tr-tot">${fmt(tot)}</td>
@@ -1977,7 +2024,7 @@ function renderLaborRatesList() {
   `).join('');
 }
 
-function addLabor(){draft.labor.push({id:uid(),op:'',operator:'',minutes:0,rate:0,addetti:1});markUnsaved();renderLabor(draft);recalc();}
+function addLabor(){draft.labor.push({id:uid(),op:'',operator:'',minutes:0,rate:0,addetti:1,qtyMode:'unitario'});markUnsaved();renderLabor(draft);recalc();}
 function delLab(id){draft.labor=draft.labor.filter(x=>x.id!==id);markUnsaved();renderLabor(draft);recalc();}
 function updLabText(id,f,v){const row=draft.labor.find(x=>x.id===id);row[f]=v;if(f==='op'){markUnsaved();renderLabor(draft);recalc();}else{markUnsaved();}}
 function updLab(id,f,v){const row=draft.labor.find(x=>x.id===id);row[f]=v;if(f==='operator'&&LABOR_RATES[v]){row.rate=LABOR_RATES[v].cpm||LABOR_RATES[v]||0;row.setup=LABOR_RATES[v].setup||0;}markUnsaved();renderLabor(draft);recalc();}
@@ -2018,92 +2065,76 @@ function updLabFilett(id, f, v) {
 
 function renderLabor(q){
   const rows = q.labor || [];
+  const qty = Math.max(1, +(document.getElementById('f_qty')||{value:'1'}).value || q.qty || 1);
+  const totUnit = rows.reduce((s,r)=>{
+    const isLotto=(r.qtyMode||'unitario')==='lotto';
+    let raw=0;
+    if(LABOR_INT_OPS.has(r.op)) raw=r.cost||0;
+    else if(r.op==='Filettatura interna') raw=filettTotal(r);
+    else raw=(r.minutes??r.hours*60??0)*(r.rate||0)*(r.addetti||1);
+    return s+(isLotto?raw/qty:raw);
+  },0);
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_labor_unit', fmt(totUnit));
+  ss2('tot_labor', fmt(totUnit*qty));
   const head = document.getElementById('laborHead');
   const cols = document.getElementById('laborCols');
-
-  // Determine row types present
-  const hasExt     = rows.some(r => r.op && LABOR_INT_OPS.has(r.op));
-  const hasFilett  = rows.some(r => r.op === 'Filettatura interna');
-  const hasInt     = rows.some(r => r.op && !LABOR_INT_OPS.has(r.op) && r.op !== 'Filettatura interna');
-  const hasAny     = rows.some(r => r.op);
-
-  // Columns: switch based on type
-  const EXT_COLS = '<col style="width:auto"><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px">';
-  const STD_COLS = '<col style="width:auto"><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px">';
-  if (cols) cols.innerHTML = (hasExt && !hasInt && !hasFilett) ? EXT_COLS : STD_COLS;
-
-  if (head) {
-    if (!hasAny) {
-      head.innerHTML = '<tr><th>Operazione</th><th></th><th></th><th></th><th></th><th></th></tr>';
-    } else if (hasExt && !hasInt && !hasFilett) {
-      head.innerHTML = '<tr><th>Operazione</th><th>Descrizione</th><th></th><th style="text-align:center">Costo €</th><th style="text-align:right">Tot.</th><th></th></tr>';
-    } else if (hasFilett && !hasInt && !hasExt) {
-      const isTempo = rows.find(r=>r.op==='Filettatura interna')?.fascia === 'Tempo';
-      head.innerHTML = `<tr><th>Operazione</th><th>Tipo</th><th style="text-align:center">${isTempo?'Tempo (min)':'N° fori'}</th><th style="text-align:center">${isTempo?'€/ora':'€/foro'}</th><th style="text-align:right">Tot.</th><th></th></tr>`;
-    } else {
-      head.innerHTML = '<tr><th>Operazione</th><th></th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>';
-    }
+  const hasExt=rows.some(r=>r.op&&LABOR_INT_OPS.has(r.op)), hasFilett=rows.some(r=>r.op==='Filettatura interna'), hasInt=rows.some(r=>r.op&&!LABOR_INT_OPS.has(r.op)&&r.op!=='Filettatura interna'), hasAny=rows.some(r=>r.op);
+  if(cols) cols.innerHTML='<col style="width:auto"><col style="width:auto"><col style="width:80px"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px">';
+  if(head){
+    if(!hasAny) head.innerHTML='<tr><th>Operazione</th><th></th><th></th><th></th><th></th><th></th><th></th></tr>';
+    else if(hasExt&&!hasInt&&!hasFilett) head.innerHTML='<tr><th>Operazione</th><th>Descrizione</th><th style="text-align:center">Qtà per</th><th></th><th style="text-align:center">Costo €</th><th style="text-align:right">Tot.</th><th></th></tr>';
+    else head.innerHTML='<tr><th>Operazione</th><th></th><th style="text-align:center">Qtà per</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>';
   }
-
+  const toggleHtml=(r)=>{const isLotto=(r.qtyMode||'unitario')==='lotto';return `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;"><span onclick="updLab('${r.id}','qtyMode','unitario');renderLabor(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span><span onclick="updLab('${r.id}','qtyMode','lotto');renderLabor(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span></div>`;};
   document.getElementById('laborBody').innerHTML=rows.map(r=>{
-    const isExt = LABOR_INT_OPS.has(r.op);
-    const isFilettInt = r.op === 'Filettatura interna';
-    const opSel = `<select style="width:100%" onchange="updLabText('${r.id}','op',this.value)"><option value="">— seleziona —</option>${LABOR_OPS.filter(o=>o).map(o=>`<option ${o===r.op?'selected':''}>${o}</option>`).join('')}</select>`;
-    if (!r.op) {
-      return `<tr><td colspan="6">${opSel}</td></tr>`;
+    const isExt=LABOR_INT_OPS.has(r.op), isFilettInt=r.op==='Filettatura interna';
+    const isLotto=(r.qtyMode||'unitario')==='lotto';
+    const opSel=`<select style="width:100%" onchange="updLabText('${r.id}','op',this.value)"><option value="">— seleziona —</option>${LABOR_OPS.filter(o=>o).map(o=>`<option ${o===r.op?'selected':''}>${o}</option>`).join('')}</select>`;
+    if(!r.op) return `<tr><td colspan="7">${opSel}</td></tr>`;
+    if(isExt){
+      const raw=r.cost||0; const tot=isLotto?raw/qty:raw;
+      return `<tr><td>${opSel}</td><td><input type="text" value="${r.desc||''}" placeholder="Descrizione…" style="width:100%" onchange="updLabText('${r.id}','desc',this.value)"></td><td>${toggleHtml(r)}</td><td></td><td><input type="number" value="${r.cost||0}" min="0" step="0.01" style="width:100%" onchange="updLab('${r.id}','cost',+this.value)" onfocus="this.select()"></td><td class="tr-tot">${fmt(tot)}</td><td><button class="btn-icon" onclick="delLab('${r.id}')">🗑</button></td></tr>`;
     }
-    if (isExt) {
-      return `<tr>
-        <td>${opSel}</td>
-        <td><input type="text" value="${r.desc||''}" placeholder="Descrizione…" style="width:100%" onchange="updLabText('${r.id}','desc',this.value)"></td>
-        <td></td>
-        <td><input type="number" value="${r.cost||0}" min="0" step="0.01" style="width:100%" onchange="updLab('${r.id}','cost',+this.value)" onfocus="this.select()"></td>
-        <td class="tr-tot">${fmt(r.cost||0)}</td>
-        <td><button class="btn-icon" onclick="delLab('${r.id}')">🗑</button></td>
-      </tr>`;
+    if(isFilettInt){
+      const tipoSel=`<select style="width:100%" onchange="updLabFilett('${r.id}','fascia',this.value)"><option value="">— seleziona —</option>${FILETT_TIPI.map(t=>`<option ${t===(r.fascia||'')?'selected':''}>${t}</option>`).join('')}</select>`;
+      const isTempo=r.fascia==='Tempo'; const raw=filettTotal(r); const tot=isLotto?raw/qty:raw;
+      return `<tr><td>${opSel}</td><td>${tipoSel}</td><td>${toggleHtml(r)}</td><td><input type="number" value="${isTempo?(r.minutes||0):(r.nFori||0)}" min="0" step="1" style="width:100%" placeholder="${isTempo?'Minuti':'N° fori'}" onchange="updLabFilett('${r.id}','${isTempo?'minutes':'nFori'}',+this.value)" onfocus="this.select()"></td><td><input type="number" value="${r.rateOra||0}" min="0" step="0.01" style="width:100%;background:#f8faff;color:var(--accent);" readonly onfocus="this.select()"></td><td class="tr-tot">${fmt(tot)}</td><td><button class="btn-icon" onclick="delLab('${r.id}')">🗑</button></td></tr>`;
     }
-    if (isFilettInt) {
-      const tipoSel = `<select style="width:100%" onchange="updLabFilett('${r.id}','fascia',this.value)"><option value="">— seleziona —</option>${FILETT_TIPI.map(t=>`<option ${t===(r.fascia||'')?'selected':''}>${t}</option>`).join('')}</select>`;
-      const isTempo = r.fascia === 'Tempo';
-      const tot = filettTotal(r);
-      return `<tr>
-        <td>${opSel}</td>
-        <td>${tipoSel}</td>
-        <td><input type="number" value="${isTempo ? (r.minutes||0) : (r.nFori||0)}" min="0" step="1" style="width:100%" placeholder="${isTempo?'Minuti':'N° fori'}" onchange="updLabFilett('${r.id}','${isTempo?'minutes':'nFori'}',+this.value)" onfocus="this.select()"></td>
-        <td><input type="number" value="${r.rateOra||0}" min="0" step="0.01" style="width:100%;background:#f8faff;color:var(--accent);" readonly onfocus="this.select()"></td>
-        <td class="tr-tot">${fmt(tot)}</td>
-        <td><button class="btn-icon" onclick="delLab('${r.id}')">🗑</button></td>
-      </tr>`;
-    }
-    return `<tr>
-      <td>${opSel}</td>
-      <td></td>
-      <td><input type="number" value="${r.minutes??r.hours*60??60}" min="0" step="1" style="width:100%" onchange="updLab('${r.id}','minutes',+this.value)" onfocus="this.select()"></td>
-      <td><input type="number" value="${+((r.rate||0)*60).toFixed(2)}" min="0" step="0.5" style="width:100%" onchange="updLab('${r.id}','rate',+this.value/60)" onfocus="this.select()"></td>
-      <td class="tr-tot">${fmt((r.minutes??r.hours*60??0)*r.rate)}</td>
-      <td><button class="btn-icon" onclick="delLab('${r.id}')">🗑</button></td>
-    </tr>`;
+    const raw=(r.minutes??r.hours*60??0)*(r.rate||0)*(r.addetti||1); const tot=isLotto?raw/qty:raw;
+    return `<tr><td>${opSel}</td><td></td><td>${toggleHtml(r)}</td><td><input type="number" value="${r.minutes??r.hours*60??60}" min="0" step="1" style="width:100%" onchange="updLab('${r.id}','minutes',+this.value)" onfocus="this.select()"></td><td><input type="number" value="${+((r.rate||0)*60).toFixed(2)}" min="0" step="0.5" style="width:100%" onchange="updLab('${r.id}','rate',+this.value/60)" onfocus="this.select()"></td><td class="tr-tot">${fmt(tot)}</td><td><button class="btn-icon" onclick="delLab('${r.id}')">🗑</button></td></tr>`;
   }).join('');
 }
 
 // MACHINES
 const CUT_TYPES=['Taglio Laser Interno','Taglio Laser Esterno'];
 const MCHS=['Fresatrice','Piegatrice','Saldatura MIG','Saldatura TIG','Tornio','Trapano','Altro'];
-function addMachine(){draft.machines.push({id:uid(),machine:'',op:'',hours:0,rate:0,setup:0});markUnsaved();renderMachines(draft);recalc();}
+function addMachine(){draft.machines.push({id:uid(),machine:'',op:'',hours:0,rate:0,setup:0,qtyMode:'unitario'});markUnsaved();renderMachines(draft);recalc();}
 function delMac(id){draft.machines=draft.machines.filter(x=>x.id!==id);markUnsaved();renderMachines(draft);recalc();}
 function updMacText(id,f,v){draft.machines.find(x=>x.id===id)[f]=v;markUnsaved();}
 function updMac(id,f,v){const row=draft.machines.find(x=>x.id===id);row[f]=v;if(f==='machine'&&MACHINE_RATES[v]){row.rate=MACHINE_RATES[v].hour||MACHINE_RATES[v]||0;row.setup=MACHINE_RATES[v].setup||0;}markUnsaved();renderMachines(draft);recalc();}
 function renderMachines(q){
   const rows=q.machines||[];
-  document.getElementById('machinesBody').innerHTML=rows.map(r=>`<tr>
-    <td><select style="width:100%" onchange="updMac('${r.id}','machine',this.value)"><option value="">— seleziona —</option>${MCHS.map(m=>`<option ${m===r.machine?'selected':''}>${m}</option>`).join('')}</select></td>
-    <td><input type="text" value="${esc(r.op)}" placeholder="Descrizione…" style="width:100%" oninput="updMacText('${r.id}','op',this.value)"></td>
-    <td><input type="number" value="${r.minutes??Math.round(r.hours*60)??0}" min="0" step="1" style="width:100%" onchange="updMac('${r.id}','minutes',+this.value)" onfocus="this.select()"></td>
-    <td><input type="number" value="${r.rate}" min="0" step="1" style="width:100%" onchange="updMac('${r.id}','rate',+this.value)" onfocus="this.select()"></td>
-    <td class="tr-tot">${fmt((r.minutes!=null?r.minutes:r.hours*60)/60*r.rate)}</td>
-    <td><button class="btn-icon" onclick="delMac('${r.id}')">🗑</button></td>
-  </tr>`).join('');
-  ss('tot_machines_only', fmt(rows.reduce((s,r)=>s+(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate,0)));
+  const qty=Math.max(1,+(document.getElementById('f_qty')||{value:'1'}).value||q.qty||1);
+  const totUnit=rows.reduce((s,r)=>{const isLotto=(r.qtyMode||'unitario')==='lotto';const raw=(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate;return s+(isLotto?raw/qty:raw);},0);
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_machines_unit',fmt(totUnit));
+  ss2('tot_machines',fmt(totUnit*qty));
+  const toggleHtml=(r)=>{const isLotto=(r.qtyMode||'unitario')==='lotto';return `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;"><span onclick="updMac('${r.id}','qtyMode','unitario');renderMachines(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span><span onclick="updMac('${r.id}','qtyMode','lotto');renderMachines(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span></div>`;};
+  document.getElementById('machinesBody').innerHTML=rows.map(r=>{
+    const isLotto=(r.qtyMode||'unitario')==='lotto';
+    const raw=(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate;
+    const tot=isLotto?raw/qty:raw;
+    return `<tr>
+      <td><select style="width:100%" onchange="updMac('${r.id}','machine',this.value)"><option value="">— seleziona —</option>${MCHS.map(m=>`<option ${m===r.machine?'selected':''}>${m}</option>`).join('')}</select></td>
+      <td><input type="text" value="${esc(r.op)}" placeholder="Descrizione…" style="width:100%" oninput="updMacText('${r.id}','op',this.value)"></td>
+      <td>${toggleHtml(r)}</td>
+      <td><input type="number" value="${r.minutes??Math.round(r.hours*60)??0}" min="0" step="1" style="width:100%" onchange="updMac('${r.id}','minutes',+this.value)" onfocus="this.select()"></td>
+      <td><input type="number" value="${r.rate}" min="0" step="1" style="width:100%" onchange="updMac('${r.id}','rate',+this.value)" onfocus="this.select()"></td>
+      <td class="tr-tot">${fmt(tot)}</td>
+      <td><button class="btn-icon" onclick="delMac('${r.id}')">🗑</button></td>
+    </tr>`;
+  }).join('');
 }
 
 
@@ -2746,10 +2777,13 @@ function showExtraTab(tab) {
 
 
 // Tubo row total
-function tuboRowTotal(r) {
-  if (r.tipo === 'Taglio Tubo Esterno') return (r.priceExt||0);
-  if (r.tipo === 'Taglio Tubo Interno' || r.tipo === 'Taglio Sega') return (r.minutes||0)/60 * (r.rate||0);
-  return 0;
+function tuboRowTotal(r, qty) {
+  qty = qty || 1;
+  const isLotto = (r.qtyMode||'lotto') === 'lotto';
+  let raw = 0;
+  if (r.tipo === 'Taglio Tubo Esterno') raw = (r.priceExt||0);
+  else if (r.tipo === 'Taglio Tubo Interno' || r.tipo === 'Taglio Sega') raw = (r.minutes||0)/60 * (r.rate||0);
+  return isLotto ? raw/qty : raw;
 }
 
 // CRUD
@@ -2775,21 +2809,26 @@ function updTubo(id,f,v) {
 }
 function renderTubo(q) {
   const rows = q.tubo || [];
-  const firstTyped = rows.find(r => r.tipo);
+  const qty = Math.max(1, +(document.getElementById('f_qty')||{value:'1'}).value || q.qty || 1);
+  const totUnit = rows.reduce((s,r)=>s+tuboRowTotal(r,qty),0);
+  const totLotto = totUnit * qty;
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_tubo_unit', fmt(totUnit));
+  ss2('tot_tubo', fmt(totLotto));
+
   const head = document.getElementById('tuboHead');
   const cols = document.getElementById('tuboCols');
   if (cols) {
     const hasAny = rows.some(r => r.tipo);
     cols.innerHTML = hasAny
-      ? '<col style="width:200px"><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px">'
+      ? '<col style="width:160px"><col style="width:80px"><col style="width:auto"><col style="width:110px"><col style="width:100px"><col style="width:80px"><col style="width:36px">'
       : '<col style="width:auto"><col style="width:80px"><col style="width:36px">';
   }
   if (head) {
     const hasInt = rows.some(r => r.tipo === 'Taglio Tubo Interno' || r.tipo === 'Taglio Sega');
-    const hasExt = rows.some(r => r.tipo === 'Taglio Tubo Esterno');
     const hasAny = rows.some(r => r.tipo);
     if (hasAny) {
-      head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th></th><th style="text-align:center">' + (hasInt ? 'Tempo (min)' : '') + '</th><th style="text-align:center">' + (hasInt ? '€/ora' : '€') + '</th><th style="text-align:right">Tot.</th><th></th></tr>';
+      head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th style="text-align:center">Qtà per</th><th></th><th style="text-align:center">' + (hasInt ? 'Tempo (min)' : '') + '</th><th style="text-align:center">' + (hasInt ? '€/ora' : '€') + '</th><th style="text-align:right">Tot.</th><th></th></tr>';
     } else {
       head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th></th></tr>';
     }
@@ -2797,23 +2836,19 @@ function renderTubo(q) {
   const hasInt = rows.some(r => r.tipo === 'Taglio Tubo Interno' || r.tipo === 'Taglio Sega');
   document.getElementById('tuboBody').innerHTML = rows.map(r => {
     const tipoSel = TUBO_CUT_TYPES.map(t=>`<option ${t===(r.tipo||'')?'selected':''}>${t}</option>`).join('');
-    const tot = tuboRowTotal(r);
+    const isLotto = (r.qtyMode||'lotto') === 'lotto';
+    const tot = tuboRowTotal(r, qty);
+    const toggleHtml = `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;">
+      <span onclick="updTubo('${r.id}','qtyMode','unitario');renderTubo(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span>
+      <span onclick="updTubo('${r.id}','qtyMode','lotto');renderTubo(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span>
+    </div>`;
     if (!r.tipo) {
-      return `<tr><td colspan="6"><select style="width:100%" onchange="updTubo('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
+      return `<tr><td colspan="7"><select style="width:100%" onchange="updTubo('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
     }
     if (r.tipo === 'Taglio Tubo Esterno') {
-      if (hasInt) {
-        return `<tr>
-          <td><select style="width:100%" onchange="updTubo('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
-          <td></td>
-          <td></td>
-          <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updTubo('${r.id}','priceExt',+this.value)" placeholder="€"></td>
-          <td class="tr-tot">${fmt(tot)}</td>
-          <td><button class="btn-icon" onclick="delTubo('${r.id}')">🗑</button></td>
-        </tr>`;
-      }
       return `<tr>
         <td><select style="width:100%" onchange="updTubo('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+        <td>${toggleHtml}</td>
         <td></td>
         <td></td>
         <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updTubo('${r.id}','priceExt',+this.value)" placeholder="€"></td>
@@ -2821,9 +2856,9 @@ function renderTubo(q) {
         <td><button class="btn-icon" onclick="delTubo('${r.id}')">🗑</button></td>
       </tr>`;
     }
-    // Interno + Sega: Tempo + €/ora
     return `<tr>
       <td><select style="width:100%" onchange="updTubo('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+      <td>${toggleHtml}</td>
       <td><input type="text" value="${r.desc||''}" placeholder="Descrizione…" style="width:100%" onchange="updTubo('${r.id}','desc',this.value)"></td>
       <td><input type="number" value="${r.minutes||0}" min="0" step="1" style="width:100%" onfocus="this.select()" onchange="updTubo('${r.id}','minutes',+this.value)"></td>
       <td><input type="number" value="${r.rate||0}" min="0" step="0.5" style="width:100%" onfocus="this.select()" onchange="updTubo('${r.id}','rate',+this.value)"></td>
@@ -2831,7 +2866,6 @@ function renderTubo(q) {
       <td><button class="btn-icon" onclick="delTubo('${r.id}')">🗑</button></td>
     </tr>`;
   }).join('');
-  ss('tot_tubo', fmt(rows.reduce((s,r)=>s+tuboRowTotal(r),0)));
 }
 
 // ── PIEGA ──
@@ -2852,10 +2886,17 @@ function savePiegaRates(andClose) {
   showToast('Tariffe piega salvate ✓');
   if (andClose) window.close();
 }
-function piegaRowTotal(r) { if (r.tipo === "Piega Esterna") return (r.priceExt||0); return (r.minutes||0)/60 * (r.rate||0); }
+function piegaRowTotal(r, qty) {
+  qty = qty || 1;
+  const isLotto = (r.qtyMode||'unitario') === 'lotto';
+  let raw = 0;
+  if (r.tipo === 'Piega Esterna') raw = (r.priceExt||0);
+  else raw = (r.minutes||0)/60 * (r.rate||0);
+  return isLotto ? raw/qty : raw;
+}
 function addPiega() {
   if (!draft.piega) draft.piega = [];
-  draft.piega.push({id:uid(), tipo:'', comp:'', minutes:0, rate:0});
+  draft.piega.push({id:uid(), tipo:'', comp:'', minutes:0, rate:0, qtyMode:'unitario'});
   markUnsaved(); renderPiega(draft); recalc();
 }
 function delPiega(id) { draft.piega = draft.piega.filter(x=>x.id!==id); markUnsaved(); renderPiega(draft); recalc(); }
@@ -2874,50 +2915,42 @@ const PIEGA_TYPES = ['Piega Interna','Piega Esterna'];
 const PIEGA_COMP = ['Piega semplice','Piega complessa'];
 function renderPiega(q) {
   const rows = q.piega || [];
+  const qty = Math.max(1, +(document.getElementById('f_qty')||{value:'1'}).value || q.qty || 1);
+  const totUnit = rows.reduce((s,r)=>s+piegaRowTotal(r,qty),0);
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_piega_unit', fmt(totUnit));
+  ss2('tot_piega', fmt(totUnit*qty));
   const head = document.getElementById('piegaHead');
   const cols = document.getElementById('piegaCols');
   const hasAny = rows.some(r => r.tipo);
   const hasInt = rows.some(r => r.tipo === 'Piega Interna');
   if (cols) {
-    const hasExt = rows.some(r => r.tipo === 'Piega Esterna');
-    const hasInt = rows.some(r => r.tipo === 'Piega Interna');
     cols.innerHTML = hasAny
       ? (hasInt
-          ? '<col style="width:auto"><col style="width:auto"><col style="width:120px"><col style="width:100px"><col style="width:90px"><col style="width:36px">'
-          : '<col style="width:auto"><col style="width:120px"><col style="width:90px"><col style="width:36px">')
+          ? '<col style="width:auto"><col style="width:80px"><col style="width:auto"><col style="width:120px"><col style="width:100px"><col style="width:90px"><col style="width:36px">'
+          : '<col style="width:auto"><col style="width:80px"><col style="width:120px"><col style="width:90px"><col style="width:36px">')
       : '<col style="width:auto"><col style="width:80px"><col style="width:36px">';
   }
   if (head) {
-    const hasExt = rows.some(r => r.tipo === 'Piega Esterna');
-    const hasInt = rows.some(r => r.tipo === 'Piega Interna');
     head.innerHTML = hasAny
       ? (hasInt
-          ? '<tr><th>Piega</th><th>Tipo di piega</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>'
-          : '<tr><th>Piega</th><th style="text-align:center">€</th><th style="text-align:right">Tot.</th><th></th></tr>')
+          ? '<tr><th>Piega</th><th style="text-align:center">Qtà per</th><th>Tipo di piega</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>'
+          : '<tr><th>Piega</th><th style="text-align:center">Qtà per</th><th style="text-align:center">€</th><th style="text-align:right">Tot.</th><th></th></tr>')
       : '<tr><th>Piega</th><th></th></tr>';
   }
+  const toggleHtml = (r) => { const isLotto=(r.qtyMode||'unitario')==='lotto'; return `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;"><span onclick="updPiega('${r.id}','qtyMode','unitario');renderPiega(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span><span onclick="updPiega('${r.id}','qtyMode','lotto');renderPiega(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span></div>`; };
   document.getElementById('piegaBody').innerHTML = rows.length === 0
-    ? '<tr><td colspan="6" style="text-align:center;color:var(--muted);font-size:13px;padding:12px;">Nessuna voce</td></tr>'
+    ? '<tr><td colspan="7" style="text-align:center;color:var(--muted);font-size:13px;padding:12px;">Nessuna voce</td></tr>'
     : rows.map(r => {
       const tipoSel = PIEGA_TYPES.map(t=>`<option ${t===(r.tipo||'')?'selected':''}>${t}</option>`).join('');
       const compSel = PIEGA_COMP.map(c=>`<option ${c===(r.comp||'')?'selected':''}>${c}</option>`).join('');
-      const tot = piegaRowTotal(r);
-      if (!r.tipo) {
-        return `<tr><td colspan="6"><select style="width:100%" onchange="updPiega('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
-      }
+      const tot = piegaRowTotal(r, qty);
+      if (!r.tipo) return `<tr><td colspan="7"><select style="width:100%" onchange="updPiega('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
       if (r.tipo === 'Piega Esterna') {
-        if (hasInt) {
-          return `<tr>
-            <td><select style="width:100%" onchange="updPiega('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
-            <td></td>
-            <td></td>
-            <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updPiega('${r.id}','priceExt',+this.value)" placeholder="€"></td>
-            <td class="tr-tot">${fmt(tot)}</td>
-            <td><button class="btn-icon" onclick="delPiega('${r.id}')">🗑</button></td>
-          </tr>`;
-        }
         return `<tr>
           <td><select style="width:100%" onchange="updPiega('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+          <td>${toggleHtml(r)}</td>
+          ${hasInt?'<td></td>':''}
           <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updPiega('${r.id}','priceExt',+this.value)" placeholder="€"></td>
           <td class="tr-tot">${fmt(tot)}</td>
           <td><button class="btn-icon" onclick="delPiega('${r.id}')">🗑</button></td>
@@ -2925,6 +2958,7 @@ function renderPiega(q) {
       }
       return `<tr>
         <td><select style="width:100%" onchange="updPiega('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+        <td>${toggleHtml(r)}</td>
         <td><select style="width:100%" onchange="updPiega('${r.id}','comp',this.value)"><option value=''>— tipo di piega —</option>${compSel}</select></td>
         <td><input type="number" value="${r.minutes||0}" min="0" step="1" style="width:100%" onfocus="this.select()" onchange="updPiega('${r.id}','minutes',+this.value)"></td>
         <td><input type="number" value="${r.rate||0}" min="0" step="0.5" style="width:100%" onfocus="this.select()" onchange="updPiega('${r.id}','rate',+this.value)"></td>
@@ -2932,7 +2966,6 @@ function renderPiega(q) {
         <td><button class="btn-icon" onclick="delPiega('${r.id}')">🗑</button></td>
       </tr>`;
     }).join('');
-  ss('tot_piega', fmt(rows.reduce((s,r)=>s+piegaRowTotal(r),0)));
 }
 
 // ── SALDATURA ──
@@ -2945,10 +2978,17 @@ function saveSaldaturaRates(andClose) {
   showToast('Tariffa saldatura salvata ✓');
   if (andClose) window.close();
 }
-function saldaturaRowTotal(r) { if (r.tipo === 'Saldatura Esterna') return (r.priceExt||0); return (r.minutes||0)/60*(r.rate||0); }
+function saldaturaRowTotal(r, qty) {
+  qty = qty || 1;
+  const isLotto = (r.qtyMode||'unitario') === 'lotto';
+  let raw = 0;
+  if (r.tipo === 'Saldatura Esterna') raw = (r.priceExt||0);
+  else raw = (r.minutes||0)/60*(r.rate||0);
+  return isLotto ? raw/qty : raw;
+}
 function addSaldatura() {
   if (!draft.saldatura) draft.saldatura = [];
-  draft.saldatura.push({id:uid(), tipo:'', minutes:0, rate:SALDATURA_RATE||0, priceExt:0});
+  draft.saldatura.push({id:uid(), tipo:'', minutes:0, rate:SALDATURA_RATE||0, priceExt:0, qtyMode:'unitario'});
   markUnsaved(); renderSaldatura(draft); recalc();
 }
 function delSaldatura(id) { draft.saldatura = draft.saldatura.filter(x=>x.id!==id); markUnsaved(); renderSaldatura(draft); recalc(); }
@@ -2963,36 +3003,34 @@ function updSaldatura(id,f,v) {
 const SALDATURA_TYPES = ['Saldatura Interna','Saldatura Esterna'];
 function renderSaldatura(q) {
   const rows = q.saldatura || [];
+  const qty = Math.max(1, +(document.getElementById('f_qty')||{value:'1'}).value || q.qty || 1);
+  const totUnit = rows.reduce((s,r)=>s+saldaturaRowTotal(r,qty),0);
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_saldatura_unit', fmt(totUnit));
+  ss2('tot_saldatura', fmt(totUnit*qty));
   const head = document.getElementById('saldaturaHead');
   const cols = document.getElementById('saldaturaCols');
   const hasAny = rows.some(r => r.tipo);
-  if (cols) {
-    const hasExt = rows.some(r => r.tipo === 'Saldatura Esterna');
-    const hasInt = rows.some(r => r.tipo === 'Saldatura Interna');
-    cols.innerHTML = hasAny
-      ? '<col style="width:auto"><col style="width:120px"><col style="width:100px"><col style="width:90px"><col style="width:36px">'
-      : '<col style="width:auto"><col style="width:80px"><col style="width:36px">';
-  }
+  if (cols) cols.innerHTML = hasAny
+    ? '<col style="width:auto"><col style="width:80px"><col style="width:120px"><col style="width:100px"><col style="width:90px"><col style="width:36px">'
+    : '<col style="width:auto"><col style="width:80px"><col style="width:36px">';
   if (head) {
     const hasInt = rows.some(r => r.tipo === 'Saldatura Interna');
-    const hasExt = rows.some(r => r.tipo === 'Saldatura Esterna');
     head.innerHTML = hasAny
-      ? (hasExt && !hasInt
-          ? '<tr><th>Tipo saldatura</th><th style="text-align:center">Descrizione</th><th style="text-align:center">€</th><th style="text-align:right">Tot.</th><th></th></tr>'
-          : '<tr><th>Tipo saldatura</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>')
+      ? '<tr><th>Tipo saldatura</th><th style="text-align:center">Qtà per</th><th style="text-align:center">Tempo (min)</th><th style="text-align:center">€/ora</th><th style="text-align:right">Tot.</th><th></th></tr>'
       : '<tr><th style="text-align:center">Tipo saldatura</th><th></th></tr>';
   }
+  const toggleHtml = (r) => { const isLotto=(r.qtyMode||'unitario')==='lotto'; return `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;"><span onclick="updSaldatura('${r.id}','qtyMode','unitario');renderSaldatura(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span><span onclick="updSaldatura('${r.id}','qtyMode','lotto');renderSaldatura(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span></div>`; };
   document.getElementById('saldaturaBody').innerHTML = rows.length === 0
-    ? '<tr><td colspan="5" style="text-align:center;color:var(--muted);font-size:13px;padding:12px;">Nessuna voce</td></tr>'
+    ? '<tr><td colspan="6" style="text-align:center;color:var(--muted);font-size:13px;padding:12px;">Nessuna voce</td></tr>'
     : rows.map(r => {
       const tipoSel = SALDATURA_TYPES.map(t=>`<option ${t===(r.tipo||'')?'selected':''}>${t}</option>`).join('');
-      const tot = saldaturaRowTotal(r);
-      if (!r.tipo) {
-        return `<tr><td colspan="5"><select style="width:100%" onchange="updSaldatura('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
-      }
+      const tot = saldaturaRowTotal(r, qty);
+      if (!r.tipo) return `<tr><td colspan="6"><select style="width:100%" onchange="updSaldatura('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
       if (r.tipo === 'Saldatura Esterna') {
         return `<tr>
           <td><select style="width:100%" onchange="updSaldatura('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+          <td>${toggleHtml(r)}</td>
           <td></td>
           <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updSaldatura('${r.id}','priceExt',+this.value)" placeholder="€"></td>
           <td class="tr-tot">${fmt(tot)}</td>
@@ -3001,13 +3039,13 @@ function renderSaldatura(q) {
       }
       return `<tr>
         <td><select style="width:100%" onchange="updSaldatura('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+        <td>${toggleHtml(r)}</td>
         <td><input type="number" value="${r.minutes||0}" min="0" step="1" style="width:100%" onfocus="this.select()" onchange="updSaldatura('${r.id}','minutes',+this.value)"></td>
         <td><input type="number" value="${r.rate||0}" min="0" step="0.5" style="width:100%" onfocus="this.select()" onchange="updSaldatura('${r.id}','rate',+this.value)"></td>
         <td class="tr-tot">${fmt(tot)}</td>
         <td><button class="btn-icon" onclick="delSaldatura('${r.id}')">🗑</button></td>
       </tr>`;
     }).join('');
-  ss('tot_saldatura', fmt(rows.reduce((s,r)=>s+saldaturaRowTotal(r),0)));
 }
 function renderFilettRates() {
   const fasce = ['Fino a M4', 'Da M5 a M10', 'Da M12 a M36'];
@@ -3220,21 +3258,33 @@ const TREAT_TYPES=[
   'Zincatura',
   'Altro'
 ];
-function addTreat(){draft.treat=draft.treat||[];draft.treat.push({id:uid(),desc:'',type:'',qty:0,rate:0});markUnsaved();renderTreat(draft);recalc();}
+function addTreat(){draft.treat=draft.treat||[];draft.treat.push({id:uid(),desc:'',type:'',qty:0,rate:0,qtyMode:'unitario'});markUnsaved();renderTreat(draft);recalc();}
 function delTreat(id){draft.treat=draft.treat.filter(x=>x.id!==id);markUnsaved();renderTreat(draft);recalc();}
 function updTreatText(id,f,v){(draft.treat||[]).find(x=>x.id===id)[f]=v;markUnsaved();}
 function updTreat(id,f,v){
   const row=(draft.treat||[]).find(x=>x.id===id);
   if(f==='type'){if(TREAT_RATES[v]!==undefined)row.rate=TREAT_RATES[v];}(draft.treat||[]).find(x=>x.id===id)[f]=v;markUnsaved();renderTreat(draft);recalc();}
 function renderTreat(q){
-  document.getElementById('treatBody').innerHTML=((q.treat)||[]).map(r=>`<tr>
-    <td><select style="width:100%" onchange="updTreat('${r.id}','type',this.value)"><option value="">— seleziona —</option>${TREAT_TYPES.map(t=>`<option ${t===r.type?'selected':''}>${t}</option>`).join('')}</select></td>
-    <td><input type="text" value="${esc(r.desc)}" placeholder="Descrizione…" oninput="updTreatText('${r.id}','desc',this.value)"></td>
-    <td><input type="number" value="${r.qty||0}" min="0" step="0.01" style="width:100%" onchange="updTreat('${r.id}','qty',+this.value)" onfocus="this.select()"></td>
-    <td><input type="number" value="${r.rate||0}" min="0" step="0.01" style="width:100%" onchange="updTreat('${r.id}','rate',+this.value)" onfocus="this.select()"></td>
-    <td class="tr-tot">${fmt((r.qty||0)*(r.rate||0))}</td>
-    <td><button class="btn-icon" onclick="delTreat('${r.id}')">🗑</button></td>
-  </tr>`).join('');
+  const rows=q.treat||[];
+  const qty=Math.max(1,+(document.getElementById('f_qty')||{value:'1'}).value||q.qty||1);
+  const totUnit=rows.reduce((s,r)=>{const isLotto=(r.qtyMode||'unitario')==='lotto';const raw=(r.qty||0)*(r.rate||0);return s+(isLotto?raw/qty:raw);},0);
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_treat_unit',fmt(totUnit));
+  ss2('tot_treat',fmt(totUnit*qty));
+  const toggleHtml=(r)=>{const isLotto=(r.qtyMode||'unitario')==='lotto';return `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;"><span onclick="updTreat('${r.id}','qtyMode','unitario');renderTreat(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span><span onclick="updTreat('${r.id}','qtyMode','lotto');renderTreat(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span></div>`;};
+  document.getElementById('treatBody').innerHTML=rows.map(r=>{
+    const isLotto=(r.qtyMode||'unitario')==='lotto';
+    const raw=(r.qty||0)*(r.rate||0); const tot=isLotto?raw/qty:raw;
+    return `<tr>
+      <td><select style="width:100%" onchange="updTreat('${r.id}','type',this.value)"><option value="">— seleziona —</option>${TREAT_TYPES.map(t=>`<option ${t===r.type?'selected':''}>${t}</option>`).join('')}</select></td>
+      <td><input type="text" value="${esc(r.desc)}" placeholder="Descrizione…" oninput="updTreatText('${r.id}','desc',this.value)"></td>
+      <td>${toggleHtml(r)}</td>
+      <td><input type="number" value="${r.qty||0}" min="0" step="0.01" style="width:100%" onchange="updTreat('${r.id}','qty',+this.value)" onfocus="this.select()"></td>
+      <td><input type="number" value="${r.rate||0}" min="0" step="0.01" style="width:100%" onchange="updTreat('${r.id}','rate',+this.value)" onfocus="this.select()"></td>
+      <td class="tr-tot">${fmt(tot)}</td>
+      <td><button class="btn-icon" onclick="delTreat('${r.id}')">🗑</button></td>
+    </tr>`;
+  }).join('');
 }
 
 // TRANSPORT
@@ -3307,14 +3357,14 @@ function renderFixed(q){
 function calcTotal(q){
   const _qty=((q.qty||1)>0?(q.qty||1):1);
   const m=(q.materials||[]).reduce((s,r)=>s+r.qty*r.price,0)/_qty;
-  const pz=(q.piazzamento||[]).reduce((s,r)=>s+((r.minutes||0)/60*(r.rate||0))/_qty,0);
-  const tb=(q.tubo||[]).reduce((s,r)=>s+tuboRowTotal(r)/_qty,0);
-  const pg=(q.piega||[]).reduce((s,r)=>s+piegaRowTotal(r)/_qty,0);
-  const sa=(q.saldatura||[]).reduce((s,r)=>s+saldaturaRowTotal(r)/_qty,0);
-  const LINT=new Set(["Filettatura esterna","Fresatura esterna","Piegatura esterna","Tornitura esterna"]); const l=(q.labor||[]).reduce((s,r)=>{ if(LINT.has(r.op)) return s+(r.cost||0)/_qty; if(r.op==="Filettatura interna") return s+filettTotal(r)/_qty; return s+(r.minutes??r.hours*60??0)*r.rate*r.addetti/_qty; },0);
-  const mc=(q.machines||[]).reduce((s,r)=>s+(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate/_qty,0);
+  const pz=(q.piazzamento||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; return s+(r.minutes||0)*(r.rate||0)*(isLotto?1/_qty:1); },0);
+  const tb=(q.tubo||[]).reduce((s,r)=>s+tuboRowTotal(r,_qty),0);
+  const pg=(q.piega||[]).reduce((s,r)=>s+piegaRowTotal(r,_qty),0);
+  const sa=(q.saldatura||[]).reduce((s,r)=>s+saldaturaRowTotal(r,_qty),0);
+  const LINT=new Set(["Filettatura esterna","Fresatura esterna","Piegatura esterna","Tornitura esterna"]); const l=(q.labor||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; if(LINT.has(r.op)) return s+(isLotto?(r.cost||0)/_qty:(r.cost||0)); if(r.op==="Filettatura interna") return s+(isLotto?filettTotal(r)/_qty:filettTotal(r)); const raw=(r.minutes??r.hours*60??0)*r.rate*(r.addetti||1); return s+(isLotto?raw/_qty:raw); },0);
+  const mc=(q.machines||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate; return s+(isLotto?raw/_qty:raw); },0);
   const la=(q.laser||[]).reduce((s,r)=>s+laserRowTotal(r)/_qty,0);
-  const tr=(q.treat||[]).reduce((s,r)=>s+(r.qty||0)*(r.rate||0)/_qty,0);
+  const tr=(q.treat||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.qty||0)*(r.rate||0); return s+(isLotto?raw/_qty:raw); },0);
   const tp=(q.transport||[]).reduce((s,r)=>s+(r.ammKm||0),0);
   const e=(q.extra||[]).reduce((s,r)=>s+r.amount,0);
   const fx=(q.fixed||[]).reduce((s,r)=>s+r.amount,0);
@@ -3331,14 +3381,14 @@ function recalc(){
   if (document.getElementById('materialsBody')) renderMaterials(q);
   const _qty2=((q.qty||1)>0?(q.qty||1):1);
   const m=(q.materials||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; return s + (isLotto ? r.qty*r.price/_qty2 : r.qty*r.price); },0);
-  const pz=(q.piazzamento||[]).reduce((s,r)=>s+((r.minutes||0)/60*(r.rate||0))/_qty2,0);
-  const tb=(q.tubo||[]).reduce((s,r)=>s+tuboRowTotal(r)/_qty2,0);
-  const pg=(q.piega||[]).reduce((s,r)=>s+piegaRowTotal(r)/_qty2,0);
-  const sa=(q.saldatura||[]).reduce((s,r)=>s+saldaturaRowTotal(r)/_qty2,0);
-  const LINT=new Set(["Filettatura esterna","Fresatura esterna","Piegatura esterna","Tornitura esterna"]); const l=(q.labor||[]).reduce((s,r)=>{ if(LINT.has(r.op)) return s+(r.cost||0)/_qty2; if(r.op==="Filettatura interna") return s+filettTotal(r)/_qty2; return s+(r.minutes??r.hours*60??0)*r.rate*r.addetti/_qty2; },0);
-  const mc=(q.machines||[]).reduce((s,r)=>s+(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate/_qty2,0);
+  const pz=(q.piazzamento||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; return s+(r.minutes||0)*(r.rate||0)*(isLotto?1/_qty2:1); },0);
+  const tb=(q.tubo||[]).reduce((s,r)=>s+tuboRowTotal(r,_qty2),0);
+  const pg=(q.piega||[]).reduce((s,r)=>s+piegaRowTotal(r,_qty2),0);
+  const sa=(q.saldatura||[]).reduce((s,r)=>s+saldaturaRowTotal(r,_qty2),0);
+  const LINT=new Set(["Filettatura esterna","Fresatura esterna","Piegatura esterna","Tornitura esterna"]); const l=(q.labor||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; if(LINT.has(r.op)) return s+(isLotto?(r.cost||0)/_qty2:(r.cost||0)); if(r.op==="Filettatura interna") return s+(isLotto?filettTotal(r)/_qty2:filettTotal(r)); const raw=(r.minutes??r.hours*60??0)*r.rate*(r.addetti||1); return s+(isLotto?raw/_qty2:raw); },0);
+  const mc=(q.machines||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate; return s+(isLotto?raw/_qty2:raw); },0);
   const la=(q.laser||[]).reduce((s,r)=>s+laserRowTotal(r)/_qty2,0);
-  const tr=(q.treat||[]).reduce((s,r)=>s+(r.qty||0)*(r.rate||0)/_qty2,0);
+  const tr=(q.treat||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.qty||0)*(r.rate||0); return s+(isLotto?raw/_qty2:raw); },0);
   const tp=(q.transport||[]).reduce((s,r)=>s+(r.ammKm||0),0);
   const e=(q.extra||[]).reduce((s,r)=>s+r.amount,0);
   const fx=(q.fixed||[]).reduce((s,r)=>s+r.amount,0);
@@ -3351,7 +3401,9 @@ function recalc(){
   const net=pu*qty+(e+fx+tp),tot=net;
   const unitPrice=qty>0?net/qty:net;
   ss('tot_materials',fmt(m*qty));ss('tot_piazzamento',fmt(pz*qty));ss('tot_laser',fmt(la*qty));ss('tot_tubo',fmt(tb*qty));ss('tot_piega',fmt(pg*qty));ss('tot_saldatura',fmt(sa*qty));ss('tot_labor',fmt(l*qty));ss('tot_machines',fmt(mc*qty));ss('tot_treat',fmt(tr*qty));ss('sum_transport',fmt(tp));ss('tot_extra',fmt((tp+e+fx)));ss('sum_fixed',fmt(fx));
-    function copyBadge(fromId, toId) {
+  // Aggiorna badge 1pz nelle card
+  ss('tot_piazzamento_unit',fmt(pz)); ss('tot_tubo_unit',fmt(tb)); ss('tot_piega_unit',fmt(pg)); ss('tot_saldatura_unit',fmt(sa)); ss('tot_labor_unit',fmt(l)); ss('tot_machines_unit',fmt(mc)); ss('tot_treat_unit',fmt(tr));
+  function copyBadge(fromId, toId) {
     const src = document.getElementById(fromId);
     const dst = document.getElementById(toId);
     if (src && dst) dst.textContent = src.textContent;
