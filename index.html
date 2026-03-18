@@ -1404,72 +1404,46 @@ function applyParams(params) {
   }
 }
 
-// Callback globale fisso per gsCall — sopravvive ai redirect di Google Apps Script
-window._gsCallQueue = [];
-window._gsCallCb = function(data) {
-  const resolve = window._gsCallQueue.shift();
-  if (resolve) resolve(data);
-};
-window._gsGetQueue = {};
-
+// SCRITTURA: usa fetch con no-cors — il browser non blocca, non leggiamo la risposta
 async function gsCall(body) {
   if (!GS_URL) return null;
-  return new Promise((resolve) => {
-    let done = false;
-    const wrappedResolve = (data) => {
-      if (done) return;
-      done = true;
-      resolve(data);
-    };
-    window._gsCallQueue.push(wrappedResolve);
-    setTimeout(() => {
-      if (done) return;
-      done = true;
-      const idx = window._gsCallQueue.indexOf(wrappedResolve);
-      if (idx > -1) window._gsCallQueue.splice(idx, 1);
-      console.warn('gsCall timeout');
-      resolve(null);
-    }, 30000);
-    const script = document.createElement('script');
+  try {
     const payload = encodeURIComponent(JSON.stringify(body));
-    script.src = GS_URL + '?callback=_gsCallCb&payload=' + payload;
-    script.crossOrigin = 'anonymous';
-    document.head.appendChild(script);
-  });
+    await fetch(GS_URL + '?payload=' + payload, {
+      method: 'GET',
+      mode: 'no-cors'
+    });
+    return { ok: true };
+  } catch(e) {
+    console.warn('gsCall error:', e);
+    return null;
+  }
 }
+
+// LETTURA: usa JSONP — necessario per leggere i dati
 async function gsGet(action) {
   if (!GS_URL) return null;
   return new Promise((resolve) => {
     const cbName = 'gsGet_' + Date.now();
-    window._gsGetQueue[cbName] = (data) => {
-      delete window._gsGetQueue[cbName];
+    const script = document.createElement('script');
+    window[cbName] = (data) => {
       delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
       resolve(data);
     };
-    window[cbName] = window._gsGetQueue[cbName];
-    const script = document.createElement('script');
-    script.crossOrigin = 'anonymous';
-    script.onerror = () => { delete window[cbName]; resolve(null); };
+    script.onerror = () => {
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      resolve(null);
+    };
     script.src = GS_URL + '?action=' + action + '&callback=' + cbName;
     document.head.appendChild(script);
   });
 }
-async function gsGet(action) {
-  if (!GS_URL) return null;
-  return new Promise((resolve) => {
-    const cbName = 'gsCallback_' + Date.now();
-    const script = document.createElement('script');
-    window[cbName] = (data) => { delete window[cbName]; document.body.removeChild(script); resolve(data); };
-    script.onerror = () => { delete window[cbName]; document.body.removeChild(script); resolve(null); };
-    script.src = GS_URL + '?action=' + action + '&callback=' + cbName;
-    document.body.appendChild(script);
-  });
-}
 
 async function gsSavePreventivi() {
-  const res = await gsCall({ action: 'savePreventivi', data: quotes });
-  if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
-  else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
+  await gsCall({ action: 'savePreventivi', data: quotes });
+  showToast('Salvato su Google Sheets ✓');
 }
 async function gsSaveParametri() {
   // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
