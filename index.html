@@ -1410,6 +1410,7 @@ window._gsCallCb = function(data) {
   const resolve = window._gsCallQueue.shift();
   if (resolve) resolve(data);
 };
+window._gsGetQueue = {};
 
 async function gsCall(body) {
   if (!GS_URL) return null;
@@ -1421,7 +1422,6 @@ async function gsCall(body) {
       resolve(data);
     };
     window._gsCallQueue.push(wrappedResolve);
-    // Timeout 15 secondi
     setTimeout(() => {
       if (done) return;
       done = true;
@@ -1429,10 +1429,28 @@ async function gsCall(body) {
       if (idx > -1) window._gsCallQueue.splice(idx, 1);
       console.warn('gsCall timeout');
       resolve(null);
-    }, 15000);
+    }, 30000);
     const script = document.createElement('script');
     const payload = encodeURIComponent(JSON.stringify(body));
     script.src = GS_URL + '?callback=_gsCallCb&payload=' + payload;
+    script.crossOrigin = 'anonymous';
+    document.head.appendChild(script);
+  });
+}
+async function gsGet(action) {
+  if (!GS_URL) return null;
+  return new Promise((resolve) => {
+    const cbName = 'gsGet_' + Date.now();
+    window._gsGetQueue[cbName] = (data) => {
+      delete window._gsGetQueue[cbName];
+      delete window[cbName];
+      resolve(data);
+    };
+    window[cbName] = window._gsGetQueue[cbName];
+    const script = document.createElement('script');
+    script.crossOrigin = 'anonymous';
+    script.onerror = () => { delete window[cbName]; resolve(null); };
+    script.src = GS_URL + '?action=' + action + '&callback=' + cbName;
     document.head.appendChild(script);
   });
 }
