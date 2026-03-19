@@ -1455,11 +1455,29 @@ async function gsGet(action) {
 
 
 async function gsSavePreventivi() {
-  const payload = encodeURIComponent(JSON.stringify({ action: 'savePreventivi', data: quotes }));
-  console.log('Payload size:', payload.length, 'chars');
-  const res = await gsCall({ action: 'savePreventivi', data: quotes });
-  if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
-  else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
+  // Rimuove le immagini per ridurre la dimensione
+  const quotesNoImg = quotes.map(q => {
+    const copy = Object.assign({}, q);
+    delete copy.image;
+    return copy;
+  });
+
+  // Prova prima con tutti insieme
+  const payloadAll = encodeURIComponent(JSON.stringify({ action: 'savePreventivi', data: quotesNoImg }));
+  if (payloadAll.length < 6000) {
+    const res = await gsCall({ action: 'savePreventivi', data: quotesNoImg });
+    if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); return; }
+  }
+
+  // Se troppo grande, usa upsert: manda ogni preventivo singolarmente
+  // Lo script aggiunge/aggiorna senza sovrascrivere tutto
+  let ok = true;
+  for (const q of quotesNoImg) {
+    const res = await gsCall({ action: 'upsertPreventivo', data: q });
+    if (!res || !res.ok) { ok = false; break; }
+  }
+  if (ok) { showToast('Salvato su Google Sheets ✓'); }
+  else { showToast('⚠️ Salvataggio Sheets fallito'); }
 }
 let _paramsSaving = false; // flag: salvataggio parametri in corso
 let _paramsSaveTimer = null; // debounce timer
