@@ -1409,36 +1409,20 @@ function applyParams(params) {
   }
 }
 
-// SCRITTURA: JSONP via GET con payload — stesso meccanismo della lettura, funziona con doGet
-let _gsCallCount = 0;
+// SCRITTURA: POST con no-cors — dati nel body, nessun limite dimensione, nessun blocco CORS
 async function gsCall(body) {
   if (!GS_URL) return null;
-  return new Promise((resolve) => {
-    const cbName = 'gsCall_' + (++_gsCallCount);
-    const script = document.createElement('script');
-    const payload = encodeURIComponent(JSON.stringify(body));
-    let done = false;
-    window[cbName] = (data) => {
-      if (done) return; done = true;
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(data);
-    };
-    script.onerror = () => {
-      if (done) return; done = true;
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(null);
-    };
-    setTimeout(() => {
-      if (done) return; done = true;
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(null);
-    }, 30000);
-    script.src = GS_URL + '?callback=' + cbName + '&payload=' + payload;
-    document.head.appendChild(script);
-  });
+  try {
+    await fetch(GS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(body)
+    });
+    return { ok: true };
+  } catch(e) {
+    console.warn('gsCall error:', e);
+    return null;
+  }
 }
 
 // LETTURA: JSONP — necessario per leggere i dati
@@ -1464,9 +1448,8 @@ async function gsGet(action) {
 
 
 async function gsSavePreventivi() {
-  const res = await gsCall({ action: 'savePreventivi', data: quotes });
-  if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
-  else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
+  await gsCall({ action: 'savePreventivi', data: quotes });
+  showToast('Salvato su Google Sheets ✓');
 }
 async function gsSaveParametri() {
   // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
