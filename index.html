@@ -1392,28 +1392,16 @@ function collectParams() {
   return out;
 }
 function applyParams(params) {
-  // Non ricaricare se siamo già in un reload post-parametri
-  if (localStorage.getItem('ppro_params_reloaded') === '1') {
-    localStorage.removeItem('ppro_params_reloaded');
-    Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
-    return;
-  }
-  const before = JSON.stringify(collectParams());
   Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
-  const after = JSON.stringify(collectParams());
-  // Se i parametri dal server differiscono da quelli locali, ricarica la pagina
-  // così tutte le variabili in memoria si reinizializzano coi valori aggiornati
-  if (before !== after) {
-    localStorage.setItem('ppro_params_reloaded', '1');
-    location.reload();
-  }
+  if (typeof reloadRatesFromStorage === 'function') reloadRatesFromStorage();
 }
 
 // SCRITTURA: JSONP via GET con payload — stesso meccanismo della lettura, funziona con doGet
+let _gsCallCount = 0;
 async function gsCall(body) {
   if (!GS_URL) return null;
   return new Promise((resolve) => {
-    const cbName = 'gsCall_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+    const cbName = 'gsCall_' + (++_gsCallCount);
     const script = document.createElement('script');
     const payload = encodeURIComponent(JSON.stringify(body));
     let done = false;
@@ -1468,14 +1456,21 @@ async function gsSavePreventivi() {
   else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
 }
 async function gsSaveParametri() {
-  // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
   const params = collectParams();
-  const keys = Object.keys(params);
-  for (let i = 0; i < keys.length; i++) {
-    const k = keys[i];
-    const chunk = {};
-    chunk[k] = params[k];
-    await gsCall({ action: 'saveParametriChunk', data: chunk });
+  // Separa ppro_laser_full dagli altri — è troppo grande per una URL
+  const laserFull = params['ppro_laser_full'];
+  const paramsSmall = Object.assign({}, params);
+  delete paramsSmall['ppro_laser_full'];
+  // Salva tutti i parametri piccoli in una sola chiamata
+  if (Object.keys(paramsSmall).length > 0) {
+    await gsCall({ action: 'saveParametriChunk', data: paramsSmall });
+  }
+  // Salva laser_full separatamente solo se non è troppo grande
+  if (laserFull) {
+    const laserPayload = encodeURIComponent(JSON.stringify({ action: 'saveParametriChunk', data: { ppro_laser_full: laserFull } }));
+    if (laserPayload.length < 7000) {
+      await gsCall({ action: 'saveParametriChunk', data: { ppro_laser_full: laserFull } });
+    }
   }
 }
 async function gsLoadAll() {
