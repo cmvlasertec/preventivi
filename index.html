@@ -2031,21 +2031,33 @@ const OPS=['Fresatore','Montatore','Operaio','Piegatore','Progettista','Saldator
 
 // DEFAULT LABOR RATES (€/ora, stored as cpm internally)
 const DEFAULT_LABOR_RATES = {
-  'Operaio':      {cpm:0.50, cph:30, setup:0},
-  'Fresatore':    {cpm:0.65, setup:0},
-  'Tornitore':    {cpm:0.65, setup:0},
-  'Piegatore':    {cpm:0.58, setup:0},
-  'Montatore':    {cpm:0.58, setup:0},
-  'Tecnico':      {cpm:0.75, setup:0},
-  'Programmatore':{cpm:0.80, setup:0},
-  'Saldatore':    {cpm:0.65, setup:0},
-  'Capo Reparto': {cpm:0.90, setup:0}
+  'Operaio':             {cpm:0.50, cph:30, setup:0},
+  'Fresatore':           {cpm:0.65, setup:0},
+  'Tornitore':           {cpm:0.65, setup:0},
+  'Piegatore':           {cpm:0.58, setup:0},
+  'Montatore':           {cpm:0.58, setup:0},
+  'Tecnico':             {cpm:0.75, setup:0},
+  'Programmatore':       {cpm:0.80, setup:0},
+  'Saldatore':           {cpm:0.65, setup:0},
+  'Capo Reparto':        {cpm:0.90, setup:0},
+  'Foratura':            {cpm:0.50, setup:0},
+  'Fresatura interna':   {cpm:0.65, setup:0},
+  'Sbavatura/Satinatura':{cpm:0.50, setup:0},
+  'Svasatura':           {cpm:0.50, setup:0},
+  'Tornitura interna':   {cpm:0.65, setup:0},
 };
+
+// Tutte le voci con tariffa configurabile (figure + operazioni interne)
+const ALL_LABOR_RATE_KEYS = [
+  'Operaio','Fresatore','Tornitore','Piegatore','Montatore',
+  'Tecnico','Programmatore','Saldatore','Capo Reparto',
+  'Foratura','Fresatura interna','Sbavatura/Satinatura','Svasatura','Tornitura interna'
+];
 // Migrate flat labor rates
 (function(){
   const saved = JSON.parse(localStorage.getItem('ppro_labor_rates')||'null')||{};
   const migrated = {};
-  OPS.forEach(op => {
+  ALL_LABOR_RATE_KEYS.forEach(op => {
     const def = DEFAULT_LABOR_RATES[op] || {cpm:0.5, setup:0};
     if (saved[op] && typeof saved[op] === 'object') migrated[op] = Object.assign({}, def, saved[op]);
     else if (saved[op] && typeof saved[op] === 'number') migrated[op] = {cpm: saved[op], setup: def.setup};
@@ -2104,7 +2116,19 @@ function renderLaborRatesList() {
 
 function addLabor(){draft.labor.push({id:uid(),op:'',operator:'',minutes:0,rate:0,addetti:1,qtyMode:'unitario'});markUnsaved();renderLabor(draft);recalc();}
 function delLab(id){draft.labor=draft.labor.filter(x=>x.id!==id);markUnsaved();renderLabor(draft);recalc();}
-function updLabText(id,f,v){const row=draft.labor.find(x=>x.id===id);row[f]=v;if(f==='op'){markUnsaved();renderLabor(draft);recalc();}else{markUnsaved();}}
+function updLabText(id,f,v){
+  const row=draft.labor.find(x=>x.id===id);
+  row[f]=v;
+  if(f==='op'){
+    // Auto-carica il rate dall'operazione se esiste in LABOR_RATES
+    if(v && LABOR_RATES[v] && !LABOR_INT_OPS.has(v) && v !== 'Filettatura interna') {
+      row.rate = LABOR_RATES[v].cpm || 0;
+    }
+    markUnsaved();renderLabor(draft);recalc();
+  } else {
+    markUnsaved();
+  }
+}
 function updLab(id,f,v){const row=draft.labor.find(x=>x.id===id);row[f]=v;if(f==='operator'&&LABOR_RATES[v]){row.rate=LABOR_RATES[v].cpm||LABOR_RATES[v]||0;row.setup=LABOR_RATES[v].setup||0;}markUnsaved();renderLabor(draft);recalc();}
 const LABOR_INT_OPS = new Set(['Filettatura esterna','Fresatura esterna','Tornitura esterna']);
 function filettTotal(r) {
@@ -3144,21 +3168,34 @@ function renderFilettRates() {
 }
 
 function renderLaborRates() {
-  const rows = OPS.map(op => {
+  const figure = ['Operaio','Fresatore','Tornitore','Piegatore','Montatore','Tecnico','Programmatore','Saldatore','Capo Reparto'];
+  const operazioni = ['Foratura','Fresatura interna','Sbavatura/Satinatura','Svasatura','Tornitura interna'];
+
+  const makeRows = (list) => list.map(op => {
     const r = LABOR_RATES[op] || {};
     return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:10px 16px;font-size:13px;font-weight:500;white-space:nowrap;">${op}</td>
-      <td style="padding:6px 8px;"><input type="number" value="${r.cpm||0}" min="0" step="0.01"
-        style="padding:6px 8px;font-size:12px;border:1.5px solid var(--border);border-radius:6px;text-align:right;width:100%;min-width:70px;" onchange="LABOR_RATES['${op}'] = LABOR_RATES['${op}']||{}; LABOR_RATES['${op}'].cpm=+this.value; saveLaborRates()" onfocus="this.select()"></td>
+      <td style="padding:6px 8px;"><input type="number" value="${+(((r.cpm||0)*60).toFixed(2))}" min="0" step="0.5"
+        style="padding:6px 8px;font-size:12px;border:1.5px solid var(--border);border-radius:6px;text-align:right;width:100%;min-width:70px;"
+        onchange="LABOR_RATES['${op}'] = LABOR_RATES['${op}']||{}; LABOR_RATES['${op}'].cpm=+this.value/60; saveLaborRates()" onfocus="this.select()"></td>
     </tr>`;
   }).join('');
+
   document.getElementById('laborRatesBody').innerHTML = `
     <table style="width:100%;border-collapse:collapse;">
       <thead><tr style="background:var(--accent-light);">
-        <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);">Figura</th>
+        <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);">Figure</th>
         <th style="text-align:center;padding:10px 8px;min-width:120px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);">€/ora</th>
       </tr></thead>
-      <tbody>${rows}</tbody>
+      <tbody>${makeRows(figure)}</tbody>
+    </table>
+    <div style="margin-top:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);padding:0 4px 8px;">Operazioni interne</div>
+    <table style="width:100%;border-collapse:collapse;">
+      <thead><tr style="background:#f0fdf4;">
+        <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#16a34a;">Operazione</th>
+        <th style="text-align:center;padding:10px 8px;min-width:120px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#16a34a;">€/ora</th>
+      </tr></thead>
+      <tbody>${makeRows(operazioni)}</tbody>
     </table>`;
 }
 
