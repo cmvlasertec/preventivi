@@ -1392,8 +1392,21 @@ function collectParams() {
   return out;
 }
 function applyParams(params) {
+  // Non ricaricare se siamo già in un reload post-parametri
+  if (localStorage.getItem('ppro_params_reloaded') === '1') {
+    localStorage.removeItem('ppro_params_reloaded');
+    Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
+    return;
+  }
+  const before = JSON.stringify(collectParams());
   Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
-  if (typeof reloadRatesFromStorage === 'function') reloadRatesFromStorage();
+  const after = JSON.stringify(collectParams());
+  // Se i parametri dal server differiscono da quelli locali, ricarica la pagina
+  // così tutte le variabili in memoria si reinizializzano coi valori aggiornati
+  if (before !== after) {
+    localStorage.setItem('ppro_params_reloaded', '1');
+    location.reload();
+  }
 }
 
 // SCRITTURA: JSONP via GET con payload — stesso meccanismo della lettura, funziona con doGet
@@ -1455,33 +1468,16 @@ async function gsSavePreventivi() {
   if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
   else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
 }
-let _paramsSaving = false; // flag: salvataggio parametri in corso
-let _paramsSaveTimer = null; // debounce timer
-
-function scheduleParamsSave() {
-  clearTimeout(_paramsSaveTimer);
-  _paramsSaveTimer = setTimeout(() => { gsSaveParametri(); }, 1500);
-}
-
 async function gsSaveParametri() {
+  // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
   const params = collectParams();
-  _paramsSaving = true;
-  // Separa ppro_laser_full — troppo grande per una URL
-  const laserFull = params['ppro_laser_full'];
-  const paramsSmall = Object.assign({}, params);
-  delete paramsSmall['ppro_laser_full'];
-  // Salva tutti i parametri piccoli in una sola chiamata
-  if (Object.keys(paramsSmall).length > 0) {
-    await gsCall({ action: 'saveParametriChunk', data: paramsSmall });
+  const keys = Object.keys(params);
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i];
+    const chunk = {};
+    chunk[k] = params[k];
+    await gsCall({ action: 'saveParametriChunk', data: chunk });
   }
-  // Salva laser_full separatamente se non è troppo grande
-  if (laserFull) {
-    const laserPayload = encodeURIComponent(JSON.stringify({ action: 'saveParametriChunk', data: { ppro_laser_full: laserFull } }));
-    if (laserPayload.length < 7000) {
-      await gsCall({ action: 'saveParametriChunk', data: { ppro_laser_full: laserFull } });
-    }
-  }
-  _paramsSaving = false;
 }
 async function gsLoadAll() {
   const preventivi = await gsGet('getPreventivi');
@@ -1490,14 +1486,11 @@ async function gsLoadAll() {
     localStorage.setItem('ppro_v2', JSON.stringify(quotes));
     updateHomeStats();
   }
-  // Non sovrascrivere i parametri se un salvataggio è in corso
-  if (!_paramsSaving) {
-    const params = await gsGet('getParametri');
-    if (params && typeof params === 'object' && !params.error) {
-      applyParams(params);
-    }
+  const params = await gsGet('getParametri');
+  if (params && typeof params === 'object' && !params.error) {
+    applyParams(params);
   }
-  if (preventivi) showToast('Dati caricati da Google Sheets ✓');
+  if (preventivi || params) showToast('Dati caricati da Google Sheets ✓');
 }
 
 // Carica all'avvio se URL configurato
@@ -2039,7 +2032,7 @@ const FILETT_TIPI = ['Fino a M4', 'Da M5 a M10', 'Da M12 a M36', 'Tempo'];
 const FILETT_RATES = window._FILETT_RATES_INIT;
 function saveFilettRates(andClose) {
   localStorage.setItem('ppro_filett_rates', JSON.stringify(FILETT_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe filettatura salvate ✓');
   if (andClose) window.close();
 }
@@ -2483,7 +2476,7 @@ const MATERIAL_RATES = window._MATERIAL_RATES_INIT || JSON.parse(JSON.stringify(
 
 function saveMaterialRates(andClose) {
   localStorage.setItem('ppro_material_rates', JSON.stringify(MATERIAL_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Prezzi materiali salvati ✓');
   if (andClose) window.close();
 }
@@ -2533,7 +2526,7 @@ OPS.forEach(op => { DEFAULT_PIAZZAMENTO_RATES[op] = 0; });
 const PIAZZAMENTO_RATES = window._PIAZZAMENTO_RATES_INIT || Object.assign({}, DEFAULT_PIAZZAMENTO_RATES);
 function savePiazzamentoRates(andClose) {
   localStorage.setItem('ppro_piazzamento_rates', JSON.stringify(PIAZZAMENTO_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe piazzamento salvate ✓');
   if (andClose) window.close();
 }
@@ -2656,7 +2649,7 @@ const ALTRI_RATES = Object.assign(
 );
 function saveAltriRates() {
   localStorage.setItem('ppro_altri_rates', JSON.stringify(ALTRI_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Costi aggiuntivi salvati ✓');
 }
 function renderAltriCats() {
@@ -2675,7 +2668,7 @@ function renderAltriCats() {
 
 function saveLaborRates(andClose) {
   localStorage.setItem('ppro_labor_rates', JSON.stringify(LABOR_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe manodopera salvate ✓');
   if (andClose) window.close();
 }
@@ -2683,7 +2676,7 @@ function saveLaserFull(andClose) {
   localStorage.setItem('ppro_laser_full', JSON.stringify(LASER_FULL));
   syncLaserTable();
   if (draft) { renderLaser(draft); recalc(); }
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Parametri laser salvati ✓');
   if (andClose) window.close();
 }
@@ -2697,7 +2690,7 @@ const DEFAULT_LASER_EXT_RATES = {kg:0, m:0, pz:0};
 const LASER_EXT_RATES = window._LASER_EXT_RATES_INIT;
 function saveLaserExtRates() {
   localStorage.setItem('ppro_laser_ext_rates', JSON.stringify(LASER_EXT_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe taglio esterno salvate ✓');
 }
 function renderLaserExtRates() {
@@ -2761,7 +2754,7 @@ function saveTuboExtRates(andClose) {
   localStorage.setItem('ppro_tubo_ext_rates', JSON.stringify(TUBO_EXT_RATES));
   localStorage.setItem('ppro_tubo_int_rate', String(TUBO_INT_RATE));
   localStorage.setItem('ppro_tubo_sega_rate', String(TUBO_SEGA_RATE));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe taglio tubo salvate ✓');
   if (andClose) window.close();
 }
@@ -2928,7 +2921,7 @@ function savePiegaRates(andClose) {
   const elPC = document.getElementById('piegaComplessaRateInput'); if (elPC) PIEGA_RATE_COMPLESSA = +elPC.value;
   localStorage.setItem('ppro_piega_rate_semplice', String(PIEGA_RATE_SEMPLICE));
   localStorage.setItem('ppro_piega_rate_complessa', String(PIEGA_RATE_COMPLESSA));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe piega salvate ✓');
   if (andClose) window.close();
 }
@@ -3020,7 +3013,7 @@ let SALDATURA_RATE = window._SALDATURA_RATE_INIT;
 function saveSaldaturaRates(andClose) {
   const elS = document.getElementById('saldaturaRateInput'); if (elS) SALDATURA_RATE = +elS.value;
   localStorage.setItem('ppro_saldatura_rate', String(SALDATURA_RATE));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffa saldatura salvata ✓');
   if (andClose) window.close();
 }
