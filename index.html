@@ -1276,8 +1276,11 @@ function init() {
   // Restore last page on refresh
   const lastPage = sessionStorage.getItem('ppro_current_page');
   if (lastPage === 'page-saved') {
-    showPage('page-saved'); renderGrid();
+    showPage('page-saved');
     document.getElementById('breadcrumb').innerHTML = '<span class="sep">›</span><span class="crumb">Preventivi Salvati</span>';
+    // Mostra subito i dati locali, poi aggiorna quando arrivano quelli dal server
+    renderGrid();
+    if (GS_URL) gsLoadAll().then(() => renderGrid());
   } else {
     showPage('page-home');
   }
@@ -1492,6 +1495,8 @@ async function gsLoadAll() {
     quotes = preventivi;
     localStorage.setItem('ppro_v2', JSON.stringify(quotes));
     updateHomeStats();
+    // Aggiorna la griglia se siamo sulla pagina preventivi salvati
+    if (document.getElementById('quotesGrid')) renderGrid();
   }
   // Non sovrascrivere i parametri se un salvataggio è in corso
   if (!_paramsSaving) {
@@ -1500,11 +1505,11 @@ async function gsLoadAll() {
       applyParams(params);
     }
   }
-  if (preventivi) showToast('Dati caricati da Google Sheets ✓');
+  if (preventivi && preventivi.length > 0) showToast('Dati caricati da Google Sheets ✓');
 }
 
-// Carica all'avvio se URL configurato
-if (GS_URL) gsLoadAll();
+// Carica all'avvio solo se NON siamo su page-saved (lì lo fa già init con .then)
+if (GS_URL && sessionStorage.getItem('ppro_current_page') !== 'page-saved') gsLoadAll();
 
 // Polling ogni 20 secondi per vedere i preventivi degli altri
 setInterval(async () => {
