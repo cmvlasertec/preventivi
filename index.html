@@ -1758,6 +1758,7 @@ function updateMeta() {
 
 let deleteMode = false;
 let selectedIds = new Set();
+let exportMode = false;
 
 function toggleDeleteMode() {
   deleteMode = !deleteMode;
@@ -1890,7 +1891,7 @@ function deleteAll() {
   quotes = []; saveAll(); selectedIds.clear(); deleteMode = false;
   renderGrid(); renderDeleteBar(); updateHomeStats();
 }
-const MATS=['Aisi 304','Aisi 316','Alluminio 6060','Alluminio 7075','Commerciale','Ferro S235 JR','Ferro S355 JR','Ghisa','Nylon','Ottone','Plastica','Rame','Titanio','Altro'];
+const MATS=['Aisi 304','Aisi 316','Alluminio 6060','Alluminio 7075','Commerciale','Ferro S235 JR','Ferro S355 JR','Ghisa','Nylon','Ottone','Plastica','Prezincata','Rame','Titanio','Altro'];
 const UMS=['kg','g','mm','cm','m','m²','m³','pz','lt'];
 function addMaterial(){draft.materials.push({id:uid(),desc:'',mat:'',qty:0,um:'kg',qtyMode:'unitario',price:0,scrap:0});markUnsaved();renderMaterials(draft);recalc();}
 function delMat(id){draft.materials=draft.materials.filter(x=>x.id!==id);markUnsaved();renderMaterials(draft);recalc();}
@@ -2008,7 +2009,7 @@ function renderPiazzamento(q){
 
 // LABOR
 const LABOR_OPS = ['','Filettatura esterna','Filettatura interna','Foratura','Fresatura esterna','Fresatura interna','Sbavatura/Satinatura','Svasatura','Tornitura esterna','Tornitura interna','Altro'];
-const OPS=['Fresatore','Montatore','Operaio','Piegatore','Progettista','Saldatore','Sviluppatore','Tornitore','Altro'];
+const OPS=['Fresatore','Montatore','Operaio','Piegatore','Progettista','Saldatore','Sviluppatore','Tornitore','Trapanista','Altro'];
 
 // DEFAULT LABOR RATES (€/ora, stored as cpm internally)
 const DEFAULT_LABOR_RATES = {
