@@ -382,6 +382,7 @@ textarea { resize: vertical; min-height: 72px; }
     </div>
     <button class="btn btn-danger btn-sm" onclick="toggleDeleteMode()" id="deleteModeBtn">🗑 Cancella</button>
     <button class="btn btn-danger btn-sm" onclick="deleteAll()" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5">⚠ Cancella tutto</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleDuplicaMode()" id="duplicaModeBtn" style="background:#f5f3ff;color:#7c3aed;border-color:#c4b5fd;">⎘ Duplica</button>
     <button class="btn btn-secondary btn-sm" onclick="toggleExportMode()" id="exportModeBtn" style="background:#f0fdf4;color:#059669;border-color:#6ee7b7;">📊 Export Excel</button>
     <button class="btn btn-primary" onclick="newQuote()">＋ Nuovo</button>
   </div>
@@ -396,6 +397,10 @@ textarea { resize: vertical; min-height: 72px; }
   <button class="btn btn-secondary btn-sm" onclick="selectAllExport()">Seleziona tutti</button>
   <button class="btn btn-sm" id="confirmExportBtn" onclick="exportExcel()" disabled style="background:#059669;color:#fff;border-color:#059669;">📊 Genera Excel</button>
   <button class="btn btn-ghost btn-sm" onclick="toggleExportMode()">✕ Annulla</button>
+</div>
+<div class="delete-action-bar hidden" id="duplicaBar">
+  <span class="bar-label">Modalità duplica — <strong>clicca un preventivo per duplicarlo</strong></span>
+  <button class="btn btn-ghost btn-sm" onclick="toggleDuplicaMode()">✕ Annulla</button>
 </div>
 <div class="quotes-grid" id="quotesGrid"></div>
 </div>
@@ -1300,7 +1305,7 @@ function renderGrid(filter) {
     const dc={draft:'d-draft',sent:'d-sent',accepted:'d-accepted'}[q.status];
     const isSel = selectedIds.has(q.id);
     const isExpSel = exportIds.has(q.id);
-    const clickAction = deleteMode ? `toggleSelect('${q.id}')` : exportMode ? `toggleExportSelect('${q.id}')` : `openQuote('${q.id}')`;
+    const clickAction = deleteMode ? `toggleSelect('${q.id}')` : exportMode ? `toggleExportSelect('${q.id}')` : duplicaMode ? `duplicaFromList('${q.id}')` : `openQuote('${q.id}')`;
     return `<div class="qcard ${deleteMode?'delete-mode':''} ${isSel?'selected':''} ${isExpSel?'export-selected':''}" data-id="${q.id}" onclick="${clickAction}">
       ${deleteMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isSel?'checked':''}">✓</div></div>`:''}
       ${exportMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isExpSel?'checked':''}">✓</div></div>`:''}
@@ -1728,8 +1733,36 @@ function toggleDeleteMode() {
   renderDeleteBar();
 }
 
-// ── EXPORT MODE ──
-let exportMode = false;
+// ── DUPLICA MODE ──
+let duplicaMode = false;
+
+function toggleDuplicaMode() {
+  duplicaMode = !duplicaMode;
+  if (duplicaMode && deleteMode) { deleteMode = false; renderDeleteBar(); }
+  if (duplicaMode && exportMode) { exportMode = false; document.getElementById('exportBar').classList.add('hidden'); }
+  renderGrid();
+  document.getElementById('duplicaBar').classList.toggle('hidden', !duplicaMode);
+  document.getElementById('duplicaModeBtn').style.background = duplicaMode ? '#7c3aed' : '#f5f3ff';
+  document.getElementById('duplicaModeBtn').style.color = duplicaMode ? '#fff' : '#7c3aed';
+}
+
+function duplicaFromList(id) {
+  const q = quotes.find(x => x.id === id);
+  if (!q) return;
+  const copy = JSON.parse(JSON.stringify(q));
+  copy.id = Date.now().toString();
+  copy.name = (copy.name || copy.code || 'Preventivo') + ' (copia)';
+  copy.code = (copy.code || '') + '-COPIA';
+  copy.status = 'draft';
+  delete copy._new;
+  delete copy._savedTotal;
+  delete copy._savedUnit;
+  quotes.push(copy);
+  saveAll();
+  updateHomeStats();
+  toggleDuplicaMode();
+  showToast('Preventivo duplicato ✓');
+}
 let _editorOrigin = "page-home";
 const exportIds = new Set();
 
@@ -2525,7 +2558,6 @@ const DEFAULT_MACHINE_RATES = {
   window._MACHINE_RATES_INIT = migrated;
 })();
 const MACHINE_RATES = window._MACHINE_RATES_INIT || JSON.parse(JSON.stringify(DEFAULT_MACHINE_RATES));
-gsSaveParametri();
 function saveMachineRates(andClose){ localStorage.setItem('ppro_machine_rates',JSON.stringify(MACHINE_RATES)); showToast('Tariffe macchinari salvate ✓'); if (andClose) window.close(); }
 function renderMachineRates(){
   const rows = MCHS.map(m => {
@@ -2553,7 +2585,6 @@ const DEFAULT_TREAT_RATES = {'Anodizzazione':9,'Brunitura':2.5,'Cromatura':22,'F
 const TREAT_RATES = Object.assign({}, DEFAULT_TREAT_RATES, JSON.parse(localStorage.getItem('ppro_treat_rates')||'null')||{});
 const TREAT_UMS = Object.assign({}, DEFAULT_TREAT_UMS, JSON.parse(localStorage.getItem('ppro_treat_ums')||'null')||{});
 const TREAT_SETUP = Object.assign({}, DEFAULT_TREAT_SETUP, JSON.parse(localStorage.getItem('ppro_treat_setup')||'null')||{});
-gsSaveParametri();
 function saveTreatRates(andClose){ localStorage.setItem('ppro_treat_rates',JSON.stringify(TREAT_RATES)); localStorage.setItem('ppro_treat_ums',JSON.stringify(TREAT_UMS)); localStorage.setItem('ppro_treat_setup',JSON.stringify(TREAT_SETUP)); showToast('Tariffe trattamenti salvate ✓'); if (andClose) window.close(); }
 function renderTreatRates(){
   document.getElementById('treatRatesBody').innerHTML = TREAT_TYPES.map(t=>`
@@ -2571,7 +2602,6 @@ function renderTreatRates(){
 const TRANSPORT_VEHICLES = ['Autocarro','Camion leggero','Camion pesante','Corriere','Furgone','Altro'];
 const DEFAULT_TRANSPORT_RATES = {'Furgone':{ammKm:0.35,driverRate:25},'Camion leggero':{ammKm:0.55,driverRate:28},'Camion pesante':{ammKm:0.90,driverRate:32},'Autocarro':{ammKm:1.20,driverRate:35},'Corriere':{ammKm:0.30,driverRate:22},'Altro':{ammKm:0.40,driverRate:25}};
 const TRANSPORT_RATES = JSON.parse(JSON.stringify(Object.assign({}, DEFAULT_TRANSPORT_RATES, JSON.parse(localStorage.getItem('ppro_transport_rates')||'null')||{})));
-gsSaveParametri();
 function saveTransportRates(andClose){ localStorage.setItem('ppro_transport_rates',JSON.stringify(TRANSPORT_RATES)); showToast('Tariffe trasporto salvate ✓'); ; if (andClose) window.close(); }
 function renderTransportRates(){
   document.getElementById('transportRatesBody').innerHTML = TRANSPORT_VEHICLES.map(v=>`
@@ -2585,7 +2615,6 @@ function renderTransportRates(){
 // FIXED COST RATES (€/month)
 const DEFAULT_FIXED_RATES = {'Affitto capannone':2500,'Utenze (luce/gas/acqua)':800,'Assicurazioni':300,'Leasing macchinari':1200,'Manutenzione impianti':400,'Ammortamento attrezzature':500,'Telefono / Internet':80,'Software / Licenze':150,'Smaltimento rifiuti':200,'Altro':0};
 const FIXED_RATES = Object.assign({}, DEFAULT_FIXED_RATES, JSON.parse(localStorage.getItem('ppro_fixed_rates')||'null')||{});
-gsSaveParametri();
 function saveFixedRates(andClose){ localStorage.setItem('ppro_fixed_rates',JSON.stringify(FIXED_RATES)); showToast('Costi fissi salvati ✓'); ; if (andClose) window.close(); }
 function renderFixedRates(){
   document.getElementById('fixedRatesBody').innerHTML = FIXED_TYPES.map(t=>`
