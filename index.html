@@ -1384,8 +1384,9 @@ function collectParams() {
     'ppro_piazzamento_rates','ppro_machine_rates','ppro_treat_rates',
     'ppro_treat_ums','ppro_treat_setup','ppro_transport_rates',
     'ppro_fixed_rates','ppro_laser_full','ppro_laser_ext_rates',
-    'ppro_tubo_ext_rates','ppro_tubo_int_rate','ppro_piega_rate_semplice',
-    'ppro_piega_rate_complessa','ppro_saldatura_rate'
+    'ppro_tubo_ext_rates','ppro_tubo_int_rate','ppro_tubo_sega_rate',
+    'ppro_piega_rate_semplice','ppro_piega_rate_complessa',
+    'ppro_saldatura_rate','ppro_altri_rates'
   ];
   const out = {};
   keys.forEach(k => { const v = localStorage.getItem(k); if (v !== null) out[k] = v; });
@@ -1451,6 +1452,8 @@ async function gsGet(action) {
 
 
 async function gsSavePreventivi() {
+  const payload = encodeURIComponent(JSON.stringify({ action: 'savePreventivi', data: quotes }));
+  console.log('Payload size:', payload.length, 'chars');
   const res = await gsCall({ action: 'savePreventivi', data: quotes });
   if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
   else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
@@ -2582,7 +2585,7 @@ const DEFAULT_MACHINE_RATES = {
   window._MACHINE_RATES_INIT = migrated;
 })();
 const MACHINE_RATES = window._MACHINE_RATES_INIT || JSON.parse(JSON.stringify(DEFAULT_MACHINE_RATES));
-function saveMachineRates(andClose){ localStorage.setItem('ppro_machine_rates',JSON.stringify(MACHINE_RATES)); showToast('Tariffe macchinari salvate ✓'); if (andClose) window.close(); }
+function saveMachineRates(andClose){ localStorage.setItem('ppro_machine_rates',JSON.stringify(MACHINE_RATES)); scheduleParamsSave(); showToast('Tariffe macchinari salvate ✓'); if (andClose) window.close(); }
 function renderMachineRates(){
   const rows = MCHS.map(m => {
     const r = MACHINE_RATES[m] || {};
@@ -2609,7 +2612,7 @@ const DEFAULT_TREAT_RATES = {'Anodizzazione':9,'Brunitura':2.5,'Cromatura':22,'F
 const TREAT_RATES = Object.assign({}, DEFAULT_TREAT_RATES, JSON.parse(localStorage.getItem('ppro_treat_rates')||'null')||{});
 const TREAT_UMS = Object.assign({}, DEFAULT_TREAT_UMS, JSON.parse(localStorage.getItem('ppro_treat_ums')||'null')||{});
 const TREAT_SETUP = Object.assign({}, DEFAULT_TREAT_SETUP, JSON.parse(localStorage.getItem('ppro_treat_setup')||'null')||{});
-function saveTreatRates(andClose){ localStorage.setItem('ppro_treat_rates',JSON.stringify(TREAT_RATES)); localStorage.setItem('ppro_treat_ums',JSON.stringify(TREAT_UMS)); localStorage.setItem('ppro_treat_setup',JSON.stringify(TREAT_SETUP)); showToast('Tariffe trattamenti salvate ✓'); if (andClose) window.close(); }
+function saveTreatRates(andClose){ localStorage.setItem('ppro_treat_rates',JSON.stringify(TREAT_RATES)); localStorage.setItem('ppro_treat_ums',JSON.stringify(TREAT_UMS)); localStorage.setItem('ppro_treat_setup',JSON.stringify(TREAT_SETUP)); scheduleParamsSave(); showToast('Tariffe trattamenti salvate ✓'); if (andClose) window.close(); }
 function renderTreatRates(){
   document.getElementById('treatRatesBody').innerHTML = TREAT_TYPES.map(t=>`
     <div class="params-table-row" style="grid-template-columns:1fr 130px 90px;">
@@ -2626,7 +2629,7 @@ function renderTreatRates(){
 const TRANSPORT_VEHICLES = ['Autocarro','Camion leggero','Camion pesante','Corriere','Furgone','Altro'];
 const DEFAULT_TRANSPORT_RATES = {'Furgone':{ammKm:0.35,driverRate:25},'Camion leggero':{ammKm:0.55,driverRate:28},'Camion pesante':{ammKm:0.90,driverRate:32},'Autocarro':{ammKm:1.20,driverRate:35},'Corriere':{ammKm:0.30,driverRate:22},'Altro':{ammKm:0.40,driverRate:25}};
 const TRANSPORT_RATES = JSON.parse(JSON.stringify(Object.assign({}, DEFAULT_TRANSPORT_RATES, JSON.parse(localStorage.getItem('ppro_transport_rates')||'null')||{})));
-function saveTransportRates(andClose){ localStorage.setItem('ppro_transport_rates',JSON.stringify(TRANSPORT_RATES)); showToast('Tariffe trasporto salvate ✓'); ; if (andClose) window.close(); }
+function saveTransportRates(andClose){ localStorage.setItem('ppro_transport_rates',JSON.stringify(TRANSPORT_RATES)); scheduleParamsSave(); showToast('Tariffe trasporto salvate ✓'); if (andClose) window.close(); }
 function renderTransportRates(){
   document.getElementById('transportRatesBody').innerHTML = TRANSPORT_VEHICLES.map(v=>`
     <div class="params-table-row" style="grid-template-columns:1fr 140px;">
@@ -2639,7 +2642,7 @@ function renderTransportRates(){
 // FIXED COST RATES (€/month)
 const DEFAULT_FIXED_RATES = {'Affitto capannone':2500,'Utenze (luce/gas/acqua)':800,'Assicurazioni':300,'Leasing macchinari':1200,'Manutenzione impianti':400,'Ammortamento attrezzature':500,'Telefono / Internet':80,'Software / Licenze':150,'Smaltimento rifiuti':200,'Altro':0};
 const FIXED_RATES = Object.assign({}, DEFAULT_FIXED_RATES, JSON.parse(localStorage.getItem('ppro_fixed_rates')||'null')||{});
-function saveFixedRates(andClose){ localStorage.setItem('ppro_fixed_rates',JSON.stringify(FIXED_RATES)); showToast('Costi fissi salvati ✓'); ; if (andClose) window.close(); }
+function saveFixedRates(andClose){ localStorage.setItem('ppro_fixed_rates',JSON.stringify(FIXED_RATES)); scheduleParamsSave(); showToast('Costi fissi salvati ✓'); if (andClose) window.close(); }
 function renderFixedRates(){
   document.getElementById('fixedRatesBody').innerHTML = FIXED_TYPES.map(t=>`
     <div class="params-table-row" style="grid-template-columns:1fr 140px;">
