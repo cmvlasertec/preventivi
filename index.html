@@ -1409,20 +1409,35 @@ function applyParams(params) {
   }
 }
 
-// SCRITTURA: POST con no-cors — dati nel body, nessun limite dimensione, nessun blocco CORS
+// SCRITTURA: JSONP via GET con payload — stesso meccanismo della lettura, funziona con doGet
 async function gsCall(body) {
   if (!GS_URL) return null;
-  try {
-    await fetch(GS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      body: JSON.stringify(body)
-    });
-    return { ok: true };
-  } catch(e) {
-    console.warn('gsCall error:', e);
-    return null;
-  }
+  return new Promise((resolve) => {
+    const cbName = 'gsCall_' + Date.now() + '_' + Math.random().toString(36).substr(2,5);
+    const script = document.createElement('script');
+    const payload = encodeURIComponent(JSON.stringify(body));
+    let done = false;
+    window[cbName] = (data) => {
+      if (done) return; done = true;
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      resolve(data);
+    };
+    script.onerror = () => {
+      if (done) return; done = true;
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      resolve(null);
+    };
+    setTimeout(() => {
+      if (done) return; done = true;
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      resolve(null);
+    }, 30000);
+    script.src = GS_URL + '?callback=' + cbName + '&payload=' + payload;
+    document.head.appendChild(script);
+  });
 }
 
 // LETTURA: JSONP — necessario per leggere i dati
@@ -1448,8 +1463,9 @@ async function gsGet(action) {
 
 
 async function gsSavePreventivi() {
-  await gsCall({ action: 'savePreventivi', data: quotes });
-  showToast('Salvato su Google Sheets ✓');
+  const res = await gsCall({ action: 'savePreventivi', data: quotes });
+  if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
+  else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
 }
 async function gsSaveParametri() {
   // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
