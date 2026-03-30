@@ -9,218 +9,278 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f7f8fc;
+  --bg: #f4f6f9;
   --white: #ffffff;
-  --border: #e3e6ef;
-  --accent: #2563eb;
-  --accent-light: #eff4ff;
-  --accent-dark: #1d4ed8;
-  --text: #111827;
-  --text2: #374151;
-  --muted: #9ca3af;
-  --success: #059669;
-  --success-bg: #ecfdf5;
-  --danger: #dc2626;
-  --danger-bg: #fef2f2;
-  --warn: #d97706;
-  --warn-bg: #fffbeb;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow: 0 4px 16px rgba(0,0,0,0.08);
-  --radius: 12px;
-  --radius-sm: 8px;
+  --border: #e2e8f0;
+  --border-light: #edf2f7;
+  --accent: #3b5bdb;
+  --accent-light: #eef2ff;
+  --accent-dark: #2f4ac0;
+  --accent-muted: #748ffc;
+  --text: #1a202c;
+  --text2: #4a5568;
+  --muted: #a0aec0;
+  --success: #2f9e44;
+  --success-bg: #ebfbee;
+  --danger: #e03131;
+  --danger-bg: #fff5f5;
+  --warn: #e67700;
+  --warn-bg: #fff9db;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+  --shadow: 0 4px 20px rgba(0,0,0,0.07);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.10);
+  --radius: 10px;
+  --radius-sm: 7px;
+  --radius-lg: 14px;
 }
 
 body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; font-size: 14px; line-height: 1.5; }
 .hidden { display: none !important; }
 
-/* HEADER */
-.app-header { background: var(--white); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; padding: 0 28px; gap: 16px; position: sticky; top: 0; z-index: 200; box-shadow: var(--shadow-sm); }
-.logo { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; cursor: pointer; user-select: none; }
-.logo em { color: var(--text); font-style: normal; }
-.header-breadcrumb { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+/* ── HEADER ── */
+.app-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.logo { font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; cursor: pointer; user-select: none; }
+.logo em { color: var(--text2); font-style: normal; font-weight: 600; }
+.header-breadcrumb { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 13px; }
 .header-breadcrumb .sep { color: var(--border); }
 .header-breadcrumb .crumb { color: var(--text2); font-weight: 500; }
-.header-right { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+.header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
 
-/* BUTTONS */
-.btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: var(--radius-sm); border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; transition: all 0.15s; white-space: nowrap; }
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-sm); border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
 .btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent-dark); box-shadow: 0 2px 8px rgba(37,99,235,0.35); }
+.btn-primary:hover { background: var(--accent-dark); box-shadow: 0 2px 8px rgba(59,91,219,0.3); }
 .btn-secondary { background: var(--white); color: var(--text2); border: 1px solid var(--border); }
 .btn-secondary:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
-.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 8px 14px; }
-.btn-ghost:hover { background: var(--bg); color: var(--text); }
-.btn-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #fecaca; }
+.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); padding: 7px 14px; }
+.btn-ghost:hover { background: var(--bg); color: var(--text2); }
+.btn-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #ffc9c9; }
 .btn-danger:hover { background: var(--danger); color: #fff; }
-.btn-sm { padding: 7px 14px; font-size: 12px; }
-.btn-icon { background: none; border: none; cursor: pointer; color: var(--muted); padding: 6px; border-radius: 6px; transition: all 0.15s; font-size: 15px; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-icon { background: none; border: none; cursor: pointer; color: var(--muted); padding: 5px; border-radius: 5px; transition: all 0.15s; font-size: 15px; }
 .btn-icon:hover { background: var(--danger-bg); color: var(--danger); }
-.btn-add { background: transparent; border: 1.5px dashed var(--border); color: var(--muted); width: 100%; justify-content: center; margin-top: 10px; border-radius: var(--radius-sm); }
+.btn-add { background: transparent; border: 1.5px dashed var(--border); color: var(--muted); width: 100%; justify-content: center; margin-top: 10px; border-radius: var(--radius-sm); font-size: 12px; padding: 8px; }
 .btn-add:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
 
-/* ========== HOME ========== */
-#page-home { min-height: calc(100vh - 60px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
-.home-hero { text-align: center; margin-bottom: 48px; }
-.home-icon { width: 76px; height: 76px; background: var(--accent-light); border-radius: 22px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 24px; box-shadow: 0 0 0 10px rgba(37,99,235,0.06); }
-.home-title { font-family: 'Sora', sans-serif; font-size: 40px; font-weight: 800; color: var(--text); letter-spacing: -1.5px; margin-bottom: 14px; }
+/* ── HOME ── */
+#page-home { min-height: calc(100vh - 56px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+.home-hero { text-align: center; margin-bottom: 44px; }
+.home-icon { width: 68px; height: 68px; background: var(--accent-light); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin: 0 auto 20px; box-shadow: 0 0 0 8px rgba(59,91,219,0.07); }
+.home-title { font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; color: var(--text); letter-spacing: -1.2px; margin-bottom: 10px; }
 .home-title span { color: var(--accent); }
-.home-sub { font-size: 16px; color: var(--muted); max-width: 400px; margin: 0 auto; line-height: 1.7; }
-.home-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
-.home-btn { display: flex; flex-direction: column; align-items: center; gap: 14px; width: 230px; padding: 34px 24px; background: var(--white); border: 1.5px solid var(--border); border-radius: 18px; cursor: pointer; transition: all 0.2s; color: var(--text); box-shadow: var(--shadow-sm); }
-.home-btn:hover { border-color: #a5b4fc; box-shadow: 0 8px 28px rgba(37,99,235,0.13); transform: translateY(-4px); }
+.home-sub { font-size: 15px; color: var(--muted); max-width: 380px; margin: 0 auto; line-height: 1.6; }
+.home-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.home-btn { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 210px; padding: 28px 20px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); cursor: pointer; transition: all 0.18s; color: var(--text); box-shadow: var(--shadow-sm); }
+.home-btn:hover { border-color: var(--accent-muted); box-shadow: 0 6px 24px rgba(59,91,219,0.11); transform: translateY(-3px); }
 .home-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.home-btn.primary:hover { background: var(--accent-dark); box-shadow: 0 8px 28px rgba(37,99,235,0.38); }
-.hbi { width: 54px; height: 54px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
-.home-btn.primary .hbi { background: rgba(255,255,255,0.22); }
+.home-btn.primary:hover { background: var(--accent-dark); box-shadow: 0 6px 24px rgba(59,91,219,0.32); }
+.hbi { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.home-btn.primary .hbi { background: rgba(255,255,255,0.2); }
 .home-btn:not(.primary) .hbi { background: var(--accent-light); }
-.hbl { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 15px; text-align: center; }
-.hbd { font-size: 12px; text-align: center; opacity: 0.6; }
-.home-stats { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-.stat-chip { background: var(--white); border: 1px solid var(--border); border-radius: 50px; padding: 8px 18px; font-size: 13px; color: var(--text2); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 8px; }
+.hbl { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 14px; text-align: center; }
+.hbd { font-size: 11px; text-align: center; opacity: 0.6; }
+.home-stats { margin-top: 44px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+.stat-chip { background: var(--white); border: 1px solid var(--border); border-radius: 50px; padding: 7px 16px; font-size: 13px; color: var(--text2); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 7px; }
 .stat-chip strong { color: var(--accent); font-weight: 700; }
 
-/* ========== SAVED ========== */
-#page-saved { padding: 32px; max-width: 1100px; margin: 0 auto; }
-#page-laser { padding: 32px; max-width: 1100px; margin: 0 auto; }
-.page-top { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
-.page-title { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; flex: 1; letter-spacing: -0.5px; }
-.search-bar { display: flex; align-items: center; background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 0 12px; gap: 8px; width: 300px; transition: border-color 0.2s; box-shadow: var(--shadow-sm); }
-.search-bar:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-.search-bar input { border: none; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text); flex: 1; padding: 10px 0; }
+/* ── SAVED PAGE ── */
+#page-saved { padding: 28px 32px; max-width: 1120px; margin: 0 auto; }
+#page-laser { padding: 28px 32px; max-width: 1120px; margin: 0 auto; }
+.page-top { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.page-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 800; flex: 1; letter-spacing: -0.4px; }
+.search-bar { display: flex; align-items: center; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 12px; gap: 8px; width: 280px; transition: border-color 0.2s; box-shadow: var(--shadow-sm); }
+.search-bar:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,91,219,0.08); }
+.search-bar input { border: none; outline: none; background: transparent; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text); flex: 1; padding: 9px 0; }
 .search-bar input::placeholder { color: var(--muted); }
-.si { color: var(--muted); font-size: 15px; }
-.sc { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 14px; padding: 2px; transition: color 0.15s; }
+.si { color: var(--muted); font-size: 14px; }
+.sc { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 13px; padding: 2px; transition: color 0.15s; }
 .sc:hover { color: var(--text); }
-.quotes-grid { display: flex; flex-direction: column; gap: 0; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--white); box-shadow: var(--shadow-sm); }
-.qcard { background: var(--white); border-bottom: 1px solid var(--border); overflow: hidden; transition: background 0.15s; cursor: pointer; display: flex; align-items: center; }
+
+/* Quote cards */
+.quotes-grid { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--white); box-shadow: var(--shadow-sm); }
+.qcard { background: var(--white); border-bottom: 1px solid var(--border-light); overflow: hidden; transition: background 0.12s; cursor: pointer; display: flex; align-items: center; }
 .qcard:last-child { border-bottom: none; }
-.qcard:hover { background: #f8faff; }
-.qcard-top { padding: 11px 20px; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; border-bottom: none; }
-.qdot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.qcard:hover { background: #f8f9ff; }
+.qcard-top { padding: 13px 20px; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
+.qdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .d-draft { background: var(--muted); }
 .d-sent { background: var(--accent); }
 .d-accepted { background: var(--success); }
-.qcard-info { flex: 1; min-width: 0; display: flex; align-items: center; gap: 20px; }
-.qcard-name { font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 150px; max-width: 220px; }
+.qcard-info { flex: 1; min-width: 0; display: flex; align-items: center; gap: 18px; }
+.qcard-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 140px; max-width: 220px; }
 .qcard-client { font-size: 12px; color: var(--muted); white-space: nowrap; }
 .qcard-code { font-size: 11px; color: var(--muted); font-family: monospace; white-space: nowrap; }
-.badge { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 50px; }
-.b-draft { background: #f3f4f6; color: var(--muted); }
+.badge { font-size: 10px; font-weight: 600; padding: 2px 9px; border-radius: 50px; }
+.b-draft { background: #f1f3f5; color: var(--muted); }
 .b-sent { background: var(--accent-light); color: var(--accent); }
 .b-accepted { background: var(--success-bg); color: var(--success); }
-.qcard-bottom { padding: 11px 20px; display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-.qcard-total { font-size: 14px; font-weight: 800; color: var(--accent); white-space: nowrap; min-width: 80px; text-align: right; }
+.qcard-bottom { padding: 13px 20px; display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.qcard-total { font-size: 15px; font-weight: 700; color: var(--accent); white-space: nowrap; min-width: 90px; text-align: right; }
 .qcard-meta { font-size: 11px; color: var(--muted); white-space: nowrap; }
-.qcard-actions { display: flex; gap: 6px; }
-.empty-box { grid-column: 1/-1; text-align: center; padding: 72px 20px; color: var(--muted); }
-.empty-box-icon { font-size: 52px; margin-bottom: 16px; }
-.empty-box h3 { font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.qcard-actions { display: flex; gap: 5px; }
+.empty-box { grid-column: 1/-1; text-align: center; padding: 64px 20px; color: var(--muted); }
+.empty-box-icon { font-size: 48px; margin-bottom: 14px; }
+.empty-box h3 { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 700; color: var(--text2); margin-bottom: 6px; }
 
-/* ========== EDITOR ========== */
-#page-editor { display: flex; flex-direction: column; height: calc(100vh - 60px); overflow-y: auto; }
-.editor-toolbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 12px 24px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; position: sticky; top: 0; z-index: 50; }
-.editor-name { font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 700; border: none; outline: none; background: transparent; color: var(--text); flex: 1; min-width: 200px; border-bottom: 2px solid transparent; transition: border-color 0.2s; padding-bottom: 2px; }
+/* ── EDITOR ── */
+#page-editor { display: flex; flex-direction: column; height: calc(100vh - 56px); overflow-y: auto; }
+.editor-toolbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.editor-name { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; border: none; outline: none; background: transparent; color: var(--text); flex: 1; min-width: 200px; border-bottom: 2px solid transparent; transition: border-color 0.2s; padding-bottom: 2px; }
 .editor-name:focus { border-bottom-color: var(--accent); }
-.save-pill { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--warn); font-weight: 600; background: var(--warn-bg); padding: 6px 14px; border-radius: 50px; border: 1px solid #fde68a; }
-.save-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--warn); animation: pulse 1.5s infinite; }
-.saved-pill { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--success); font-weight: 600; }
+.save-pill { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--warn); font-weight: 600; background: var(--warn-bg); padding: 5px 12px; border-radius: 50px; border: 1px solid #ffe066; }
+.save-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warn); animation: pulse 1.5s infinite; }
+.saved-pill { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--success); font-weight: 600; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.editor-body { flex: 1; padding: 24px; }
-.editor-grid { display: grid; grid-template-columns: 1fr 360px; gap: 20px; align-items: start; max-width: 1300px; margin: 0 auto; }
+.editor-body { flex: 1; padding: 20px 24px; background: var(--bg); }
+.editor-grid { display: grid; grid-template-columns: 1fr 340px; gap: 18px; align-items: start; max-width: 1320px; margin: 0 auto; }
 
-/* CARDS */
-.card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 16px; overflow: hidden; }
-.card-head { padding: 14px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; transition: background 0.15s; }
-.card-head:hover { background: #fafbff; }
-.chi { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
-.ci-info{background:#eff6ff;} .ci-mat{background:#fff7ed;} .ci-lab{background:#f0fdf4;} .ci-mac{background:#fdf4ff;} .ci-treat{background:#fdf2ff;} .ci-ext{background:#fff1f2;} .ci-sum{background:#f0fdf4;}
-.param-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:24px 20px;cursor:pointer;transition:all 0.15s;box-shadow:var(--shadow-sm);}
-.param-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(37,99,235,0.1);}
-.param-card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:12px;}
-.param-card-title{font-weight:700;font-size:15px;color:var(--text);margin-bottom:4px;}
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.card-head { padding: 12px 18px; display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; transition: background 0.12s; }
+.card-head:hover { background: #f8f9ff; }
+.chi { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.ci-info{background:#e8f4ff;} .ci-mat{background:#fff4e6;} .ci-lab{background:#ebfbee;} .ci-mac{background:#f3f0ff;} .ci-treat{background:#fff0f6;} .ci-ext{background:#fff5f5;} .ci-sum{background:#ebfbee;}
+.param-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all 0.15s;box-shadow:var(--shadow-sm);}
+.param-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 16px rgba(59,91,219,0.1);}
+.param-card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px;}
+.param-card-title{font-weight:600;font-size:14px;color:var(--text);margin-bottom:3px;}
 .param-card-desc{font-size:12px;color:var(--muted);line-height:1.4;}
-.params-subpage-header{display:flex;align-items:center;gap:12px;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--border);}
-.params-subpage-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.params-subpage-title{font-size:20px;font-weight:800;margin:0;letter-spacing:-0.4px;}
-.params-table-wrap{background:var(--white);border:1.5px solid var(--border);border-radius:12px;overflow:hidden;}
-.params-table-head{background:var(--accent-light);padding:12px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);display:grid;gap:12px;}
-.params-table-row{display:grid;gap:12px;padding:10px 20px;border-bottom:1px solid var(--border);align-items:center;transition:background 0.1s;}
+.params-subpage-header{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+.params-subpage-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.params-subpage-title{font-size:18px;font-weight:800;margin:0;letter-spacing:-0.3px;}
+.params-table-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.params-table-head{background:var(--accent-light);padding:10px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.7px;color:var(--accent);display:grid;gap:12px;}
+.params-table-row{display:grid;gap:12px;padding:9px 18px;border-bottom:1px solid var(--border-light);align-items:center;transition:background 0.1s;}
 .params-table-row:last-child{border-bottom:none;}
-.params-table-row:hover{background:var(--bg);}
+.params-table-row:hover{background:#f8f9ff;}
 .params-table-row span{font-size:13px;font-weight:500;color:var(--text);}
-.params-hint{font-size:12px;color:var(--muted);margin-top:14px;padding-left:4px;}
-.card-head-title { font-weight: 700; font-size: 14px; flex: 1; color: var(--accent); }
-.card-head-total { font-size: 14px; font-weight: 700; color: var(--accent); }
-.chevron { color: var(--muted); font-size: 11px; transition: transform 0.2s; }
+.params-hint{font-size:12px;color:var(--muted);margin-top:12px;padding-left:4px;}
+.card-head-title { font-weight: 600; font-size: 14px; flex: 1; color: var(--text); }
+.card-head-total { font-size: 13px; font-weight: 700; color: var(--accent); }
+.chevron { color: var(--muted); font-size: 10px; transition: transform 0.2s; }
 .chevron.open { transform: rotate(180deg); }
-.card-body { padding: 18px 20px; border-top: 1px solid var(--border); }
+.card-body { padding: 16px 18px; border-top: 1px solid var(--border-light); }
 
-/* FORM */
-.fg { display: grid; gap: 14px; margin-bottom: 14px; }
+/* ── FORM ── */
+.fg { display: grid; gap: 12px; margin-bottom: 12px; }
 .g2{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr 1fr 1fr;} .g4{grid-template-columns:1fr 1fr 1fr 1fr;}
-.field { display: flex; flex-direction: column; gap: 5px; }
-.field label { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
-input[type=text],input[type=number],input[type=date],select,textarea { background: var(--bg); border: 1.5px solid var(--border); border-radius: var(--radius-sm); color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px; padding: 9px 12px; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
-input:focus,select:focus,textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.7px; }
+input[type=text],input[type=number],input[type=date],select,textarea {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 8px 11px;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+input:focus,select:focus,textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(59,91,219,0.08); }
 select { cursor: pointer; }
-textarea { resize: vertical; min-height: 72px; }
+textarea { resize: vertical; min-height: 68px; }
 .uw { position: relative; }
-.uw input { padding-right: 38px; }
-.un { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--muted); pointer-events: none; font-weight: 700; }
+.uw input { padding-right: 36px; }
+.un { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 11px; color: var(--muted); pointer-events: none; font-weight: 600; }
 
-/* TABLE */
+/* ── TABLE ── */
 .tbl { width: 100%; border-collapse: collapse; }
-.tbl th { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); padding: 8px 6px 10px; text-align: center; border-bottom: 1.5px solid var(--border); }
+.tbl th { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: var(--muted); padding: 7px 6px 9px; text-align: center; border-bottom: 1px solid var(--border); background: #fafbfc; }
 .tbl td { padding: 5px 3px; vertical-align: middle; }
-.tbl td input, .tbl td select { padding: 7px 9px; font-size: 12px; }
-.tbl tr:hover td { background: rgba(37,99,235,0.02); }
+.tbl td input, .tbl td select { padding: 6px 8px; font-size: 12px; }
+.tbl tbody tr:nth-child(even) td { background: #fafbfc; }
+.tbl tr:hover td { background: rgba(59,91,219,0.03) !important; }
 .tr-tot { font-size: 13px; font-weight: 700; color: var(--accent); text-align: right; white-space: nowrap; padding: 5px 8px; }
 
-/* SUMMARY */
-.sum-panel { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 22px; position: sticky; top: 72px; max-height: calc(100vh - 100px); overflow-y: auto; display: flex; flex-direction: column; }
+/* ── SUMMARY PANEL ── */
+.sum-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 18px;
+  position: sticky;
+  top: 68px;
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
 .sum-panel-rows { flex: 1; overflow-y: auto; }
-.sum-panel-actions { flex-shrink: 0; padding-top: 14px; display: flex; gap: 8px; }
-.sum-title { font-family: 'Sora', sans-serif; font-size: 15px; font-weight: 800; margin-bottom: 18px; letter-spacing: -0.3px; }
-.sum-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.sum-panel-actions { flex-shrink: 0; padding-top: 12px; display: flex; gap: 8px; }
+.sum-title { font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 14px; letter-spacing: -0.2px; color: var(--text); }
+.sum-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border-light); font-size: 12.5px; }
 .sum-row:last-child { border-bottom: none; }
-.sum-lbl { color: var(--muted); }
-.sum-val { font-weight: 600; font-family: monospace; font-size: 13px; }
-.sum-divider { border: none; border-top: 2px solid var(--border); margin: 2px 0; }
-.sum-total-row { padding: 14px 0 2px; }
-.sum-total-lbl { font-weight: 800; font-size: 14px; }
-.sum-total-val { font-size: 22px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
-.sum-unit-box { background: var(--accent-light); border-radius: 9px; padding: 11px 14px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; }
-.sum-unit-lbl { font-size: 12px; color: var(--accent); font-weight: 600; }
-.sum-unit-val { font-size: 16px; font-weight: 800; color: var(--accent); }
+.sum-lbl { color: var(--text2); }
+.sum-val { font-weight: 600; font-family: monospace; font-size: 12.5px; color: var(--text); }
+.sum-divider { border: none; border-top: 1px solid var(--border); margin: 3px 0; }
+.sum-total-row { padding: 12px 0 2px; }
+.sum-total-lbl { font-weight: 700; font-size: 13px; }
+.sum-total-val { font-size: 20px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
+.sum-unit-box { background: var(--accent-light); border-radius: 8px; padding: 10px 12px; margin-top: 12px; display: flex; justify-content: space-between; align-items: center; }
+.sum-unit-lbl { font-size: 11px; color: var(--accent); font-weight: 600; }
+.sum-unit-val { font-size: 15px; font-weight: 800; color: var(--accent); }
 
-
-.img-drop-zone { border: 2px dashed var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fafbff; min-height: 180px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+/* ── MISC ── */
+.img-drop-zone { border: 1.5px dashed var(--border); border-radius: 9px; cursor: pointer; transition: all 0.2s; background: #fafbfc; min-height: 160px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
 .img-drop-zone:hover, .img-drop-zone.drag-over { border-color: var(--accent); background: var(--accent-light); }
 .img-drop-zone.has-image { border-style: solid; padding: 0; }
 .fg.g2 { grid-template-columns: repeat(2, 1fr); }
 
 .qcard.delete-mode { cursor: pointer; }
-.qcard.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px rgba(37,99,235,0.2); }
-.qcard.export-selected { border-color: #059669; background: #f0fdf4; box-shadow: 0 0 0 2px rgba(5,150,105,0.2); cursor:pointer; }
-.qcard.delete-mode:hover { border-color: #f87171; box-shadow: 0 4px 16px rgba(220,38,38,0.1); transform: translateY(-2px); }
-.qcard.delete-mode.selected:hover { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(37,99,235,0.3); }
+.qcard.selected { border-color: var(--accent); background: var(--accent-light); box-shadow: 0 0 0 2px rgba(59,91,219,0.15); }
+.qcard.export-selected { border-color: #2f9e44; background: #ebfbee; box-shadow: 0 0 0 2px rgba(47,158,68,0.15); cursor:pointer; }
+.qcard.delete-mode:hover { border-color: #ff6b6b; }
+.qcard.delete-mode.selected:hover { border-color: var(--accent); }
 .qcard-check { position: absolute; top: 12px; right: 12px; }
 .qcard-top { position: relative; }
-.check-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 12px; color: transparent; transition: all 0.15s; }
+.check-circle { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 11px; color: transparent; transition: all 0.15s; }
 .check-circle.checked { background: var(--accent); border-color: var(--accent); color: #fff; }
-.delete-action-bar { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 14px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-sm); flex-wrap: wrap; }
+.delete-action-bar { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow-sm); flex-wrap: wrap; }
 .delete-action-bar .bar-label { font-size: 13px; color: var(--muted); flex: 1; }
 .delete-action-bar .bar-label strong { color: var(--text); }
 
-
-/* LABOR RATES DROPDOWN */
-.labor-rates-dropdown { display:none; position:absolute; top:calc(100% + 4px); left:0; z-index:200; background:var(--white); border:1.5px solid var(--border); border-radius:10px; box-shadow:0 8px 32px rgba(0,0,0,0.12); padding:16px 20px; min-width:320px; }
+/* ── LABOR RATES DROPDOWN ── */
+.labor-rates-dropdown { display:none; position:absolute; top:calc(100% + 4px); left:0; z-index:200; background:var(--white); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-md); padding:14px 18px; min-width:300px; }
 .labor-rates-dropdown.open { display:block; }
-.labor-rates-dropdown h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--muted); margin-bottom:12px; }
-.labor-rate-row { display:flex; align-items:center; gap:10px; padding:5px 0; border-bottom:1px solid var(--border); }
+.labor-rates-dropdown h4 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--muted); margin-bottom:10px; }
+.labor-rate-row { display:flex; align-items:center; gap:10px; padding:4px 0; border-bottom:1px solid var(--border-light); }
 .labor-rate-row:last-of-type { border-bottom:none; }
 .labor-rate-label { font-size:13px; flex:1; color:var(--text); }
-.labor-rate-row input { width:80px; padding:6px 8px; font-size:12px; border:1.5px solid var(--border); border-radius:6px; text-align:right; }
+.labor-rate-row input { width:76px; padding:5px 8px; font-size:12px; border:1px solid var(--border); border-radius:6px; text-align:right; }
 .labor-rate-row .un { font-size:11px; color:var(--muted); }
 .labor-rates-title { cursor:pointer; user-select:none; display:flex; align-items:center; gap:6px; }
 .labor-rates-title:hover { color:var(--accent); }
@@ -228,8 +288,10 @@ textarea { resize: vertical; min-height: 72px; }
 .labor-rates-title.open .arrow { transform:rotate(180deg); }
 .labor-card-head-wrap { position:relative; }
 
-#toast { position: fixed; bottom: 24px; right: 24px; background: var(--success); color: #fff; font-size: 13px; font-weight: 600; padding: 13px 22px; border-radius: 10px; z-index: 9999; transition: opacity 0.4s; box-shadow: 0 4px 16px rgba(5,150,105,0.35); pointer-events: none; opacity: 0; }
+/* ── TOAST ── */
+#toast { position: fixed; bottom: 20px; right: 20px; background: #2f9e44; color: #fff; font-size: 13px; font-weight: 600; padding: 11px 20px; border-radius: 8px; z-index: 9999; transition: opacity 0.4s; box-shadow: 0 4px 16px rgba(47,158,68,0.3); pointer-events: none; opacity: 0; }
 
+/* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
@@ -382,7 +444,6 @@ textarea { resize: vertical; min-height: 72px; }
     </div>
     <button class="btn btn-danger btn-sm" onclick="toggleDeleteMode()" id="deleteModeBtn">🗑 Cancella</button>
     <button class="btn btn-danger btn-sm" onclick="deleteAll()" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5">⚠ Cancella tutto</button>
-    <button class="btn btn-secondary btn-sm" onclick="toggleDuplicaMode()" id="duplicaModeBtn" style="background:#f5f3ff;color:#7c3aed;border-color:#c4b5fd;">⎘ Duplica</button>
     <button class="btn btn-secondary btn-sm" onclick="toggleExportMode()" id="exportModeBtn" style="background:#f0fdf4;color:#059669;border-color:#6ee7b7;">📊 Export Excel</button>
     <button class="btn btn-primary" onclick="newQuote()">＋ Nuovo</button>
   </div>
@@ -397,10 +458,6 @@ textarea { resize: vertical; min-height: 72px; }
   <button class="btn btn-secondary btn-sm" onclick="selectAllExport()">Seleziona tutti</button>
   <button class="btn btn-sm" id="confirmExportBtn" onclick="exportExcel()" disabled style="background:#059669;color:#fff;border-color:#059669;">📊 Genera Excel</button>
   <button class="btn btn-ghost btn-sm" onclick="toggleExportMode()">✕ Annulla</button>
-</div>
-<div class="delete-action-bar hidden" id="duplicaBar">
-  <span class="bar-label">Modalità duplica — <strong>clicca un preventivo per duplicarlo</strong></span>
-  <button class="btn btn-ghost btn-sm" onclick="toggleDuplicaMode()">✕ Annulla</button>
 </div>
 <div class="quotes-grid" id="quotesGrid"></div>
 </div>
@@ -939,7 +996,16 @@ textarea { resize: vertical; min-height: 72px; }
           <div class="card-head" style="cursor:default;">
             <div class="chi ci-mac" style="background:#fee2e2;">✂️</div>
             <span class="card-head-title" style="cursor:pointer;" onclick="toggleCard(this.parentElement)">Taglio lamiera</span> <button style="font-size:11px;background:var(--accent-light);color:var(--accent);border:1px solid var(--accent);border-radius:5px;padding:2px 7px;cursor:pointer;font-weight:600;margin-left:8px;white-space:nowrap;" onclick="event.stopPropagation();openParamsTab('laser')">↗ Parametri</button>
-            <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;"><div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;"><span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">TOTALE</span><span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_laser">€ 0,00</span></div></div>
+            <div style="display:flex;align-items:stretch;gap:6px;margin-right:8px;">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #93c5fd;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#3b82f6;text-transform:uppercase;letter-spacing:0.8px;">1 pz</span>
+                <span style="font-size:14px;font-weight:800;color:#1d4ed8;margin-top:1px;" id="tot_laser_unit">€ 0,00</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #86efac;border-radius:9px;padding:4px 14px;min-width:86px;">
+                <span style="font-size:9px;font-weight:700;color:#22c55e;text-transform:uppercase;letter-spacing:0.8px;">lotto</span>
+                <span style="font-size:14px;font-weight:800;color:#15803d;margin-top:1px;" id="tot_laser">€ 0,00</span>
+              </div>
+            </div>
             <span class="chevron open" onclick="toggleCard(this.parentElement)" style="cursor:pointer;padding:4px 8px;">▼</span>
           </div>
           <div class="card-body">
@@ -1276,13 +1342,10 @@ function init() {
   // Restore last page on refresh
   const lastPage = sessionStorage.getItem('ppro_current_page');
   if (lastPage === 'page-saved') {
-    showPage('page-saved');
+    showPage('page-saved'); renderGrid();
     document.getElementById('breadcrumb').innerHTML = '<span class="sep">›</span><span class="crumb">Preventivi Salvati</span>';
-    renderGrid(); // mostra subito i dati locali
-    if (GS_URL) gsLoadAll().then(() => renderGrid()); // poi aggiorna dal server
   } else {
     showPage('page-home');
-    if (GS_URL) gsLoadAll(); // carica parametri e preventivi in background
   }
 }
 
@@ -1308,7 +1371,7 @@ function renderGrid(filter) {
     const dc={draft:'d-draft',sent:'d-sent',accepted:'d-accepted'}[q.status];
     const isSel = selectedIds.has(q.id);
     const isExpSel = exportIds.has(q.id);
-    const clickAction = deleteMode ? `toggleSelect('${q.id}')` : exportMode ? `toggleExportSelect('${q.id}')` : duplicaMode ? `duplicaFromList('${q.id}')` : `openQuote('${q.id}')`;
+    const clickAction = deleteMode ? `toggleSelect('${q.id}')` : exportMode ? `toggleExportSelect('${q.id}')` : `openQuote('${q.id}')`;
     return `<div class="qcard ${deleteMode?'delete-mode':''} ${isSel?'selected':''} ${isExpSel?'export-selected':''}" data-id="${q.id}" onclick="${clickAction}">
       ${deleteMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isSel?'checked':''}">✓</div></div>`:''}
       ${exportMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isExpSel?'checked':''}">✓</div></div>`:''}
@@ -1387,148 +1450,107 @@ function collectParams() {
     'ppro_piazzamento_rates','ppro_machine_rates','ppro_treat_rates',
     'ppro_treat_ums','ppro_treat_setup','ppro_transport_rates',
     'ppro_fixed_rates','ppro_laser_full','ppro_laser_ext_rates',
-    'ppro_tubo_ext_rates','ppro_tubo_int_rate','ppro_tubo_sega_rate',
-    'ppro_piega_rate_semplice','ppro_piega_rate_complessa',
-    'ppro_saldatura_rate','ppro_altri_rates'
+    'ppro_tubo_ext_rates','ppro_tubo_int_rate','ppro_piega_rate_semplice',
+    'ppro_piega_rate_complessa','ppro_saldatura_rate'
   ];
   const out = {};
   keys.forEach(k => { const v = localStorage.getItem(k); if (v !== null) out[k] = v; });
   return out;
 }
 function applyParams(params) {
+  // Non ricaricare se siamo già in un reload post-parametri
+  if (localStorage.getItem('ppro_params_reloaded') === '1') {
+    localStorage.removeItem('ppro_params_reloaded');
+    Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
+    return;
+  }
+  const before = JSON.stringify(collectParams());
   Object.entries(params).forEach(([k, v]) => localStorage.setItem(k, v));
-  if (typeof reloadRatesFromStorage === 'function') reloadRatesFromStorage();
+  const after = JSON.stringify(collectParams());
+  // Se i parametri dal server differiscono da quelli locali, ricarica la pagina
+  // così tutte le variabili in memoria si reinizializzano coi valori aggiornati
+  if (before !== after) {
+    localStorage.setItem('ppro_params_reloaded', '1');
+    location.reload();
+  }
 }
 
-// SCRITTURA: JSONP via GET con payload — stesso meccanismo della lettura, funziona con doGet
-let _gsCallCount = 0;
+// Callback globale fisso per gsCall — sopravvive ai redirect di Google Apps Script
+window._gsCallQueue = [];
+window._gsCallCb = function(data) {
+  const resolve = window._gsCallQueue.shift();
+  if (resolve) resolve(data);
+};
+
 async function gsCall(body) {
   if (!GS_URL) return null;
   return new Promise((resolve) => {
-    const cbName = 'gsCall_' + (++_gsCallCount);
-    const script = document.createElement('script');
-    const payload = encodeURIComponent(JSON.stringify(body));
     let done = false;
-    window[cbName] = (data) => {
-      if (done) return; done = true;
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
+    const wrappedResolve = (data) => {
+      if (done) return;
+      done = true;
       resolve(data);
     };
-    script.onerror = () => {
-      if (done) return; done = true;
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(null);
-    };
+    window._gsCallQueue.push(wrappedResolve);
+    // Timeout 15 secondi
     setTimeout(() => {
-      if (done) return; done = true;
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
+      if (done) return;
+      done = true;
+      const idx = window._gsCallQueue.indexOf(wrappedResolve);
+      if (idx > -1) window._gsCallQueue.splice(idx, 1);
+      console.warn('gsCall timeout');
       resolve(null);
-    }, 30000);
-    script.src = GS_URL + '?callback=' + cbName + '&payload=' + payload;
+    }, 15000);
+    const script = document.createElement('script');
+    const payload = encodeURIComponent(JSON.stringify(body));
+    script.src = GS_URL + '?callback=_gsCallCb&payload=' + payload;
     document.head.appendChild(script);
   });
 }
-
-// LETTURA: JSONP — necessario per leggere i dati
 async function gsGet(action) {
   if (!GS_URL) return null;
   return new Promise((resolve) => {
-    const cbName = 'gsGet_' + Date.now();
+    const cbName = 'gsCallback_' + Date.now();
     const script = document.createElement('script');
-    window[cbName] = (data) => {
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(data);
-    };
-    script.onerror = () => {
-      delete window[cbName];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(null);
-    };
+    window[cbName] = (data) => { delete window[cbName]; document.body.removeChild(script); resolve(data); };
+    script.onerror = () => { delete window[cbName]; document.body.removeChild(script); resolve(null); };
     script.src = GS_URL + '?action=' + action + '&callback=' + cbName;
-    document.head.appendChild(script);
+    document.body.appendChild(script);
   });
 }
-
 
 async function gsSavePreventivi() {
-  // Rimuove le immagini per ridurre la dimensione
-  const quotesNoImg = quotes.map(q => {
-    const copy = Object.assign({}, q);
-    delete copy.image;
-    return copy;
-  });
-
-  // Prova prima con tutti insieme
-  const payloadAll = encodeURIComponent(JSON.stringify({ action: 'savePreventivi', data: quotesNoImg }));
-  if (payloadAll.length < 6000) {
-    const res = await gsCall({ action: 'savePreventivi', data: quotesNoImg });
-    if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); return; }
-  }
-
-  // Se troppo grande, usa upsert: manda ogni preventivo singolarmente
-  // Lo script aggiunge/aggiorna senza sovrascrivere tutto
-  let ok = true;
-  for (const q of quotesNoImg) {
-    const res = await gsCall({ action: 'upsertPreventivo', data: q });
-    if (!res || !res.ok) { ok = false; break; }
-  }
-  if (ok) { showToast('Salvato su Google Sheets ✓'); }
-  else { showToast('⚠️ Salvataggio Sheets fallito'); }
+  const res = await gsCall({ action: 'savePreventivi', data: quotes });
+  if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
+  else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
 }
-let _paramsSaving = false; // flag: salvataggio parametri in corso
-let _paramsSaveTimer = null; // debounce timer
-
-function scheduleParamsSave() {
-  clearTimeout(_paramsSaveTimer);
-  _paramsSaveTimer = setTimeout(() => { gsSaveParametri(); }, 1500);
-}
-
 async function gsSaveParametri() {
+  // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
   const params = collectParams();
-  _paramsSaving = true;
-  // Separa ppro_laser_full — troppo grande per una URL
-  const laserFull = params['ppro_laser_full'];
-  const paramsSmall = Object.assign({}, params);
-  delete paramsSmall['ppro_laser_full'];
-  // Salva tutti i parametri piccoli in una sola chiamata
-  if (Object.keys(paramsSmall).length > 0) {
-    await gsCall({ action: 'saveParametriChunk', data: paramsSmall });
+  const keys = Object.keys(params);
+  for (let i = 0; i < keys.length; i++) {
+    const k = keys[i];
+    const chunk = {};
+    chunk[k] = params[k];
+    await gsCall({ action: 'saveParametriChunk', data: chunk });
   }
-  // Salva laser_full separatamente se non è troppo grande
-  if (laserFull) {
-    const laserPayload = encodeURIComponent(JSON.stringify({ action: 'saveParametriChunk', data: { ppro_laser_full: laserFull } }));
-    if (laserPayload.length < 7000) {
-      await gsCall({ action: 'saveParametriChunk', data: { ppro_laser_full: laserFull } });
-    }
-  }
-  _paramsSaving = false;
 }
 async function gsLoadAll() {
-  console.log('gsLoadAll: inizio, quotes locali:', quotes.length);
   const preventivi = await gsGet('getPreventivi');
-  console.log('gsLoadAll: preventivi dal server:', Array.isArray(preventivi) ? preventivi.length : preventivi);
   if (Array.isArray(preventivi) && preventivi.length > 0) {
     quotes = preventivi;
     localStorage.setItem('ppro_v2', JSON.stringify(quotes));
     updateHomeStats();
-    if (document.getElementById('quotesGrid')) renderGrid();
-    console.log('gsLoadAll: griglia aggiornata con', quotes.length, 'preventivi');
   }
-  // Non sovrascrivere i parametri se un salvataggio è in corso
-  if (!_paramsSaving) {
-    const params = await gsGet('getParametri');
-    if (params && typeof params === 'object' && !params.error) {
-      applyParams(params);
-    }
+  const params = await gsGet('getParametri');
+  if (params && typeof params === 'object' && !params.error) {
+    applyParams(params);
   }
-  if (preventivi && preventivi.length > 0) showToast('Dati caricati da Google Sheets ✓');
+  if (preventivi || params) showToast('Dati caricati da Google Sheets ✓');
 }
 
-// gsLoadAll viene chiamato da init() in base alla pagina corrente
+// Carica all'avvio se URL configurato
+if (GS_URL) gsLoadAll();
 
 // Polling ogni 20 secondi per vedere i preventivi degli altri
 setInterval(async () => {
@@ -1776,7 +1798,6 @@ function updateMeta() {
 
 let deleteMode = false;
 let selectedIds = new Set();
-let exportMode = false;
 
 function toggleDeleteMode() {
   deleteMode = !deleteMode;
@@ -1785,36 +1806,8 @@ function toggleDeleteMode() {
   renderDeleteBar();
 }
 
-// ── DUPLICA MODE ──
-let duplicaMode = false;
-
-function toggleDuplicaMode() {
-  duplicaMode = !duplicaMode;
-  if (duplicaMode && deleteMode) { deleteMode = false; renderDeleteBar(); }
-  if (duplicaMode && exportMode) { exportMode = false; document.getElementById('exportBar').classList.add('hidden'); }
-  renderGrid();
-  document.getElementById('duplicaBar').classList.toggle('hidden', !duplicaMode);
-  document.getElementById('duplicaModeBtn').style.background = duplicaMode ? '#7c3aed' : '#f5f3ff';
-  document.getElementById('duplicaModeBtn').style.color = duplicaMode ? '#fff' : '#7c3aed';
-}
-
-function duplicaFromList(id) {
-  const q = quotes.find(x => x.id === id);
-  if (!q) return;
-  const copy = JSON.parse(JSON.stringify(q));
-  copy.id = Date.now().toString();
-  copy.name = (copy.name || copy.code || 'Preventivo') + ' (copia)';
-  copy.code = (copy.code || '') + '-COPIA';
-  copy.status = 'draft';
-  delete copy._new;
-  delete copy._savedTotal;
-  delete copy._savedUnit;
-  quotes.push(copy);
-  saveAll();
-  updateHomeStats();
-  toggleDuplicaMode();
-  showToast('Preventivo duplicato ✓');
-}
+// ── EXPORT MODE ──
+let exportMode = false;
 let _editorOrigin = "page-home";
 const exportIds = new Set();
 
@@ -1909,7 +1902,7 @@ function deleteAll() {
   quotes = []; saveAll(); selectedIds.clear(); deleteMode = false;
   renderGrid(); renderDeleteBar(); updateHomeStats();
 }
-const MATS=['Aisi 304','Aisi 316','Alluminio 6060','Alluminio 7075','Commerciale','Ferro S235 JR','Ferro S355 JR','Ghisa','Nylon','Ottone','Plastica','Prezincata','Rame','Titanio','Altro'];
+const MATS=['Aisi 304','Aisi 316','Alluminio 6060','Alluminio 7075','Commerciale','Ferro S235 JR','Ferro S355 JR','Ghisa','Nylon','Ottone','Plastica','Rame','Titanio','Altro'];
 const UMS=['kg','g','mm','cm','m','m²','m³','pz','lt'];
 function addMaterial(){draft.materials.push({id:uid(),desc:'',mat:'',qty:0,um:'kg',qtyMode:'unitario',price:0,scrap:0});markUnsaved();renderMaterials(draft);recalc();}
 function delMat(id){draft.materials=draft.materials.filter(x=>x.id!==id);markUnsaved();renderMaterials(draft);recalc();}
@@ -2027,37 +2020,25 @@ function renderPiazzamento(q){
 
 // LABOR
 const LABOR_OPS = ['','Filettatura esterna','Filettatura interna','Foratura','Fresatura esterna','Fresatura interna','Sbavatura/Satinatura','Svasatura','Tornitura esterna','Tornitura interna','Altro'];
-const OPS=['Fresatore','Montatore','Operaio','Piegatore','Progettista','Saldatore','Sviluppatore','Tornitore','Trapanista','Altro'];
+const OPS=['Fresatore','Montatore','Operaio','Piegatore','Progettista','Saldatore','Sviluppatore','Tornitore','Altro'];
 
 // DEFAULT LABOR RATES (€/ora, stored as cpm internally)
 const DEFAULT_LABOR_RATES = {
-  'Operaio':             {cpm:0.50, cph:30, setup:0},
-  'Fresatore':           {cpm:0.65, setup:0},
-  'Tornitore':           {cpm:0.65, setup:0},
-  'Piegatore':           {cpm:0.58, setup:0},
-  'Montatore':           {cpm:0.58, setup:0},
-  'Tecnico':             {cpm:0.75, setup:0},
-  'Programmatore':       {cpm:0.80, setup:0},
-  'Saldatore':           {cpm:0.65, setup:0},
-  'Capo Reparto':        {cpm:0.90, setup:0},
-  'Foratura':            {cpm:0.50, setup:0},
-  'Fresatura interna':   {cpm:0.65, setup:0},
-  'Sbavatura/Satinatura':{cpm:0.50, setup:0},
-  'Svasatura':           {cpm:0.50, setup:0},
-  'Tornitura interna':   {cpm:0.65, setup:0},
+  'Operaio':      {cpm:0.50, cph:30, setup:0},
+  'Fresatore':    {cpm:0.65, setup:0},
+  'Tornitore':    {cpm:0.65, setup:0},
+  'Piegatore':    {cpm:0.58, setup:0},
+  'Montatore':    {cpm:0.58, setup:0},
+  'Tecnico':      {cpm:0.75, setup:0},
+  'Programmatore':{cpm:0.80, setup:0},
+  'Saldatore':    {cpm:0.65, setup:0},
+  'Capo Reparto': {cpm:0.90, setup:0}
 };
-
-// Tutte le voci con tariffa configurabile (figure + operazioni interne)
-const ALL_LABOR_RATE_KEYS = [
-  'Operaio','Fresatore','Tornitore','Piegatore','Montatore',
-  'Tecnico','Programmatore','Saldatore','Capo Reparto',
-  'Foratura','Fresatura interna','Sbavatura/Satinatura','Svasatura','Tornitura interna'
-];
 // Migrate flat labor rates
 (function(){
   const saved = JSON.parse(localStorage.getItem('ppro_labor_rates')||'null')||{};
   const migrated = {};
-  ALL_LABOR_RATE_KEYS.forEach(op => {
+  OPS.forEach(op => {
     const def = DEFAULT_LABOR_RATES[op] || {cpm:0.5, setup:0};
     if (saved[op] && typeof saved[op] === 'object') migrated[op] = Object.assign({}, def, saved[op]);
     else if (saved[op] && typeof saved[op] === 'number') migrated[op] = {cpm: saved[op], setup: def.setup};
@@ -2079,7 +2060,7 @@ const FILETT_TIPI = ['Fino a M4', 'Da M5 a M10', 'Da M12 a M36', 'Tempo'];
 const FILETT_RATES = window._FILETT_RATES_INIT;
 function saveFilettRates(andClose) {
   localStorage.setItem('ppro_filett_rates', JSON.stringify(FILETT_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe filettatura salvate ✓');
   if (andClose) window.close();
 }
@@ -2116,19 +2097,7 @@ function renderLaborRatesList() {
 
 function addLabor(){draft.labor.push({id:uid(),op:'',operator:'',minutes:0,rate:0,addetti:1,qtyMode:'unitario'});markUnsaved();renderLabor(draft);recalc();}
 function delLab(id){draft.labor=draft.labor.filter(x=>x.id!==id);markUnsaved();renderLabor(draft);recalc();}
-function updLabText(id,f,v){
-  const row=draft.labor.find(x=>x.id===id);
-  row[f]=v;
-  if(f==='op'){
-    // Auto-carica il rate dall'operazione se esiste in LABOR_RATES
-    if(v && LABOR_RATES[v] && !LABOR_INT_OPS.has(v) && v !== 'Filettatura interna') {
-      row.rate = LABOR_RATES[v].cpm || 0;
-    }
-    markUnsaved();renderLabor(draft);recalc();
-  } else {
-    markUnsaved();
-  }
-}
+function updLabText(id,f,v){const row=draft.labor.find(x=>x.id===id);row[f]=v;if(f==='op'){markUnsaved();renderLabor(draft);recalc();}else{markUnsaved();}}
 function updLab(id,f,v){const row=draft.labor.find(x=>x.id===id);row[f]=v;if(f==='operator'&&LABOR_RATES[v]){row.rate=LABOR_RATES[v].cpm||LABOR_RATES[v]||0;row.setup=LABOR_RATES[v].setup||0;}markUnsaved();renderLabor(draft);recalc();}
 const LABOR_INT_OPS = new Set(['Filettatura esterna','Fresatura esterna','Tornitura esterna']);
 function filettTotal(r) {
@@ -2535,7 +2504,7 @@ const MATERIAL_RATES = window._MATERIAL_RATES_INIT || JSON.parse(JSON.stringify(
 
 function saveMaterialRates(andClose) {
   localStorage.setItem('ppro_material_rates', JSON.stringify(MATERIAL_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Prezzi materiali salvati ✓');
   if (andClose) window.close();
 }
@@ -2585,7 +2554,7 @@ OPS.forEach(op => { DEFAULT_PIAZZAMENTO_RATES[op] = 0; });
 const PIAZZAMENTO_RATES = window._PIAZZAMENTO_RATES_INIT || Object.assign({}, DEFAULT_PIAZZAMENTO_RATES);
 function savePiazzamentoRates(andClose) {
   localStorage.setItem('ppro_piazzamento_rates', JSON.stringify(PIAZZAMENTO_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe piazzamento salvate ✓');
   if (andClose) window.close();
 }
@@ -2634,7 +2603,8 @@ const DEFAULT_MACHINE_RATES = {
   window._MACHINE_RATES_INIT = migrated;
 })();
 const MACHINE_RATES = window._MACHINE_RATES_INIT || JSON.parse(JSON.stringify(DEFAULT_MACHINE_RATES));
-function saveMachineRates(andClose){ localStorage.setItem('ppro_machine_rates',JSON.stringify(MACHINE_RATES)); scheduleParamsSave(); showToast('Tariffe macchinari salvate ✓'); if (andClose) window.close(); }
+gsSaveParametri();
+function saveMachineRates(andClose){ localStorage.setItem('ppro_machine_rates',JSON.stringify(MACHINE_RATES)); showToast('Tariffe macchinari salvate ✓'); if (andClose) window.close(); }
 function renderMachineRates(){
   const rows = MCHS.map(m => {
     const r = MACHINE_RATES[m] || {};
@@ -2661,7 +2631,8 @@ const DEFAULT_TREAT_RATES = {'Anodizzazione':9,'Brunitura':2.5,'Cromatura':22,'F
 const TREAT_RATES = Object.assign({}, DEFAULT_TREAT_RATES, JSON.parse(localStorage.getItem('ppro_treat_rates')||'null')||{});
 const TREAT_UMS = Object.assign({}, DEFAULT_TREAT_UMS, JSON.parse(localStorage.getItem('ppro_treat_ums')||'null')||{});
 const TREAT_SETUP = Object.assign({}, DEFAULT_TREAT_SETUP, JSON.parse(localStorage.getItem('ppro_treat_setup')||'null')||{});
-function saveTreatRates(andClose){ localStorage.setItem('ppro_treat_rates',JSON.stringify(TREAT_RATES)); localStorage.setItem('ppro_treat_ums',JSON.stringify(TREAT_UMS)); localStorage.setItem('ppro_treat_setup',JSON.stringify(TREAT_SETUP)); scheduleParamsSave(); showToast('Tariffe trattamenti salvate ✓'); if (andClose) window.close(); }
+gsSaveParametri();
+function saveTreatRates(andClose){ localStorage.setItem('ppro_treat_rates',JSON.stringify(TREAT_RATES)); localStorage.setItem('ppro_treat_ums',JSON.stringify(TREAT_UMS)); localStorage.setItem('ppro_treat_setup',JSON.stringify(TREAT_SETUP)); showToast('Tariffe trattamenti salvate ✓'); if (andClose) window.close(); }
 function renderTreatRates(){
   document.getElementById('treatRatesBody').innerHTML = TREAT_TYPES.map(t=>`
     <div class="params-table-row" style="grid-template-columns:1fr 130px 90px;">
@@ -2678,7 +2649,8 @@ function renderTreatRates(){
 const TRANSPORT_VEHICLES = ['Autocarro','Camion leggero','Camion pesante','Corriere','Furgone','Altro'];
 const DEFAULT_TRANSPORT_RATES = {'Furgone':{ammKm:0.35,driverRate:25},'Camion leggero':{ammKm:0.55,driverRate:28},'Camion pesante':{ammKm:0.90,driverRate:32},'Autocarro':{ammKm:1.20,driverRate:35},'Corriere':{ammKm:0.30,driverRate:22},'Altro':{ammKm:0.40,driverRate:25}};
 const TRANSPORT_RATES = JSON.parse(JSON.stringify(Object.assign({}, DEFAULT_TRANSPORT_RATES, JSON.parse(localStorage.getItem('ppro_transport_rates')||'null')||{})));
-function saveTransportRates(andClose){ localStorage.setItem('ppro_transport_rates',JSON.stringify(TRANSPORT_RATES)); scheduleParamsSave(); showToast('Tariffe trasporto salvate ✓'); if (andClose) window.close(); }
+gsSaveParametri();
+function saveTransportRates(andClose){ localStorage.setItem('ppro_transport_rates',JSON.stringify(TRANSPORT_RATES)); showToast('Tariffe trasporto salvate ✓'); ; if (andClose) window.close(); }
 function renderTransportRates(){
   document.getElementById('transportRatesBody').innerHTML = TRANSPORT_VEHICLES.map(v=>`
     <div class="params-table-row" style="grid-template-columns:1fr 140px;">
@@ -2691,7 +2663,8 @@ function renderTransportRates(){
 // FIXED COST RATES (€/month)
 const DEFAULT_FIXED_RATES = {'Affitto capannone':2500,'Utenze (luce/gas/acqua)':800,'Assicurazioni':300,'Leasing macchinari':1200,'Manutenzione impianti':400,'Ammortamento attrezzature':500,'Telefono / Internet':80,'Software / Licenze':150,'Smaltimento rifiuti':200,'Altro':0};
 const FIXED_RATES = Object.assign({}, DEFAULT_FIXED_RATES, JSON.parse(localStorage.getItem('ppro_fixed_rates')||'null')||{});
-function saveFixedRates(andClose){ localStorage.setItem('ppro_fixed_rates',JSON.stringify(FIXED_RATES)); scheduleParamsSave(); showToast('Costi fissi salvati ✓'); if (andClose) window.close(); }
+gsSaveParametri();
+function saveFixedRates(andClose){ localStorage.setItem('ppro_fixed_rates',JSON.stringify(FIXED_RATES)); showToast('Costi fissi salvati ✓'); ; if (andClose) window.close(); }
 function renderFixedRates(){
   document.getElementById('fixedRatesBody').innerHTML = FIXED_TYPES.map(t=>`
     <div class="params-table-row" style="grid-template-columns:1fr 140px;">
@@ -2708,7 +2681,7 @@ const ALTRI_RATES = Object.assign(
 );
 function saveAltriRates() {
   localStorage.setItem('ppro_altri_rates', JSON.stringify(ALTRI_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Costi aggiuntivi salvati ✓');
 }
 function renderAltriCats() {
@@ -2727,7 +2700,7 @@ function renderAltriCats() {
 
 function saveLaborRates(andClose) {
   localStorage.setItem('ppro_labor_rates', JSON.stringify(LABOR_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe manodopera salvate ✓');
   if (andClose) window.close();
 }
@@ -2735,7 +2708,7 @@ function saveLaserFull(andClose) {
   localStorage.setItem('ppro_laser_full', JSON.stringify(LASER_FULL));
   syncLaserTable();
   if (draft) { renderLaser(draft); recalc(); }
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Parametri laser salvati ✓');
   if (andClose) window.close();
 }
@@ -2749,7 +2722,7 @@ const DEFAULT_LASER_EXT_RATES = {kg:0, m:0, pz:0};
 const LASER_EXT_RATES = window._LASER_EXT_RATES_INIT;
 function saveLaserExtRates() {
   localStorage.setItem('ppro_laser_ext_rates', JSON.stringify(LASER_EXT_RATES));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe taglio esterno salvate ✓');
 }
 function renderLaserExtRates() {
@@ -2813,7 +2786,7 @@ function saveTuboExtRates(andClose) {
   localStorage.setItem('ppro_tubo_ext_rates', JSON.stringify(TUBO_EXT_RATES));
   localStorage.setItem('ppro_tubo_int_rate', String(TUBO_INT_RATE));
   localStorage.setItem('ppro_tubo_sega_rate', String(TUBO_SEGA_RATE));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe taglio tubo salvate ✓');
   if (andClose) window.close();
 }
@@ -2980,7 +2953,7 @@ function savePiegaRates(andClose) {
   const elPC = document.getElementById('piegaComplessaRateInput'); if (elPC) PIEGA_RATE_COMPLESSA = +elPC.value;
   localStorage.setItem('ppro_piega_rate_semplice', String(PIEGA_RATE_SEMPLICE));
   localStorage.setItem('ppro_piega_rate_complessa', String(PIEGA_RATE_COMPLESSA));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffe piega salvate ✓');
   if (andClose) window.close();
 }
@@ -3072,7 +3045,7 @@ let SALDATURA_RATE = window._SALDATURA_RATE_INIT;
 function saveSaldaturaRates(andClose) {
   const elS = document.getElementById('saldaturaRateInput'); if (elS) SALDATURA_RATE = +elS.value;
   localStorage.setItem('ppro_saldatura_rate', String(SALDATURA_RATE));
-  scheduleParamsSave();
+  gsSaveParametri();
   showToast('Tariffa saldatura salvata ✓');
   if (andClose) window.close();
 }
@@ -3168,34 +3141,21 @@ function renderFilettRates() {
 }
 
 function renderLaborRates() {
-  const figure = ['Operaio','Fresatore','Tornitore','Piegatore','Montatore','Tecnico','Programmatore','Saldatore','Capo Reparto'];
-  const operazioni = ['Foratura','Fresatura interna','Sbavatura/Satinatura','Svasatura','Tornitura interna'];
-
-  const makeRows = (list) => list.map(op => {
+  const rows = OPS.map(op => {
     const r = LABOR_RATES[op] || {};
     return `<tr style="border-bottom:1px solid var(--border);">
       <td style="padding:10px 16px;font-size:13px;font-weight:500;white-space:nowrap;">${op}</td>
-      <td style="padding:6px 8px;"><input type="number" value="${+(((r.cpm||0)*60).toFixed(2))}" min="0" step="0.5"
-        style="padding:6px 8px;font-size:12px;border:1.5px solid var(--border);border-radius:6px;text-align:right;width:100%;min-width:70px;"
-        onchange="LABOR_RATES['${op}'] = LABOR_RATES['${op}']||{}; LABOR_RATES['${op}'].cpm=+this.value/60; saveLaborRates()" onfocus="this.select()"></td>
+      <td style="padding:6px 8px;"><input type="number" value="${r.cpm||0}" min="0" step="0.01"
+        style="padding:6px 8px;font-size:12px;border:1.5px solid var(--border);border-radius:6px;text-align:right;width:100%;min-width:70px;" onchange="LABOR_RATES['${op}'] = LABOR_RATES['${op}']||{}; LABOR_RATES['${op}'].cpm=+this.value; saveLaborRates()" onfocus="this.select()"></td>
     </tr>`;
   }).join('');
-
   document.getElementById('laborRatesBody').innerHTML = `
     <table style="width:100%;border-collapse:collapse;">
       <thead><tr style="background:var(--accent-light);">
-        <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);">Figure</th>
+        <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);">Figura</th>
         <th style="text-align:center;padding:10px 8px;min-width:120px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);">€/ora</th>
       </tr></thead>
-      <tbody>${makeRows(figure)}</tbody>
-    </table>
-    <div style="margin-top:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--accent);padding:0 4px 8px;">Operazioni interne</div>
-    <table style="width:100%;border-collapse:collapse;">
-      <thead><tr style="background:#f0fdf4;">
-        <th style="text-align:left;padding:10px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#16a34a;">Operazione</th>
-        <th style="text-align:center;padding:10px 8px;min-width:120px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:#16a34a;">€/ora</th>
-      </tr></thead>
-      <tbody>${makeRows(operazioni)}</tbody>
+      <tbody>${rows}</tbody>
     </table>`;
 }
 
@@ -3221,16 +3181,27 @@ function laserSpessori(mat, gas) {
 function laserGas(mat) {
   return [...new Set(LASER_TABLE.filter(r => r.mat === mat).map(r => r.gas))];
 }
-function laserRowTotal(r) {
-  if (r.tipo === 'Taglio Laser Esterno') return (r.priceExt || 0);
-  if (r.tipo !== 'Taglio Laser Interno') { const qty=r.qty||0,price=r.priceExt||0,scrap=r.scrap||0; return qty*price*(1+scrap/100); }
-  const p = getLaserParams(r.mat, r.gas, r.sp);
-  if (!p) return r.setup || 0;
-  let mins = r.tempo || 0;
-  let mm = r.lunghezza || 0;
-  if (mm > 0 && mins === 0) mins = mm / p.vel;
-  if (mins > 0 && mm === 0) mm = mins * p.vel;
-  return mins * p.cpm + (r.setup || 0);
+function laserRowTotal(r, qty) {
+  qty = qty || 1;
+  const isLotto = (r.qtyMode||'unitario') === 'lotto';
+  let raw = 0;
+  if (r.tipo === 'Taglio Laser Esterno') {
+    raw = (r.priceExt || 0);
+  } else if (r.tipo !== 'Taglio Laser Interno') {
+    const q=r.qty||0, price=r.priceExt||0, scrap=r.scrap||0;
+    raw = q*price*(1+scrap/100);
+  } else {
+    const p = getLaserParams(r.mat, r.gas, r.sp);
+    if (!p) { raw = r.setup || 0; }
+    else {
+      let mins = r.tempo || 0;
+      let mm = r.lunghezza || 0;
+      if (mm > 0 && mins === 0) mins = mm / p.vel;
+      if (mins > 0 && mm === 0) mm = mins * p.vel;
+      raw = mins * p.cpm + (r.setup || 0);
+    }
+  }
+  return isLotto ? raw/qty : raw;
 }
 function updLaserExtPrice(id, mat) {
   const row = (draft.laser||[]).find(x=>x.id===id);
@@ -3238,7 +3209,7 @@ function updLaserExtPrice(id, mat) {
 }
 function addLaser() {
   draft.laser = draft.laser || [];
-  draft.laser.push({id:uid(), desc:'', mat:'Ferro', gas:'Aria', sp:1, lunghezza:0, tempo:0, setup:0});
+  draft.laser.push({id:uid(), desc:'', mat:'Ferro', gas:'Aria', sp:1, lunghezza:0, tempo:0, setup:0, qtyMode:'unitario'});
   markUnsaved(); renderLaser(draft); recalc();
 }
 function delLaser(id) { draft.laser=draft.laser.filter(x=>x.id!==id); markUnsaved(); renderLaser(draft); recalc(); }
@@ -3273,14 +3244,19 @@ function updLaserDim(id, field, val) {
 }
 function renderLaser(q) {
   const rows = q.laser || [];
-  // Determine header based on first typed row
-  const firstTyped = rows.find(r => r.tipo);
+  const qty = Math.max(1, +(document.getElementById('f_qty')||{value:'1'}).value || q.qty || 1);
+  const totUnit = rows.reduce((s,r)=>s+laserRowTotal(r,qty),0);
+  const totLotto = totUnit * qty;
+  const ss2=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  ss2('tot_laser_unit', fmt(totUnit));
+  ss2('tot_laser', fmt(totLotto));
+
   const head = document.getElementById('laserHead');
   const cols = document.getElementById('laserCols');
   if (cols) {
     const hasAny = rows.some(r => r.tipo);
     if (hasAny) {
-      cols.innerHTML = '<col style="width:200px"><col style="width:100px"><col style="width:70px"><col style="width:100px"><col style="width:110px"><col style="width:90px"><col style="width:80px"><col style="width:36px">';
+      cols.innerHTML = '<col style="width:160px"><col style="width:80px"><col style="width:100px"><col style="width:70px"><col style="width:100px"><col style="width:110px"><col style="width:90px"><col style="width:80px"><col style="width:36px">';
     } else {
       cols.innerHTML = '<col style="width:auto"><col style="width:36px">';
     }
@@ -3289,40 +3265,36 @@ function renderLaser(q) {
     const hasInt = rows.some(r => r.tipo === 'Taglio Laser Interno');
     const hasAny = rows.some(r => r.tipo);
     if (hasInt) {
-      head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th style="text-align:center">Materiale</th><th style="text-align:center">Gas</th><th style="text-align:center">Spessore (mm)</th><th style="text-align:center">Lunghezza (mm)</th><th style="text-align:center">Tempo (min)</th><th style="text-align:right">Tot.</th><th></th></tr>';
+      head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th style="text-align:center">Qtà per</th><th style="text-align:center">Materiale</th><th style="text-align:center">Gas</th><th style="text-align:center">Spessore (mm)</th><th style="text-align:center">Lunghezza (mm)</th><th style="text-align:center">Tempo (min)</th><th style="text-align:right">Tot.</th><th></th></tr>';
     } else if (hasAny) {
-      head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th></th><th></th><th></th><th></th><th style="text-align:center">€</th><th style="text-align:right">Tot.</th><th></th></tr>';
+      head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th style="text-align:center">Qtà per</th><th></th><th></th><th></th><th></th><th style="text-align:center">€</th><th style="text-align:right">Tot.</th><th></th></tr>';
     } else {
       head.innerHTML = '<tr><th style="text-align:center">Tipo taglio</th><th></th></tr>';
     }
   }
+  const toggleHtml = (r) => {
+    const isLotto = (r.qtyMode||'unitario') === 'lotto';
+    return `<div style="display:flex;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;font-size:11px;font-weight:700;">
+      <span onclick="updLaser('${r.id}','qtyMode','unitario');renderLaser(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${!isLotto?'var(--accent)':'var(--white)'};color:${!isLotto?'#fff':'var(--muted)'};">pz</span>
+      <span onclick="updLaser('${r.id}','qtyMode','lotto');renderLaser(draft);recalc();" style="flex:1;text-align:center;padding:5px 4px;cursor:pointer;background:${isLotto?'var(--accent)':'var(--white)'};color:${isLotto?'#fff':'var(--muted)'};">lotto</span>
+    </div>`;
+  };
   document.getElementById('laserBody').innerHTML = rows.map(r => {
     const tipoSel = CUT_TYPES.map(t=>`<option ${t===(r.tipo||'')?'selected':''}>${t}</option>`).join('');
-    const tot = laserRowTotal(r);
-
-    // No type selected yet — show only the tipo dropdown
+    const tot = laserRowTotal(r, qty);
     if (!r.tipo) {
-      return `<tr>
-        <td colspan="8"><select style="width:100%" onchange="updLaser('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
-      </tr>`;
+      return `<tr><td colspan="9"><select style="width:100%" onchange="updLaser('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td></tr>`;
     }
-
     if (r.tipo === 'Taglio Laser Interno') {
-      // Full laser params row
       const p = getLaserParams(r.mat, r.gas, r.sp);
       const gases = laserGas(r.mat);
       const sps = laserSpessori(r.mat, r.gas);
       return `<tr>
         <td><select style="width:100%" onchange="updLaser('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
-        <td><select style="width:100%" onchange="updLaser('${r.id}','mat',this.value)">
-          ${['Ferro','Alluminio','Inox'].map(m=>`<option ${m===r.mat?'selected':''}>${m}</option>`).join('')}
-        </select></td>
-        <td><select style="width:100%" onchange="updLaser('${r.id}','gas',this.value)">
-          ${gases.map(g=>`<option ${g===r.gas?'selected':''}>${g}</option>`).join('')}
-        </select></td>
-        <td><select style="width:100%" onchange="updLaser('${r.id}','sp',+this.value)">
-          ${sps.map(s=>`<option value="${s}" ${s===r.sp?'selected':''}>${s}</option>`).join('')}
-        </select></td>
+        <td>${toggleHtml(r)}</td>
+        <td><select style="width:100%" onchange="updLaser('${r.id}','mat',this.value)">${['Ferro','Alluminio','Inox'].map(m=>`<option ${m===r.mat?'selected':''}>${m}</option>`).join('')}</select></td>
+        <td><select style="width:100%" onchange="updLaser('${r.id}','gas',this.value)">${gases.map(g=>`<option ${g===r.gas?'selected':''}>${g}</option>`).join('')}</select></td>
+        <td><select style="width:100%" onchange="updLaser('${r.id}','sp',+this.value)">${sps.map(s=>`<option value="${s}" ${s===r.sp?'selected':''}>${s}</option>`).join('')}</select></td>
         <td><input type="number" value="${r.lunghezza||0}" min="0" step="1" style="width:100%" onfocus="this.select()" onchange="updLaserDim('${r.id}','lunghezza',+this.value)" ${r.tempo>0?'style="opacity:0.4;width:80px"':''}></td>
         <td><input type="number" value="${r.tempo||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updLaserDim('${r.id}','tempo',+this.value)" ${r.lunghezza>0?'style="opacity:0.4;width:72px"':''}></td>
         <td class="tr-tot">${fmt(tot)}</td>
@@ -3331,19 +3303,18 @@ function renderLaser(q) {
     } else if (r.tipo === 'Taglio Laser Esterno') {
       return `<tr>
         <td><select style="width:100%" onchange="updLaser('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+        <td>${toggleHtml(r)}</td>
         <td></td><td></td><td></td><td></td>
         <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updLaser('${r.id}','priceExt',+this.value)" placeholder="€"></td>
         <td class="tr-tot">${fmt(tot)}</td>
         <td><button class="btn-icon" onclick="delLaser('${r.id}')">🗑</button></td>
       </tr>`;
     } else {
-      // Other types — same fields as Taglio Laser Esterno
       return `<tr>
         <td><select style="width:100%" onchange="updLaser('${r.id}','tipo',this.value)"><option value=''>— seleziona —</option>${tipoSel}</select></td>
+        <td>${toggleHtml(r)}</td>
         <td><input type="number" value="${r.qty||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updLaser('${r.id}','qty',+this.value)"></td>
-        <td><select style="width:100%" onchange="updLaser('${r.id}','um',this.value)">
-          ${['kg','m','pz'].map(u=>`<option ${u===(r.um||'kg')?'selected':''}>${u}</option>`).join('')}
-        </select></td>
+        <td><select style="width:100%" onchange="updLaser('${r.id}','um',this.value)">${['kg','m','pz'].map(u=>`<option ${u===(r.um||'kg')?'selected':''}>${u}</option>`).join('')}</select></td>
         <td><input type="number" value="${r.priceExt||0}" min="0" step="0.01" style="width:100%" onfocus="this.select()" onchange="updLaser('${r.id}','priceExt',+this.value)"></td>
         <td><input type="number" value="${r.scrap||0}" min="0" max="100" step="1" style="width:100%" onfocus="this.select()" onchange="updLaser('${r.id}','scrap',+this.value)"></td>
         <td class="tr-tot">${fmt(tot)}</td>
@@ -3351,7 +3322,6 @@ function renderLaser(q) {
       </tr>`;
     }
   }).join('');
-  ss('tot_laser', fmt(rows.reduce((s,r)=>s+laserRowTotal(r),0)));
 }
 
 // EXTRA
@@ -3474,7 +3444,7 @@ function calcTotal(q){
   const sa=(q.saldatura||[]).reduce((s,r)=>s+saldaturaRowTotal(r,_qty),0);
   const LINT=new Set(["Filettatura esterna","Fresatura esterna","Piegatura esterna","Tornitura esterna"]); const l=(q.labor||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; if(LINT.has(r.op)) return s+(isLotto?(r.cost||0)/_qty:(r.cost||0)); if(r.op==="Filettatura interna") return s+(isLotto?filettTotal(r)/_qty:filettTotal(r)); const raw=(r.minutes??r.hours*60??0)*r.rate*(r.addetti||1); return s+(isLotto?raw/_qty:raw); },0);
   const mc=(q.machines||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate; return s+(isLotto?raw/_qty:raw); },0);
-  const la=(q.laser||[]).reduce((s,r)=>s+laserRowTotal(r)/_qty,0);
+  const la=(q.laser||[]).reduce((s,r)=>s+laserRowTotal(r,_qty),0);
   const tr=(q.treat||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.qty||0)*(r.rate||0); return s+(isLotto?raw/_qty:raw); },0);
   const tp=(q.transport||[]).reduce((s,r)=>s+(r.ammKm||0),0);
   const e=(q.extra||[]).reduce((s,r)=>s+r.amount,0);
@@ -3498,7 +3468,7 @@ function recalc(){
   const sa=(q.saldatura||[]).reduce((s,r)=>s+saldaturaRowTotal(r,_qty2),0);
   const LINT=new Set(["Filettatura esterna","Fresatura esterna","Piegatura esterna","Tornitura esterna"]); const l=(q.labor||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; if(LINT.has(r.op)) return s+(isLotto?(r.cost||0)/_qty2:(r.cost||0)); if(r.op==="Filettatura interna") return s+(isLotto?filettTotal(r)/_qty2:filettTotal(r)); const raw=(r.minutes??r.hours*60??0)*r.rate*(r.addetti||1); return s+(isLotto?raw/_qty2:raw); },0);
   const mc=(q.machines||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.minutes!=null?r.minutes:r.hours*60)/60*r.rate; return s+(isLotto?raw/_qty2:raw); },0);
-  const la=(q.laser||[]).reduce((s,r)=>s+laserRowTotal(r)/_qty2,0);
+  const la=(q.laser||[]).reduce((s,r)=>s+laserRowTotal(r,_qty2),0);
   const tr=(q.treat||[]).reduce((s,r)=>{ const isLotto=(r.qtyMode||'unitario')==='lotto'; const raw=(r.qty||0)*(r.rate||0); return s+(isLotto?raw/_qty2:raw); },0);
   const tp=(q.transport||[]).reduce((s,r)=>s+(r.ammKm||0),0);
   const e=(q.extra||[]).reduce((s,r)=>s+r.amount,0);
@@ -3511,7 +3481,7 @@ function recalc(){
   const discv=beforeDisc*disc/100,pu=beforeDisc-discv;
   const net=pu*qty+(e+fx+tp),tot=net;
   const unitPrice=qty>0?net/qty:net;
-  ss('tot_materials',fmt(m*qty));ss('tot_piazzamento',fmt(pz*qty));ss('tot_laser',fmt(la*qty));ss('tot_tubo',fmt(tb*qty));ss('tot_piega',fmt(pg*qty));ss('tot_saldatura',fmt(sa*qty));ss('tot_labor',fmt(l*qty));ss('tot_machines',fmt(mc*qty));ss('tot_treat',fmt(tr*qty));ss('sum_transport',fmt(tp));ss('tot_extra',fmt((tp+e+fx)));ss('sum_fixed',fmt(fx));
+  ss('tot_materials',fmt(m*qty));ss('tot_piazzamento',fmt(pz*qty));ss('tot_laser',fmt(la*qty));ss('tot_laser_unit',fmt(la));ss('tot_tubo',fmt(tb*qty));ss('tot_piega',fmt(pg*qty));ss('tot_saldatura',fmt(sa*qty));ss('tot_labor',fmt(l*qty));ss('tot_machines',fmt(mc*qty));ss('tot_treat',fmt(tr*qty));ss('sum_transport',fmt(tp));ss('tot_extra',fmt((tp+e+fx)));ss('sum_fixed',fmt(fx));
   // Aggiorna badge 1pz nelle card
   ss('tot_piazzamento_unit',fmt(pz)); ss('tot_tubo_unit',fmt(tb)); ss('tot_piega_unit',fmt(pg)); ss('tot_saldatura_unit',fmt(sa)); ss('tot_labor_unit',fmt(l)); ss('tot_machines_unit',fmt(mc)); ss('tot_treat_unit',fmt(tr));
   function copyBadge(fromId, toId) {
