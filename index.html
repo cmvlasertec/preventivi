@@ -377,62 +377,348 @@ textarea { resize: vertical; min-height: 66px; }
   <h2 class="page-title" style="margin-bottom:24px;">📖 Guida all'uso</h2>
   <div style="max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:20px;font-size:14px;line-height:1.7;color:var(--text);">
 
-    <!-- INTRO -->
-    <div style="background:var(--white);border-radius:12px;border:1px solid var(--border);padding:20px 24px;">
-      <h3 style="margin:0 0 10px;font-size:15px;color:var(--accent);">Come funziona</h3>
-      <p style="margin:0;">Il webapp calcola il <strong>prezzo unitario</strong> di un pezzo meccanico sommando tutti i costi di produzione. Tutti i valori che inserisci si riferiscono all'<strong>intero lotto</strong> — il sistema divide automaticamente per la quantità per ottenere il costo per pezzo.</p>
-      <div style="margin-top:12px;background:#f0f9ff;border-radius:8px;padding:12px 16px;font-size:13px;">
-        <strong>Esempio:</strong> Ordine da 10 pezzi. Inserisci 60 minuti di piega per tutto il lotto → il sistema calcola 6 min/pezzo. Con una tariffa di €30/ora → <strong>€3,00 a pezzo</strong>.
+    <!-- INDICE -->
+    <div style="background:var(--white);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:18px 22px;">
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--accent);margin-bottom:10px;">Indice</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;font-size:13px;">
+        <a href="#g1" style="color:var(--text2);text-decoration:none;">1. Che cos'è PreventivoPro</a>
+        <a href="#g6" style="color:var(--text2);text-decoration:none;">6. Tabelle Parametri Costi</a>
+        <a href="#g2" style="color:var(--text2);text-decoration:none;">2. Creare un nuovo preventivo</a>
+        <a href="#g7" style="color:var(--text2);text-decoration:none;">7. Google Sheets</a>
+        <a href="#g3" style="color:var(--text2);text-decoration:none;">3. Le schede di costo</a>
+        <a href="#g8" style="color:var(--text2);text-decoration:none;">8. Esempi pratici completi</a>
+        <a href="#g4" style="color:var(--text2);text-decoration:none;">4. Preventivi Salvati</a>
+        <a href="#g9" style="color:var(--text2);text-decoration:none;">9. Domande frequenti</a>
+        <a href="#g5" style="color:var(--text2);text-decoration:none;">5. Export PDF</a>
+        <a href="#g10" style="color:var(--text2);text-decoration:none;">10. La formula di calcolo</a>
       </div>
     </div>
 
-    <!-- STRUTTURA PREVENTIVO -->
-    <div style="background:var(--white);border-radius:12px;border:1px solid var(--border);padding:20px 24px;">
-      <h3 style="margin:0 0 14px;font-size:15px;color:var(--accent);">Struttura di un preventivo</h3>
-      <div style="display:flex;flex-direction:column;gap:8px;">
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">📋</span><div><strong>Informazioni generali</strong> — Codice, cliente, quantità, note. La quantità è il dato fondamentale su cui si basano tutti i calcoli.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">🔩</span><div><strong>Materiale</strong> — Tipo di materiale (es. Acciaio, Alluminio), peso in kg e prezzo €/kg. Il costo totale del materiale viene diviso per la quantità.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">📐</span><div><strong>Piazzamento</strong> — Tempo di attrezzaggio macchina per il lotto. Si divide per la quantità. <em>Es: 30 min attrezzaggio ÷ 10 pz = 3 min/pz</em></div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">⚡</span><div><strong>Taglio lamiera / Taglio tubo</strong> — Può essere interno (con calcolo automatico da velocità e spessore) o esterno (prezzo €/m o € totale). Si divide per quantità.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">📏</span><div><strong>Piega</strong> — Tempo in minuti per il lotto o prezzo esterno. Differenzia tra piega semplice e complessa con tariffe diverse.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">🔥</span><div><strong>Saldatura</strong> — Tempo in minuti per il lotto o prezzo esterno. Si divide per quantità.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">👷</span><div><strong>Manodopera</strong> — Operazioni interne (es. Fresatura, Tornitura, Filettatura interna) con figura professionale, minuti e addetti. Operazioni esterne con costo diretto. Tutto diviso per quantità.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">⚙️</span><div><strong>Macchinari</strong> — Tempo macchina in minuti con tariffa €/ora. Es: 120 min ÷ 10 pz = 12 min/pz × €20/ora = €4,00/pz.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">🎨</span><div><strong>Trattamenti</strong> — Verniciatura, zincatura ecc. Inserisci €/kg e il peso totale in kg del lotto. Si divide per quantità.</div></div>
-        <div style="display:flex;gap:10px;align-items:flex-start;"><span style="font-size:18px;width:28px;flex-shrink:0;">💼</span><div><strong>Costi Aggiuntivi</strong> — Trasporto, costi fissi, spese varie. <strong>Non si dividono</strong> per quantità — sono costi fissi per pezzo già al netto.</div></div>
+    <!-- 1. CHE COS'E' -->
+    <div id="g1" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">1. Che cos'è PreventivoPro?</h3>
+      <p style="margin:0 0 10px;">PreventivoPro è un programma per calcolare i preventivi nell'officina metalmeccanica. Immagina di dover dire a un cliente quanto costerà fare 50 pezzi di una staffa in ferro: devi calcolare il costo del materiale, quanto è costato tagliarla con il laser, quanto ha lavorato il piegatore, quanto ha saldato il saldatore, e così via. PreventivoPro fa tutti questi calcoli per te, in automatico, e ti dice il prezzo finale al pezzo.</p>
+      <p style="margin:0 0 12px;">Il programma lavora su <strong>due numeri in parallelo</strong> per ogni scheda:</p>
+      <div style="display:flex;gap:10px;margin-bottom:8px;">
+        <div style="flex:1;background:#eff6ff;border:1px solid #93c5fd;border-radius:6px;padding:10px 14px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#1d4ed8;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;">Badge BLU</div>
+          <div style="font-size:13px;font-weight:700;color:#1d4ed8;">1 pz</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px;">Costo per un pezzo singolo</div>
+        </div>
+        <div style="flex:1;background:#f0fdf4;border:1px solid #86efac;border-radius:6px;padding:10px 14px;text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:#15803d;text-transform:uppercase;letter-spacing:0.6px;margin-bottom:4px;">Badge VERDE</div>
+          <div style="font-size:13px;font-weight:700;color:#15803d;">lotto</div>
+          <div style="font-size:12px;color:var(--text2);margin-top:4px;">Costo totale del lotto</div>
+        </div>
+      </div>
+      <div style="background:var(--accent-light);border-radius:6px;padding:10px 14px;font-size:13px;color:var(--accent);">
+        💡 <em>Ogni volta che modifichi qualcosa, i totali si aggiornano automaticamente. Non devi premere nessun tasto di calcolo.</em>
+      </div>
+      <p style="margin:12px 0 0;">Dalla <strong>Home</strong> trovi quattro pulsanti principali: <strong>Nuovo Preventivo</strong>, <strong>Preventivi Salvati</strong>, <strong>Tabelle Parametri Costi</strong> e questa <strong>Guida</strong>. In basso vedi quanti preventivi hai salvato in totale.</p>
+    </div>
+
+    <!-- 2. CREARE UN PREVENTIVO -->
+    <div id="g2" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">2. Creare un nuovo preventivo</h3>
+      <p style="margin:0 0 10px;">Premi <strong>+ Nuovo Preventivo</strong> nella Home. Si apre l'editor, diviso in due colonne: a sinistra le schede di costo, a destra il pannello Riepilogo sempre visibile.</p>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin:14px 0 8px;">Barra degli strumenti</div>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;">
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:110px;">← Indietro</span><span style="color:var(--text2);">Torna alla pagina precedente. Se hai modifiche non salvate, ti chiede conferma.</span></div>
+        <div style="display:flex;gap:8px;padding:7px 10px;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:110px;">↺ Ripristina</span><span style="color:var(--text2);">Azzera tutti i costi mantenendo le informazioni generali (nome, cliente, data, quantità).</span></div>
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:110px;">⬇ PDF</span><span style="color:var(--text2);">Apre la finestra di stampa. Scegli "Salva come PDF" per ottenere il documento.</span></div>
+        <div style="display:flex;gap:8px;padding:7px 10px;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:110px;">💾 Salva</span><span style="color:var(--text2);">Salva localmente e su Google Sheets. Appare il messaggio verde "Salvato ✓".</span></div>
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin:16px 0 8px;">Scheda Allegato</div>
+      <p style="margin:0 0 8px;font-size:13px;">Trascina un file (JPG, PNG, WEBP, PDF) nella zona tratteggiata oppure clicca per sceglierlo. Tipicamente è il disegno tecnico del pezzo. L'allegato viene salvato insieme al preventivo.</p>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;margin:16px 0 8px;">Scheda Informazioni Generali</div>
+      <div style="display:flex;flex-direction:column;gap:3px;font-size:13px;">
+        <div style="display:flex;gap:8px;padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:130px;">Cliente</span><span style="color:var(--text2);">La ragione sociale del cliente (es. "Rossi S.r.l.")</span></div>
+        <div style="display:flex;gap:8px;padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:130px;">Codice Preventivo</span><span style="color:var(--text2);">Generato automaticamente (es. "PRV-2026-042"), modificabile</span></div>
+        <div style="display:flex;gap:8px;padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:130px;">Quantità</span><span style="color:var(--text2);"><strong>Campo fondamentale:</strong> quanti pezzi produrre. Cambia tutti i calcoli.</span></div>
+        <div style="display:flex;gap:8px;padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:130px;">U.M.</span><span style="color:var(--text2);">Unità di misura: pz, lotto, m, kg</span></div>
+        <div style="display:flex;gap:8px;padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:130px;">Note</span><span style="color:var(--text2);">Campo libero: tolleranze, finiture, specifiche tecniche</span></div>
+      </div>
+      <div style="margin-top:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:10px 14px;font-size:13px;">
+        📌 <strong>Esempio:</strong> Preventivo per "Bianchi S.p.A.", 20 flange. Scrivi Cliente = "Bianchi S.p.A.", Quantità = 20, il codice si genera da solo.
       </div>
     </div>
 
-    <!-- FORMULA -->
-    <div style="background:var(--white);border-radius:12px;border:1px solid var(--border);padding:20px 24px;">
-      <h3 style="margin:0 0 14px;font-size:15px;color:var(--accent);">Formula di calcolo</h3>
-      <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#f8faff;border-radius:6px;"><span>Somma di tutti i costi (÷ quantità dove applicabile)</span><span style="font-weight:600;">= Costo diretto</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#f8faff;border-radius:6px;"><span>Costo diretto × Spese generali %</span><span style="font-weight:600;">+ Overhead</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#f8faff;border-radius:6px;"><span>(Costo diretto + Overhead) × Margine %</span><span style="font-weight:600;">+ Margine</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#f0fdfa;border-radius:6px;border:1px solid #99f6e4;"><span style="font-weight:600;">Prezzo unitario (al netto dello sconto)</span><span style="font-weight:700;color:#14b8a6;">= Prezzo finale/pz</span></div>
-        <div style="display:flex;justify-content:space-between;padding:6px 10px;background:#fefce8;border-radius:6px;border:1px solid #fde68a;"><span>Prezzo unitario × Quantità</span><span style="font-weight:700;color:#b45309;">= Totale lotto</span></div>
+    <!-- 3. SCHEDE DI COSTO -->
+    <div id="g3" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">3. Le schede di costo</h3>
+      <p style="margin:0 0 10px;">Ogni scheda ha: icona + nome, pulsante <strong>↗ Parametri</strong> (apre le tariffe in una nuova scheda), badge BLU "1 pz" e VERDE "lotto", freccia ▼ per aprire/chiudere.</p>
+
+      <div style="background:#f0fdf4;border:1px solid #99f6e4;border-radius:6px;padding:10px 14px;font-size:13px;margin-bottom:14px;">
+        💡 <em><strong>Il toggle "pz / lotto"</strong> — su ogni riga scegli se il costo vale per un pezzo singolo ("pz") o per tutto il lotto ("lotto"). Se scegli "lotto": il programma divide il costo per la quantità. Se scegli "pz": lo moltiplica.</em>
       </div>
-      <div style="margin-top:14px;background:#f0f9ff;border-radius:8px;padding:12px 16px;font-size:13px;">
-        <strong>Esempio completo</strong> — 10 pezzi:<br>
-        Materiale €50 + Taglio €30 + Piega €20 + Manodopera €40 = <strong>Costo diretto €14,00/pz</strong><br>
-        + Spese generali 10% = €1,40 → + Margine 20% = €3,08 → <strong>Prezzo unitario €18,48</strong><br>
-        Totale lotto = €18,48 × 10 = <strong>€184,80</strong>
+      <div style="margin-bottom:14px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:10px 14px;font-size:13px;">
+        📌 <strong>Esempio toggle:</strong> Hai 20 pezzi. Il laser impiega 30 min su tutto il lotto → usa "lotto": 30÷20 = 1,5 min/pz. Se ogni pezzo richiede 2 min → usa "pz": totale = 40 min automaticamente.
+      </div>
+
+      <!-- MATERIALE -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">🔩 Materiale</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          Materiale grezzo del pezzo. Seleziona: Materia Prima (Lamiera, Tubo, Tondo, ecc.), Tipo materiale (Ferro, Aisi 304, Alluminio, Prezincata…), U.M. (kg o m), toggle pz/lotto, quantità. Il prezzo €/kg si compila automaticamente dai parametri quando scegli il materiale.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 10 staffe, 2,5 kg/pz in Ferro S235 JR. Toggle = "pz", Qtà = 2,5, prezzo €0,90/kg → €2,25/pz di materiale.</div>
+        </div>
+      </div>
+
+      <!-- PIAZZAMENTO -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">📐 Piazzamento</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          Tempo di preparazione del pezzo prima della lavorazione. Scegli l'operatore (Fresatore, Operaio, Tornitore, Trapanista, ecc.), il tempo in minuti e il toggle pz/lotto. La tariffa €/ora si carica dai parametri.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Operaio piazza 10 pezzi in 45 min totali. Toggle = "lotto": 45÷60 × €30/ora = €22,50 → ÷10 = €2,25/pz.</div>
+        </div>
+      </div>
+
+      <!-- TAGLIO LAMIERA -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">✂️ Taglio Lamiera</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          <strong>Taglio Laser Interno:</strong> scegli Materiale (Ferro/Alluminio/Inox), Gas (O2/N2/Aria), Spessore (mm) e inserisci Lunghezza (mm) oppure Tempo (min) — l'altro si calcola da solo in base alla velocità configurata nei parametri.<br>
+          <strong>Taglio Laser Esterno:</strong> inserisci direttamente l'importo in €.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Ferro 3mm + O2 + 1.500 mm di percorso → il programma calcola i minuti e il costo automaticamente dalla tabella laser.</div>
+        </div>
+      </div>
+
+      <!-- TAGLIO TUBO -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">🔧 Taglio Tubo</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          <strong>Taglio Tubo Interno:</strong> calcolo automatico a €/min configurabile. <strong>Taglio Tubo Esterno:</strong> prezzo forfettario in €/kg, €/m o €/pz. <strong>Taglio Sega:</strong> tariffa €/min separata.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 50 tubi tagliati fuori a €2,50/pz → "Taglio Tubo Esterno", U.M. = pz, Qtà = 50, Prezzo = 2,50 → €125 totale.</div>
+        </div>
+      </div>
+
+      <!-- PIEGATORE -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">📏 Piegatore</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          <strong>Piega semplice</strong> (una/due pieghe standard) e <strong>Piega complessa</strong> (più pieghe, geometrie articolate) hanno tariffe €/min separate. <strong>Piega esterna</strong>: prezzo forfettario.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Piega semplice, 20 min per 15 pezzi. Toggle = "lotto": 20÷60 × €24/ora = €8 → ÷15 = €0,53/pz.</div>
+        </div>
+      </div>
+
+      <!-- SALDATORE -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">🔥 Saldatore</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          <strong>Saldatura Interna:</strong> inserisci i minuti, il costo è calcolato con la tariffa €/ora dai parametri. <strong>Saldatura Esterna:</strong> prezzo forfettario del terzista.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 12 min/pz di saldatura interna. Toggle = "pz": 12÷60 × €36/ora = €7,20/pz.</div>
+        </div>
+      </div>
+
+      <!-- MANODOPERA -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">👷 Manodopera</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          <strong>Operazioni interne a tempo:</strong> Foratura, Fresatura interna, Sbavatura/Satinatura, Svasatura, Tornitura interna. Inserisci minuti e €/ora (dai parametri).<br>
+          <strong>Filettatura interna:</strong> scegli la fascia (M4, M6, M8…) e il numero di fori — oppure usa "Tempo" in minuti.<br>
+          <strong>Operazioni esterne:</strong> Fresatura esterna, Tornitura esterna, Filettatura esterna → inserisci direttamente il costo in €.<br>
+          <strong>Altro:</strong> seleziona la figura (Montatore, Operaio, Progettista, Sviluppatore) e inserisci minuti.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Foratura 8 min/pz → toggle "pz", 8 min, €25/ora = €3,33/pz. Tornitura esterna €45 per lotto da 10 → toggle "lotto" = €4,50/pz.</div>
+        </div>
+      </div>
+
+      <!-- MACCHINARI -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">⚙️ Macchinari e Attrezzatura</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          Scegli il macchinario (Fresatrice, Tornio, Trapano, Saldatura MIG/TIG, Piegatrice, Altro), inserisci i minuti. La tariffa €/ora si carica dai parametri. Formula: (min ÷ 60) × €/ora.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Fresatrice 45 min per lotto da 5 pz. Toggle = "lotto": 45÷60 × €80/ora = €60 → ÷5 = €12/pz.</div>
+        </div>
+      </div>
+
+      <!-- TRATTAMENTI -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">🧪 Trattamenti</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          Verniciatura, Zincatura, Anodizzazione, Cromatura, Sabbiatura, ecc. Scegli il tipo, inserisci i kg (del pezzo o del lotto a seconda del toggle). Il prezzo €/kg si carica dai parametri.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Verniciatura, 10 pezzi da 1,2 kg/pz. Toggle = "pz": 1,2 × €3,50/kg = €4,20/pz.</div>
+        </div>
+      </div>
+
+      <!-- COSTI AGGIUNTIVI -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;margin-bottom:10px;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">📦 Costi Aggiuntivi</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          Tre sezioni: <strong>Trasporto</strong> (veicolo e importo a viaggio dai parametri), <strong>Altri Costi</strong> (imballo, collaudo, trasferte), <strong>Costi Fissi</strong> (affitto, energia, ammortamenti — dai parametri). Questi costi non si dividono per la quantità.
+        </div>
+      </div>
+
+      <!-- SPESE GENERALI -->
+      <div style="border:1px solid var(--border-light);border-radius:6px;overflow:hidden;">
+        <div style="background:#f0f4f8;padding:9px 14px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;">📊 Spese Generali e Margine</div>
+        <div style="padding:10px 14px;font-size:13px;color:var(--text2);">
+          <strong>Spese Generali %:</strong> percentuale aggiunta al costo diretto per coprire le spese dell'azienda (es. 10%). <strong>Margine %:</strong> percentuale di guadagno (es. 20%). <strong>Sconto %:</strong> sconto da applicare al prezzo finale.
+          <div style="margin-top:8px;background:#fffbeb;border-radius:5px;padding:7px 10px;border:1px solid #fde68a;">📌 Costo diretto €100. Spese generali 10% → €110. Margine 20% → €132. Sconto 5% → €125,40/pz finale.</div>
+        </div>
       </div>
     </div>
 
-    <!-- PARAMETRI -->
-    <div style="background:var(--white);border-radius:12px;border:1px solid var(--border);padding:20px 24px;">
-      <h3 style="margin:0 0 10px;font-size:15px;color:var(--accent);">Tabelle Parametri Costi</h3>
-      <p style="margin:0 0 10px;">Le tariffe sono configurabili da <strong>Tabelle Parametri Costi</strong> nella home. Ogni card del preventivo ha un pulsante <em>↗ Parametri</em> che apre direttamente la tabella corrispondente. Le tariffe si applicano automaticamente quando selezioni figura o macchinario.</p>
-      <div style="font-size:13px;color:var(--text-light);">Le tariffe sono condivise tra tutti gli utenti tramite Google Sheets — se un collega aggiorna una tariffa, tutti vedono il valore aggiornato al prossimo avvio.</div>
+    <!-- 4. PREVENTIVI SALVATI -->
+    <div id="g4" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">4. Preventivi Salvati</h3>
+      <p style="margin:0 0 10px;">La lista mostra tutti i preventivi dal più recente al più vecchio. Ogni riga mostra codice, cliente, data, quantità e totale. Clicca su un preventivo per aprirlo, oppure usa il pulsante <strong>Modifica</strong>.</p>
+
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;margin-bottom:12px;">
+        <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--muted);flex-shrink:0;"></span>
+          <span><strong>Grigio — Bozza:</strong> preventivo in lavorazione, non ancora inviato</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--accent);flex-shrink:0;"></span>
+          <span><strong>Verde — Inviato:</strong> preventivo inviato al cliente</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);">
+          <span style="width:10px;height:10px;border-radius:50%;background:#15803d;flex-shrink:0;"></span>
+          <span><strong>Verde scuro — Accettato:</strong> il cliente ha accettato il preventivo</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;">
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:120px;">🔍 Ricerca</span><span style="color:var(--text2);">Digita nome cliente, codice o parola: la lista si filtra in tempo reale. Premi ✕ per cancellare.</span></div>
+        <div style="display:flex;gap:8px;padding:7px 10px;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:120px;">Duplica</span><span style="color:var(--text2);">Attiva la selezione: clicca il preventivo da copiare. Crea una copia con "-COPIA" al codice, pronta da modificare.</span></div>
+        <div style="display:flex;gap:8px;padding:7px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:120px;">🗑 Cancella</span><span style="color:var(--text2);">Seleziona i preventivi da eliminare e conferma. "Cancella tutto" li elimina tutti (irreversibile).</span></div>
+        <div style="display:flex;gap:8px;padding:7px 10px;border-radius:5px;border:1px solid var(--border-light);"><span style="font-weight:600;min-width:120px;">📊 Export Excel</span><span style="color:var(--text2);">Seleziona i preventivi da esportare e premi "Genera Excel". Scarica un file .xlsx con codice, quantità e totale.</span></div>
+      </div>
     </div>
 
-    <!-- SALVATAGGIO -->
-    <div style="background:var(--white);border-radius:12px;border:1px solid var(--border);padding:20px 24px;">
-      <h3 style="margin:0 0 10px;font-size:15px;color:var(--accent);">Salvataggio e condivisione</h3>
-      <p style="margin:0 0 8px;">I preventivi vengono salvati automaticamente su <strong>Google Sheets</strong> condiviso — tutti i colleghi vedono i preventivi salvati in tempo reale (aggiornamento ogni 20 secondi).</p>
-      <p style="margin:0;">Ogni preventivo può essere <strong>esportato in PDF</strong> per la stampa o in <strong>Excel</strong> per ulteriori elaborazioni.</p>
+    <!-- 5. PDF -->
+    <div id="g5" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">5. Esportare in PDF</h3>
+      <p style="margin:0 0 8px;">Dall'editor premi <strong>⬇ PDF</strong>. Si apre la finestra di stampa: seleziona "Salva come PDF" come destinazione.</p>
+      <p style="margin:0 0 8px;">Il PDF include: informazioni generali, allegato (disegno tecnico), dettaglio completo di tutti i costi, riepilogo con prezzo unitario e totale lotto.</p>
+      <div style="background:var(--accent-light);border-radius:6px;padding:10px 14px;font-size:13px;color:var(--accent);">💡 <em>Il PDF è il documento ufficiale da inviare al cliente.</em></div>
+    </div>
+
+    <!-- 6. TABELLE PARAMETRI -->
+    <div id="g6" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">6. Tabelle Parametri Costi</h3>
+      <p style="margin:0 0 10px;">Contengono tutte le tariffe usate nei calcoli. Si aprono dalla Home oppure da ogni scheda con il pulsante <strong>↗ Parametri</strong> (si apre in una nuova scheda del browser, così puoi modificare le tariffe senza perdere il preventivo aperto).</p>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;">
+        <div style="padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Materiali</strong> — €/kg e €/m per ogni tipo di materiale</div>
+        <div style="padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><strong>Piazzamento</strong> — €/ora per ogni figura professionale</div>
+        <div style="padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Manodopera</strong> — €/ora per figure + €/ora separato per ogni operazione interna (Foratura, Fresatura, Tornitura, ecc.)</div>
+        <div style="padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><strong>Laser</strong> — velocità (mm/min), €/min e setup per ogni combinazione Materiale + Gas + Spessore. Più tariffe esterne €/kg, €/m, €/pz.</div>
+        <div style="padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Taglio Tubo</strong> — €/min interno, tariffe esterne, tariffa sega separata</div>
+        <div style="padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><strong>Piegatore</strong> — €/min piega semplice e €/min piega complessa (separati)</div>
+        <div style="padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Saldatore</strong> — €/min saldatura interna</div>
+        <div style="padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><strong>Macchinari</strong> — €/ora + setup per ogni macchinario</div>
+        <div style="padding:6px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Trattamenti</strong> — €/kg e setup per ogni trattamento</div>
+        <div style="padding:6px 10px;border-radius:5px;border:1px solid var(--border-light);"><strong>Costi Aggiuntivi</strong> — tariffe trasporto, categorie altri costi, costi fissi mensili</div>
+      </div>
+      <div style="margin-top:12px;background:var(--accent-light);border-radius:6px;padding:10px 14px;font-size:13px;color:var(--accent);">💡 <em>Quando apri un preventivo, le tariffe si aggiornano automaticamente dai parametri. Se un collega ha modificato una tariffa, vedrai il valore nuovo alla prossima apertura.</em></div>
+    </div>
+
+    <!-- 7. GOOGLE SHEETS -->
+    <div id="g7" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 12px;font-size:16px;font-weight:700;color:var(--accent);">7. Sincronizzazione con Google Sheets</h3>
+      <p style="margin:0 0 10px;">Preventivi e tabelle parametri sono salvati su un foglio Google Sheets condiviso, visibile a tutti i colleghi.</p>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:13px;margin-bottom:12px;">
+        <div style="padding:7px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Salvataggio:</strong> quando premi 💾 Salva, i dati vanno prima nel browser (istantaneo) poi su Sheets (qualche secondo). Se va a buon fine: "Salvato su Google Sheets ✓".</div>
+        <div style="padding:7px 10px;border-radius:5px;border:1px solid var(--border-light);"><strong>Caricamento:</strong> all'avvio mostra subito i dati locali, poi scarica quelli aggiornati da Sheets e aggiorna la lista.</div>
+        <div style="padding:7px 10px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><strong>Aggiornamento automatico:</strong> nella pagina Preventivi Salvati, i dati si aggiornano ogni 20 secondi — vedi i preventivi nuovi dei colleghi senza ricaricare la pagina.</div>
+      </div>
+      <div style="background:var(--accent-light);border-radius:6px;padding:10px 14px;font-size:13px;color:var(--accent);">💡 <em>Se la connessione cade, i dati restano nel browser. Nessuna perdita. Riprova a salvare su Sheets quando la connessione torna.</em></div>
+    </div>
+
+    <!-- 8. ESEMPI PRATICI -->
+    <div id="g8" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 14px;font-size:16px;font-weight:700;color:var(--accent);">8. Esempi pratici completi</h3>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Scenario 1 — Flangia in Aisi 304, 25 pezzi (taglio laser → sbavatura → foratura → zincatura)</div>
+        <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;">
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Informazioni: Cliente = "Metalsteel S.r.l.", Quantità = 25</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Materiale: Lamiera | Aisi 304 | kg | <strong>pz</strong> | 0,8 kg/pz</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Taglio lamiera: Interno | Inox | N2 | 3mm | Lunghezza = 800 mm | <strong>pz</strong></div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Manodopera: Sbavatura/Satinatura | <strong>pz</strong> | 5 min</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Manodopera: Foratura | <strong>pz</strong> | 8 min</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Trattamenti: Zincatura | <strong>pz</strong> | 0,8 kg/pz</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Spese Generali: 12% | Margine: 22%</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Scenario 2 — Staffa in ferro, 10 pezzi (taglio → piega → saldatura → verniciatura)</div>
+        <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;">
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Materiale: Lamiera | Ferro S235 JR | kg | <strong>lotto</strong> | 18 kg totali</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Piazzamento: Operaio | <strong>lotto</strong> | 20 min per preparare tutto il lotto</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Taglio lamiera: Interno | Ferro | O2 | 2mm | 1.200 mm | <strong>pz</strong></div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Piegatore: Piega semplice | <strong>lotto</strong> | 30 min per tutto il lotto</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Saldatore: Saldatura Interna | <strong>pz</strong> | 15 min per pezzo</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Trattamenti: Verniciatura | <strong>pz</strong> | 1,8 kg/pz</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Costi Aggiuntivi → Trasporto: Furgone</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Spese generali: 10% | Margine: 18% | Sconto: 5%</div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Scenario 3 — Lavorazione mista interna/esterna, 50 pezzi</div>
+        <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;">
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Materiale: Tondo | Ferro | kg | <strong>pz</strong> | 0,5 kg/pz</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Taglio tubo: Taglio Sega | <strong>pz</strong></div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Manodopera: Tornitura interna | <strong>pz</strong> | 12 min</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Manodopera: Fresatura esterna (terzista) | <strong>lotto</strong> | €180 totali</div>
+          <div style="padding:5px 10px;background:#fafbfc;border-radius:4px;border:1px solid var(--border-light);">Macchinari: Tornio | <strong>pz</strong> | 12 min</div>
+          <div style="padding:5px 10px;border-radius:4px;border:1px solid var(--border-light);">Trattamenti: Fosfatazione | <strong>pz</strong> | 0,5 kg/pz</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. FAQ -->
+    <div id="g9" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 14px;font-size:16px;font-weight:700;color:var(--accent);">9. Domande frequenti</h3>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+        <div style="border-bottom:1px solid var(--border-light);padding-bottom:10px;">
+          <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Il totale non si aggiorna</div>
+          <div style="color:var(--text2);">Prova a modificare un campo e riportarlo indietro. Se persiste, ricarica la pagina (F5): il preventivo viene recuperato automaticamente grazie al salvataggio nel browser.</div>
+        </div>
+        <div style="border-bottom:1px solid var(--border-light);padding-bottom:10px;">
+          <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Ho chiuso per sbaglio il browser mentre modificavo</div>
+          <div style="color:var(--text2);">Nessun problema. Il programma salva automaticamente il lavoro in corso. Riapri la pagina: ti riporta al preventivo con tutte le modifiche.</div>
+        </div>
+        <div style="border-bottom:1px solid var(--border-light);padding-bottom:10px;">
+          <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Un collega ha cambiato una tariffa ma vedo ancora quella vecchia</div>
+          <div style="color:var(--text2);">Ricarica la pagina con F5. Le tariffe si aggiornano all'avvio.</div>
+        </div>
+        <div style="border-bottom:1px solid var(--border-light);padding-bottom:10px;">
+          <div style="font-weight:700;color:var(--text);margin-bottom:4px;">I dati non si sincronizzano con Google Sheets</div>
+          <div style="color:var(--text2);">Controlla la connessione. Se vedi "Salvataggio Sheets fallito", i dati sono salvati localmente — non perdi niente. Riprova a salvare quando la connessione torna.</div>
+        </div>
+        <div style="border-bottom:1px solid var(--border-light);padding-bottom:10px;">
+          <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Qual è la differenza tra "pz" e "lotto" nel toggle?</div>
+          <div style="color:var(--text2);">"Lotto" = il costo vale per tutti i pezzi insieme, il programma lo divide per la quantità. "Pz" = il costo vale per un pezzo, il programma lo moltiplica per la quantità.</div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:var(--text);margin-bottom:4px;">Posso usare PreventivoPro su più computer contemporaneamente?</div>
+          <div style="color:var(--text2);">Sì. Grazie a Google Sheets tutti i colleghi vedono gli stessi dati. Meglio evitare di modificare lo stesso preventivo in due contemporaneamente — vince l'ultima persona a salvare.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. FORMULA -->
+    <div id="g10" style="background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;">
+      <h3 style="margin:0 0 14px;font-size:16px;font-weight:700;color:var(--accent);">10. La formula di calcolo</h3>
+      <div style="display:flex;flex-direction:column;gap:5px;font-size:13px;margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#f0f4f8;border-radius:5px;border:1px solid var(--border);"><span>Somma di tutti i costi (÷ quantità dove applicabile)</span><span style="font-weight:700;">= Costo diretto / pz</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#fafbfc;border-radius:5px;border:1px solid var(--border-light);"><span>Costo diretto × (1 + Spese Generali %)</span><span style="font-weight:700;">= Costo pieno / pz</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#f0f4f8;border-radius:5px;border:1px solid var(--border);"><span>Costo pieno × (1 + Margine %)</span><span style="font-weight:700;">= Prezzo lordo / pz</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#f0fdfa;border-radius:5px;border:1px solid #99f6e4;"><span style="font-weight:700;">Prezzo lordo × (1 − Sconto %)</span><span style="font-weight:700;color:var(--accent);">= PREZZO FINALE / pz</span></div>
+        <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#fffbeb;border-radius:5px;border:1px solid #fde68a;"><span>Prezzo finale × Quantità</span><span style="font-weight:700;color:#b45309;">= TOTALE LOTTO</span></div>
+      </div>
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:12px 14px;font-size:13px;">
+        📌 <strong>Esempio completo — 10 pezzi:</strong><br>
+        Materiale €8 + Taglio €3 + Piega €2 + Manodopera €4 = <strong>Costo diretto €17/pz</strong><br>
+        Spese generali 10% → €17 × 1,10 = €18,70 | Margine 20% → €18,70 × 1,20 = €22,44 | Sconto 5% → €22,44 × 0,95 = <strong>€21,32/pz</strong><br>
+        Totale lotto: €21,32 × 10 = <strong>€213,20</strong>
+      </div>
     </div>
 
   </div>
@@ -1481,37 +1767,22 @@ function applyParams(params) {
   }
 }
 
-// Callback globale fisso per gsCall — sopravvive ai redirect di Google Apps Script
-window._gsCallQueue = [];
-window._gsCallCb = function(data) {
-  const resolve = window._gsCallQueue.shift();
-  if (resolve) resolve(data);
-};
-
+// SCRITTURA via fetch POST — funziona da GitHub Pages, gestisce i redirect CORS
 async function gsCall(body) {
   if (!GS_URL) return null;
-  return new Promise((resolve) => {
-    let done = false;
-    const wrappedResolve = (data) => {
-      if (done) return;
-      done = true;
-      resolve(data);
-    };
-    window._gsCallQueue.push(wrappedResolve);
-    // Timeout 15 secondi
-    setTimeout(() => {
-      if (done) return;
-      done = true;
-      const idx = window._gsCallQueue.indexOf(wrappedResolve);
-      if (idx > -1) window._gsCallQueue.splice(idx, 1);
-      console.warn('gsCall timeout');
-      resolve(null);
-    }, 15000);
-    const script = document.createElement('script');
-    const payload = encodeURIComponent(JSON.stringify(body));
-    script.src = GS_URL + '?callback=_gsCallCb&payload=' + payload;
-    document.head.appendChild(script);
-  });
+  try {
+    const res = await fetch(GS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(body),
+      redirect: 'follow'
+    });
+    if (!res.ok) { console.warn('gsCall HTTP error:', res.status); return null; }
+    return await res.json();
+  } catch(err) {
+    console.warn('gsCall error:', err);
+    return null;
+  }
 }
 async function gsGet(action) {
   if (!GS_URL) return null;
