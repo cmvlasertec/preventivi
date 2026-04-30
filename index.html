@@ -1417,15 +1417,14 @@ function renderGrid(filter) {
     if (favGrid) favGrid.innerHTML = '';
   }
 
-  // Label "Tutti i preventivi" / "Risultati ricerca"
+  // Sezione principale — esclude i preferiti
+  const nonFavList = list.filter(q => !favIds.has(q.id));
   if (allLabel) allLabel.textContent = filter ? 'Risultati ricerca' : 'Tutti i preventivi';
-
-  // Sezione principale
-  if (list.length === 0) {
+  if (nonFavList.length === 0) {
     grid.innerHTML = `<div class="empty-box"><div class="empty-box-icon">${filter?'🔍':'🗂️'}</div><h3>${filter?'Nessun risultato':'Nessun preventivo salvato'}</h3><p style="margin-top:8px;">${filter?'Prova con un altro termine.':'Crea il tuo primo preventivo!'}</p>${!filter?'<button class="btn btn-primary" style="margin-top:20px" onclick="newQuote()">+ Crea preventivo</button>':''}</div>`;
     return;
   }
-  grid.innerHTML = list.slice().reverse().map(makeCard).join('');
+  grid.innerHTML = nonFavList.slice().reverse().map(makeCard).join('');
 }
 function filterQ(val) { searchQ=val; document.getElementById('searchClear').style.display=val?'':'none'; renderGrid(val); }
 function clearSearch() { document.getElementById('searchInput').value=''; filterQ(''); }
