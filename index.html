@@ -381,34 +381,70 @@ textarea { resize: vertical; min-height: 72px; }
 
 <!-- SAVED -->
 <div id="page-saved" class="hidden">
-  <button class="btn btn-ghost btn-sm" style="margin-bottom:16px;" onclick="goHome()">← Home</button>
-  <div class="page-top">
-    <h2 class="page-title">Preventivi Salvati</h2>
-    <div class="search-bar">
+
+  <!-- HEADER -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+    <button class="btn btn-ghost btn-sm" onclick="goHome()">← Home</button>
+    <h2 class="page-title" style="margin:0;">Preventivi Salvati</h2>
+    <div class="search-bar" style="margin-left:auto;">
       <span class="si">🔍</span>
       <input type="text" id="searchInput" placeholder="Cerca nome, cliente, codice…" oninput="filterQ(this.value)">
       <button class="sc" id="searchClear" onclick="clearSearch()" style="display:none">✕</button>
     </div>
-    <button class="btn btn-danger btn-sm" onclick="toggleDeleteMode()" id="deleteModeBtn">🗑 Cancella</button>
-    <button class="btn btn-danger btn-sm" onclick="deleteAll()" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5">⚠ Cancella tutto</button>
-    <button class="btn btn-secondary btn-sm" onclick="toggleExportMode()" id="exportModeBtn" style="background:#f0fdf4;color:#059669;border-color:#6ee7b7;">📊 Export Excel</button>
-    <button class="btn btn-secondary" onclick="eseguiBackup()" title="Salva snapshot dei preventivi attuali nel Backup">💾 Esegui Backup</button>
-    <button class="btn btn-secondary" onclick="recuperaBackup()" title="Recupera preventivi dal Backup">🔄 Recupera Backup</button>
-    <button class="btn btn-primary" onclick="newQuote()">＋ Nuovo</button>
   </div>
+
+  <!-- TOOLBAR -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;padding:10px 14px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm);">
+    <!-- Gruppo azioni generali -->
+    <div style="display:flex;gap:6px;align-items:center;flex:1;flex-wrap:wrap;">
+      <button class="btn btn-danger btn-sm" onclick="toggleDeleteMode()" id="deleteModeBtn">🗑 Cancella</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteAll()" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5;">⚠ Cancella tutto</button>
+      <button class="btn btn-secondary btn-sm" onclick="toggleDuplicaMode()" id="duplicaModeBtn">📋 Duplica</button>
+      <button class="btn btn-secondary btn-sm" onclick="toggleExportMode()" id="exportModeBtn" style="background:#f0fdf4;color:#059669;border-color:#6ee7b7;">📊 Export Excel</button>
+    </div>
+    <!-- Separatore -->
+    <div style="width:1px;height:28px;background:var(--border);flex-shrink:0;"></div>
+    <!-- Gruppo backup preferiti -->
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap;">Preferiti:</span>
+      <button class="btn btn-secondary btn-sm" onclick="eseguiBackup()" title="Salva i preferiti nel Backup su Sheets">⭐ Backup</button>
+      <button class="btn btn-secondary btn-sm" onclick="recuperaBackup()" title="Recupera i preferiti dal Backup">🔄 Recupera</button>
+    </div>
+    <!-- Separatore -->
+    <div style="width:1px;height:28px;background:var(--border);flex-shrink:0;"></div>
+    <!-- Nuovo -->
+    <button class="btn btn-primary btn-sm" onclick="newQuote()">＋ Nuovo</button>
+  </div>
+
+  <!-- BARRE AZIONE CONTESTUALI -->
   <div class="delete-action-bar hidden" id="deleteBar">
-  <span class="bar-label">Modalità eliminazione — <strong><span id="deleteCount">0</span> selezionati</strong></span>
-  <button class="btn btn-secondary btn-sm" onclick="selectAll()">Seleziona tutti</button>
-  <button class="btn btn-danger btn-sm" id="confirmDeleteBtn" onclick="confirmDelete()" disabled>🗑 Elimina selezionati</button>
-  <button class="btn btn-ghost btn-sm" onclick="toggleDeleteMode()">✕ Annulla</button>
-</div>
-<div class="delete-action-bar hidden" id="exportBar">
-  <span class="bar-label">Modalità export — <strong><span id="exportCount">0</span> selezionati</strong></span>
-  <button class="btn btn-secondary btn-sm" onclick="selectAllExport()">Seleziona tutti</button>
-  <button class="btn btn-sm" id="confirmExportBtn" onclick="exportExcel()" disabled style="background:#059669;color:#fff;border-color:#059669;">📊 Genera Excel</button>
-  <button class="btn btn-ghost btn-sm" onclick="toggleExportMode()">✕ Annulla</button>
-</div>
-<div class="quotes-grid" id="quotesGrid"></div>
+    <span class="bar-label">Modalità eliminazione — <strong><span id="deleteCount">0</span> selezionati</strong></span>
+    <button class="btn btn-secondary btn-sm" onclick="selectAll()">Seleziona tutti</button>
+    <button class="btn btn-danger btn-sm" id="confirmDeleteBtn" onclick="confirmDelete()" disabled>🗑 Elimina selezionati</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleDeleteMode()">✕ Annulla</button>
+  </div>
+  <div class="delete-action-bar hidden" id="exportBar">
+    <span class="bar-label">Modalità export — <strong><span id="exportCount">0</span> selezionati</strong></span>
+    <button class="btn btn-secondary btn-sm" onclick="selectAllExport()">Seleziona tutti</button>
+    <button class="btn btn-sm" id="confirmExportBtn" onclick="exportExcel()" disabled style="background:#059669;color:#fff;border-color:#059669;">📊 Genera Excel</button>
+    <button class="btn btn-ghost btn-sm" onclick="toggleExportMode()">✕ Annulla</button>
+  </div>
+
+  <!-- SEZIONE PREFERITI -->
+  <div id="favSection" style="display:none;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span style="font-size:13px;font-weight:700;color:#b45309;">⭐ Preferiti</span>
+      <span id="favCount" style="font-size:11px;background:#fef9c3;color:#b45309;border:1px solid #fde68a;border-radius:50px;padding:2px 8px;font-weight:600;"></span>
+    </div>
+    <div class="quotes-grid" id="favGrid"></div>
+  </div>
+
+  <!-- SEZIONE TUTTI I PREVENTIVI -->
+  <div>
+    <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;" id="allLabel">Tutti i preventivi</div>
+    <div class="quotes-grid" id="quotesGrid"></div>
+  </div>
+
 </div>
 
 <!-- PARAMS PAGE -->
@@ -1309,27 +1345,49 @@ function updateHomeStats() {
 }
 
 // SAVED PAGE
+// Preferiti — set di ID
+let favIds = new Set(JSON.parse(localStorage.getItem('ppro_favs') || '[]'));
+function saveFavs() { localStorage.setItem('ppro_favs', JSON.stringify([...favIds])); }
+function toggleFav(id, e) {
+  e.stopPropagation();
+  if (favIds.has(id)) { favIds.delete(id); } else { favIds.add(id); }
+  saveFavs();
+  renderGrid();
+  // Aggiorna backup preferiti in automatico
+  if (GS_URL) {
+    const favs = quotes.filter(q => favIds.has(q.id));
+    gsCall({ action: 'saveBackup', data: favs }).catch(() => {});
+  }
+}
+
 function renderGrid(filter) {
   filter = filter || searchQ;
   const grid = document.getElementById('quotesGrid');
+  const favGrid = document.getElementById('favGrid');
+  const favSection = document.getElementById('favSection');
+  const favCount = document.getElementById('favCount');
+  const allLabel = document.getElementById('allLabel');
+
   let list = quotes;
-  if (filter) { const f=filter.toLowerCase(); list=quotes.filter(q=>(q.name||'').toLowerCase().startsWith(f)||(q.client||'').toLowerCase().startsWith(f)||(q.code||'').toLowerCase().startsWith(f)); }
-  if (list.length === 0) {
-    grid.innerHTML = `<div class="empty-box"><div class="empty-box-icon">${filter?'🔍':'🗂️'}</div><h3>${filter?'Nessun risultato':'Nessun preventivo salvato'}</h3><p style="margin-top:8px;">${filter?'Prova con un altro termine.':'Crea il tuo primo preventivo!'}</p>${!filter?'<button class="btn btn-primary" style="margin-top:20px" onclick="newQuote()">+ Crea preventivo</button>':''}</div>`;
-    return;
+  if (filter) {
+    const f = filter.toLowerCase();
+    list = quotes.filter(q => (q.name||'').toLowerCase().startsWith(f)||(q.client||'').toLowerCase().startsWith(f)||(q.code||'').toLowerCase().startsWith(f));
   }
-  grid.innerHTML = list.slice().reverse().map(q => {
+
+  const makeCard = (q) => {
     const t = q._savedTotal !== undefined ? q._savedTotal : calcTotal(q);
-    const bc={draft:'b-draft',sent:'b-sent',accepted:'b-accepted'}[q.status];
-    const bl={draft:'Bozza',sent:'Inviato',accepted:'Accettato'}[q.status];
-    const dc={draft:'d-draft',sent:'d-sent',accepted:'d-accepted'}[q.status];
+    const bc = {draft:'b-draft',sent:'b-sent',accepted:'b-accepted'}[q.status];
+    const bl = {draft:'Bozza',sent:'Inviato',accepted:'Accettato'}[q.status];
+    const dc = {draft:'d-draft',sent:'d-sent',accepted:'d-accepted'}[q.status];
     const isSel = selectedIds.has(q.id);
     const isExpSel = exportIds.has(q.id);
+    const isFav = favIds.has(q.id);
     const clickAction = deleteMode ? `toggleSelect('${q.id}')` : exportMode ? `toggleExportSelect('${q.id}')` : `openQuote('${q.id}')`;
     return `<div class="qcard ${deleteMode?'delete-mode':''} ${isSel?'selected':''} ${isExpSel?'export-selected':''}" data-id="${q.id}" onclick="${clickAction}">
       ${deleteMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isSel?'checked':''}">✓</div></div>`:''}
       ${exportMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isExpSel?'checked':''}">✓</div></div>`:''}
       <div class="qcard-top">
+        <button onclick="toggleFav('${q.id}',event)" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0 6px 0 0;line-height:1;color:${isFav?'#f59e0b':'#d1d5db'};" title="${isFav?'Rimuovi dai preferiti':'Aggiungi ai preferiti'}">${isFav?'⭐':'☆'}</button>
         <div class="qdot ${dc}"></div>
         <div class="qcard-info">
           <div class="qcard-name">${escHtml(q.code||q.name)}</div>
@@ -1346,7 +1404,28 @@ function renderGrid(filter) {
         </div>`:''}
       </div>
     </div>`;
-  }).join('');
+  };
+
+  // Sezione preferiti
+  const favList = quotes.filter(q => favIds.has(q.id));
+  if (favList.length > 0 && !filter) {
+    favSection.style.display = 'block';
+    favCount.textContent = favList.length + ' preventiv' + (favList.length===1?'o':'i');
+    favGrid.innerHTML = favList.slice().reverse().map(makeCard).join('');
+  } else {
+    favSection.style.display = 'none';
+    if (favGrid) favGrid.innerHTML = '';
+  }
+
+  // Label "Tutti i preventivi" / "Risultati ricerca"
+  if (allLabel) allLabel.textContent = filter ? 'Risultati ricerca' : 'Tutti i preventivi';
+
+  // Sezione principale
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-box"><div class="empty-box-icon">${filter?'🔍':'🗂️'}</div><h3>${filter?'Nessun risultato':'Nessun preventivo salvato'}</h3><p style="margin-top:8px;">${filter?'Prova con un altro termine.':'Crea il tuo primo preventivo!'}</p>${!filter?'<button class="btn btn-primary" style="margin-top:20px" onclick="newQuote()">+ Crea preventivo</button>':''}</div>`;
+    return;
+  }
+  grid.innerHTML = list.slice().reverse().map(makeCard).join('');
 }
 function filterQ(val) { searchQ=val; document.getElementById('searchClear').style.display=val?'':'none'; renderGrid(val); }
 function clearSearch() { document.getElementById('searchInput').value=''; filterQ(''); }
@@ -1492,10 +1571,11 @@ function mergeQuotes(server) {
 
 async function eseguiBackup() {
   if (!GS_URL) { showToast('⚠️ Google Sheets non configurato'); return; }
-  if (!quotes.length) { showToast('⚠️ Nessun preventivo da salvare'); return; }
-  if (!confirm(`Vuoi salvare ${quotes.length} preventivi nel Backup?\nQuesto sovrascriverà il Backup precedente.`)) return;
-  const res = await gsCall({ action: 'saveBackup', data: quotes });
-  if (res && res.ok) { showToast(`✓ Backup eseguito — ${quotes.length} preventivi salvati`); }
+  const favs = quotes.filter(q => favIds.has(q.id));
+  if (!favs.length) { showToast('⚠️ Nessun preferito da salvare — aggiungi prima dei preferiti con ⭐'); return; }
+  if (!confirm(`Vuoi salvare ${favs.length} preferiti nel Backup?`)) return;
+  const res = await gsCall({ action: 'saveBackup', data: favs });
+  if (res && res.ok) { showToast(`✓ Backup eseguito — ${favs.length} preferiti salvati`); }
   else { showToast('⚠️ Backup fallito'); }
 }
 
@@ -1508,8 +1588,14 @@ async function recuperaBackup() {
     return;
   }
   const nomi = backup.map(q => '• ' + (q.code || q.name || q.id)).join('\n');
-  if (!confirm(`Il Backup contiene ${backup.length} preventivi:\n\n${nomi}\n\nVuoi ripristinarli? Sostituirà la lista attuale.`)) return;
-  quotes = backup;
+  if (!confirm(`Il Backup contiene ${backup.length} preventivi:\n\n${nomi}\n\nVuoi aggiungerli alla lista e segnarli come preferiti?`)) return;
+  // Aggiungi quelli mancanti
+  const currentIds = new Set(quotes.map(q => q.id));
+  backup.forEach(q => {
+    if (!currentIds.has(q.id)) quotes.push(q);
+    favIds.add(q.id);
+  });
+  saveFavs();
   localStorage.setItem('ppro_v2', JSON.stringify(quotes));
   await gsSavePreventivi();
   renderGrid();
