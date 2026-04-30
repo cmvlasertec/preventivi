@@ -1522,6 +1522,7 @@ async function recuperaBackup() {
   updateHomeStats();
   showToast(`✓ Recuperati ${mancanti.length} preventivi dal Backup`);
 }
+async function gsLoadAll() {
   const preventivi = await gsGet('getPreventivi');
   if (Array.isArray(preventivi) && preventivi.length > 0) {
     quotes = mergeQuotes(preventivi);
