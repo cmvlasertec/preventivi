@@ -392,7 +392,8 @@ textarea { resize: vertical; min-height: 72px; }
     <button class="btn btn-danger btn-sm" onclick="toggleDeleteMode()" id="deleteModeBtn">🗑 Cancella</button>
     <button class="btn btn-danger btn-sm" onclick="deleteAll()" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5">⚠ Cancella tutto</button>
     <button class="btn btn-secondary btn-sm" onclick="toggleExportMode()" id="exportModeBtn" style="background:#f0fdf4;color:#059669;border-color:#6ee7b7;">📊 Export Excel</button>
-    <button class="btn btn-secondary" onclick="recuperaBackup()" title="Recupera preventivi cancellati dal Backup">🔄 Recupera Backup</button>
+    <button class="btn btn-secondary" onclick="eseguiBackup()" title="Salva snapshot dei preventivi attuali nel Backup">💾 Esegui Backup</button>
+    <button class="btn btn-secondary" onclick="recuperaBackup()" title="Recupera preventivi dal Backup">🔄 Recupera Backup</button>
     <button class="btn btn-primary" onclick="newQuote()">＋ Nuovo</button>
   </div>
   <div class="delete-action-bar hidden" id="deleteBar">
@@ -1459,16 +1460,8 @@ async function gsGet(action) {
 
 async function gsSavePreventivi() {
   const res = await gsCall({ action: 'savePreventivi', data: quotes });
-  if (res && res.ok) {
-    showToast('Salvato su Google Sheets ✓');
-    // Upsert ogni preventivo nel foglio Backup (una riga per ID, mai sovrascrive tutto)
-    quotes.forEach(q => {
-      gsCall({ action: 'upsertPreventivo', data: q }).catch(() => {});
-    });
-  } else {
-    showToast('⚠️ Salvataggio Sheets fallito');
-    console.warn('gsCall result:', res);
-  }
+  if (res && res.ok) { showToast('Salvato su Google Sheets ✓'); }
+  else { showToast('⚠️ Salvataggio Sheets fallito'); console.warn('gsCall result:', res); }
 }
 async function gsSaveParametri() {
   // I parametri sono troppo grandi per una sola URL — li salviamo chiave per chiave
@@ -1497,6 +1490,15 @@ function mergeQuotes(server) {
   return merged;
 }
 
+async function eseguiBackup() {
+  if (!GS_URL) { showToast('⚠️ Google Sheets non configurato'); return; }
+  if (!quotes.length) { showToast('⚠️ Nessun preventivo da salvare'); return; }
+  if (!confirm(`Vuoi salvare ${quotes.length} preventivi nel Backup?\nQuesto sovrascriverà il Backup precedente.`)) return;
+  const res = await gsCall({ action: 'saveBackup', data: quotes });
+  if (res && res.ok) { showToast(`✓ Backup eseguito — ${quotes.length} preventivi salvati`); }
+  else { showToast('⚠️ Backup fallito'); }
+}
+
 async function recuperaBackup() {
   if (!GS_URL) { showToast('⚠️ Google Sheets non configurato'); return; }
   showToast('Caricamento backup in corso…');
@@ -1505,22 +1507,14 @@ async function recuperaBackup() {
     showToast('Nessun backup trovato');
     return;
   }
-  // Trova preventivi nel Backup che non sono in quotes (cancellati o mancanti)
-  const currentIds = new Set(quotes.map(q => q.id));
-  const mancanti = backup.filter(q => q && q.id && !currentIds.has(q.id));
-  if (mancanti.length === 0) {
-    showToast('✓ Nessun preventivo mancante — tutto già presente');
-    return;
-  }
-  const nomi = mancanti.map(q => '• ' + (q.code || q.name || q.id)).join('\n');
-  const ok = confirm(`Trovati ${mancanti.length} preventivi nel Backup non presenti nella lista:\n\n${nomi}\n\nVuoi recuperarli?`);
-  if (!ok) return;
-  mancanti.forEach(q => quotes.push(q));
+  const nomi = backup.map(q => '• ' + (q.code || q.name || q.id)).join('\n');
+  if (!confirm(`Il Backup contiene ${backup.length} preventivi:\n\n${nomi}\n\nVuoi ripristinarli? Sostituirà la lista attuale.`)) return;
+  quotes = backup;
   localStorage.setItem('ppro_v2', JSON.stringify(quotes));
   await gsSavePreventivi();
   renderGrid();
   updateHomeStats();
-  showToast(`✓ Recuperati ${mancanti.length} preventivi dal Backup`);
+  showToast(`✓ Ripristinati ${backup.length} preventivi dal Backup`);
 }
 async function gsLoadAll() {
   const preventivi = await gsGet('getPreventivi');
