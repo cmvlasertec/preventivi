@@ -406,9 +406,9 @@ textarea { resize: vertical; min-height: 72px; }
     <div style="width:1px;height:28px;background:var(--border);flex-shrink:0;"></div>
     <!-- Gruppo backup preferiti -->
     <div style="display:flex;gap:6px;align-items:center;">
-      <span style="font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap;">Preferiti:</span>
-      <button class="btn btn-secondary btn-sm" onclick="eseguiBackup()" title="Salva i preferiti nel Backup su Sheets">⭐ Backup</button>
-      <button class="btn btn-secondary btn-sm" onclick="recuperaBackup()" title="Recupera i preferiti dal Backup">🔄 Recupera</button>
+      <span style="font-size:11px;color:var(--muted);font-weight:600;white-space:nowrap;">Archivio:</span>
+      <button class="btn btn-secondary btn-sm" onclick="eseguiBackup()" title="Salva i archiviati nel Backup su Sheets">📁 Backup</button>
+      <button class="btn btn-secondary btn-sm" onclick="recuperaBackup()" title="Recupera i preventivi dall'archivio">🔄 Recupera</button>
     </div>
     <!-- Separatore -->
     <div style="width:1px;height:28px;background:var(--border);flex-shrink:0;"></div>
@@ -430,13 +430,16 @@ textarea { resize: vertical; min-height: 72px; }
     <button class="btn btn-ghost btn-sm" onclick="toggleExportMode()">✕ Annulla</button>
   </div>
 
-  <!-- SEZIONE PREFERITI -->
+  <!-- SEZIONE ARCHIVIO (cartella collassabile) -->
   <div id="favSection" style="display:none;margin-bottom:20px;">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-      <span style="font-size:13px;font-weight:700;color:#b45309;">⭐ Preferiti</span>
+    <div onclick="toggleArchivio()" id="archivioHeader" style="display:flex;align-items:center;gap:8px;padding:10px 16px;background:#fffbeb;border:1.5px solid #fde68a;border-radius:var(--radius);cursor:pointer;user-select:none;transition:background 0.15s;">
+      <span id="archivioArrow" style="font-size:11px;color:#b45309;display:inline-block;transition:transform 0.2s;">▶</span>
+      <span style="font-size:15px;">📁</span>
+      <span style="font-size:13px;font-weight:700;color:#b45309;">Archivio</span>
       <span id="favCount" style="font-size:11px;background:#fef9c3;color:#b45309;border:1px solid #fde68a;border-radius:50px;padding:2px 8px;font-weight:600;"></span>
+      <span style="margin-left:auto;font-size:11px;color:#92400e;opacity:0.6;" id="archivioHint">clicca per aprire</span>
     </div>
-    <div class="quotes-grid" id="favGrid"></div>
+    <div id="favGrid" style="display:none;border:1.5px solid #fde68a;border-top:none;border-radius:0 0 var(--radius) var(--radius);overflow:hidden;background:var(--white);"></div>
   </div>
 
   <!-- SEZIONE TUTTI I PREVENTIVI -->
@@ -1345,15 +1348,25 @@ function updateHomeStats() {
 }
 
 // SAVED PAGE
-// Preferiti — set di ID
+// Preferiti/Archivio — set di ID
 let favIds = new Set(JSON.parse(localStorage.getItem('ppro_favs') || '[]'));
+let archivioOpen = false;
 function saveFavs() { localStorage.setItem('ppro_favs', JSON.stringify([...favIds])); }
+function toggleArchivio() {
+  archivioOpen = !archivioOpen;
+  const grid = document.getElementById('favGrid');
+  const arrow = document.getElementById('archivioArrow');
+  const hint = document.getElementById('archivioHint');
+  if (grid) grid.style.display = archivioOpen ? 'block' : 'none';
+  if (arrow) arrow.style.transform = archivioOpen ? 'rotate(90deg)' : 'rotate(0deg)';
+  if (hint) hint.textContent = archivioOpen ? 'clicca per chiudere' : 'clicca per aprire';
+}
 function toggleFav(id, e) {
   e.stopPropagation();
   if (favIds.has(id)) { favIds.delete(id); } else { favIds.add(id); }
   saveFavs();
   renderGrid();
-  // Aggiorna backup preferiti in automatico
+  // Aggiorna backup archivio in automatico
   if (GS_URL) {
     const favs = quotes.filter(q => favIds.has(q.id));
     gsCall({ action: 'saveBackup', data: favs }).catch(() => {});
@@ -1387,7 +1400,7 @@ function renderGrid(filter) {
       ${deleteMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isSel?'checked':''}">✓</div></div>`:''}
       ${exportMode?`<div class="qcard-check" style="padding:0 0 0 16px;"><div class="check-circle ${isExpSel?'checked':''}">✓</div></div>`:''}
       <div class="qcard-top">
-        <button onclick="toggleFav('${q.id}',event)" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0 6px 0 0;line-height:1;color:${isFav?'#f59e0b':'#d1d5db'};" title="${isFav?'Rimuovi dai preferiti':'Aggiungi ai preferiti'}">${isFav?'⭐':'☆'}</button>
+        <button onclick="toggleFav('${q.id}',event)" style="background:none;border:none;cursor:pointer;font-size:16px;padding:0 6px 0 0;line-height:1;color:${isFav?'#f59e0b':'#d1d5db'};" title="${isFav?'Rimuovi dall\'archivio':'Archivia'}">${isFav?'⭐':'☆'}</button>
         <div class="qdot ${dc}"></div>
         <div class="qcard-info">
           <div class="qcard-name">${escHtml(q.code||q.name)}</div>
@@ -1406,12 +1419,16 @@ function renderGrid(filter) {
     </div>`;
   };
 
-  // Sezione preferiti
+  // Sezione archivio
   const favList = quotes.filter(q => favIds.has(q.id));
   if (favList.length > 0 && !filter) {
     favSection.style.display = 'block';
     favCount.textContent = favList.length + ' preventiv' + (favList.length===1?'o':'i');
     favGrid.innerHTML = favList.slice().reverse().map(makeCard).join('');
+    // Mantieni stato aperto/chiuso
+    favGrid.style.display = archivioOpen ? 'block' : 'none';
+    const arrow = document.getElementById('archivioArrow');
+    if (arrow) arrow.style.transform = archivioOpen ? 'rotate(90deg)' : 'rotate(0deg)';
   } else {
     favSection.style.display = 'none';
     if (favGrid) favGrid.innerHTML = '';
@@ -1571,10 +1588,10 @@ function mergeQuotes(server) {
 async function eseguiBackup() {
   if (!GS_URL) { showToast('⚠️ Google Sheets non configurato'); return; }
   const favs = quotes.filter(q => favIds.has(q.id));
-  if (!favs.length) { showToast('⚠️ Nessun preferito da salvare — aggiungi prima dei preferiti con ⭐'); return; }
-  if (!confirm(`Vuoi salvare ${favs.length} preferiti nel Backup?`)) return;
+  if (!favs.length) { showToast('⚠️ Nessun preventivo archiviato — archiviane prima uno con 📁'); return; }
+  if (!confirm(`Vuoi salvare ${favs.length} archiviati nel Backup?`)) return;
   const res = await gsCall({ action: 'saveBackup', data: favs });
-  if (res && res.ok) { showToast(`✓ Backup eseguito — ${favs.length} preferiti salvati`); }
+  if (res && res.ok) { showToast(`✓ Archivio salvato su Backup — ${favs.length} preferiti salvati`); }
   else { showToast('⚠️ Backup fallito'); }
 }
 
@@ -1587,7 +1604,7 @@ async function recuperaBackup() {
     return;
   }
   const nomi = backup.map(q => '• ' + (q.code || q.name || q.id)).join('\n');
-  if (!confirm(`Il Backup contiene ${backup.length} preventivi:\n\n${nomi}\n\nVuoi aggiungerli alla lista e segnarli come preferiti?`)) return;
+  if (!confirm(`Il Backup contiene ${backup.length} preventivi:\n\n${nomi}\n\nVuoi aggiungerli alla lista e aggiungerli all'archivio?`)) return;
   // Aggiungi quelli mancanti
   const currentIds = new Set(quotes.map(q => q.id));
   backup.forEach(q => {
