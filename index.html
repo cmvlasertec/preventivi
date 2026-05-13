@@ -1312,6 +1312,7 @@ function openParamsTab(section) {
 })();
 
 function init() {
+  syncFavIdsFromQuotes(); // sincronizza archivio da quotes già in localStorage
   updateHomeStats();
   if (window._autoSection) {
     showPage('page-laser');
@@ -1350,6 +1351,11 @@ function updateHomeStats() {
 // SAVED PAGE
 // Preferiti/Archivio — set di ID
 let favIds = new Set(JSON.parse(localStorage.getItem('ppro_favs') || '[]'));
+// Sincronizza favIds con q.archived dai preventivi caricati da Sheets
+function syncFavIdsFromQuotes() {
+  quotes.forEach(q => { if (q.archived) favIds.add(q.id); });
+  saveFavs();
+}
 let archivioOpen = false;
 function saveFavs() { localStorage.setItem('ppro_favs', JSON.stringify([...favIds])); }
 function toggleArchivio() {
@@ -1363,14 +1369,13 @@ function toggleArchivio() {
 }
 function toggleFav(id, e) {
   e.stopPropagation();
-  if (favIds.has(id)) { favIds.delete(id); } else { favIds.add(id); }
+  const q = quotes.find(x => x.id === id);
+  if (!q) return;
+  q.archived = !q.archived;
+  if (q.archived) { favIds.add(id); } else { favIds.delete(id); }
   saveFavs();
+  saveAll(); // salva su Sheets con q.archived aggiornato
   renderGrid();
-  // Aggiorna backup archivio in automatico
-  if (GS_URL) {
-    const favs = quotes.filter(q => favIds.has(q.id));
-    gsCall({ action: 'saveBackup', data: favs }).catch(() => {});
-  }
 }
 
 function renderGrid(filter) {
@@ -1570,17 +1575,13 @@ async function gsSaveParametri() {
   }
 }
 function mergeQuotes(server) {
-  // Merge: unisce locale e server, mai cancella preventivi locali
-  const localMap = {};
-  quotes.forEach(q => { if (q.id) localMap[q.id] = q; });
+  // Il server è la fonte di verità — vince sempre
+  // Il locale contribuisce solo con preventivi non ancora presenti su server
   const serverMap = {};
   server.forEach(q => { if (q.id) serverMap[q.id] = q; });
-  const allIds = new Set([...Object.keys(localMap), ...Object.keys(serverMap)]);
-  const merged = [];
-  allIds.forEach(id => {
-    // Preferisci sempre il locale — è la fonte di verità
-    merged.push(localMap[id] || serverMap[id]);
-  });
+  // Aggiungi dal locale solo quelli non presenti su server (salvati offline)
+  quotes.forEach(q => { if (q.id && !serverMap[q.id]) serverMap[q.id] = q; });
+  const merged = Object.values(serverMap);
   merged.sort((a,b) => ((b.date||'')+(b.time||'')).localeCompare((a.date||'')+(a.time||'')));
   return merged;
 }
@@ -1623,6 +1624,7 @@ async function gsLoadAll() {
   if (Array.isArray(preventivi) && preventivi.length > 0) {
     quotes = mergeQuotes(preventivi);
     localStorage.setItem('ppro_v2', JSON.stringify(quotes));
+    syncFavIdsFromQuotes();
     updateHomeStats();
     if (document.getElementById('quotesGrid')) renderGrid();
   }
@@ -1642,7 +1644,7 @@ setInterval(async () => {
   const currentPage = sessionStorage.getItem('ppro_current_page');
   if (currentPage !== 'page-saved') return;
   const fresh = await gsGet('getPreventivi');
-  if (Array.isArray(fresh) && fresh.length > 0) { quotes = mergeQuotes(fresh); localStorage.setItem('ppro_v2', JSON.stringify(quotes)); renderGrid(); }
+  if (Array.isArray(fresh) && fresh.length > 0) { quotes = mergeQuotes(fresh); localStorage.setItem('ppro_v2', JSON.stringify(quotes)); syncFavIdsFromQuotes(); renderGrid(); }
 }, 20000);
 
 function setGsUrl(url) {
